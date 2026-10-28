@@ -28,6 +28,9 @@ ORGAOS = {
     "camara": {"id": "cm_rodelas", "unidade_gestora": 1, "nome": "Câmara Municipal"},
 }
 PAUSA = 2
+# Suba este número quando mudar o formato dos arquivos: os anos antigos
+# são coletados de novo na próxima execução.
+VERSAO = 2
 
 
 def pasta():
@@ -95,6 +98,7 @@ def ler_tabela(pagina):
     itens = []
     partes = re.split(r"<tr data-dialog-id=", pagina)[1:]
     for parte in partes:
+        chave = re.match(r"\s*'?\d+'?\s+data-empenho='([^']*)'", parte)
         tds = [texto(td) for td in re.findall(r"<td[^>]*>(.*?)</td>", parte.split("</tr>", 1)[0], re.S)]
         if len(tds) < 7:
             continue
@@ -103,6 +107,7 @@ def ler_tabela(pagina):
         contrato = detalhe.get("nº contrato", "").strip(" -") or None
         licitacao = detalhe.get("processo licitatório", "").strip(" -") or None
         itens.append({
+            "chave": chave.group(1) if chave else None,
             "data": data_iso(tds[0]),
             "empenho": tds[1],
             "fase": tds[2].title(),
@@ -116,14 +121,23 @@ def ler_tabela(pagina):
             "contrato": contrato,
             "licitacao": licitacao,
             "processo": detalhe.get("nº do processo") or None,
+            # As colunas "liquidado" e "pago" da lista de empenhos vêm sempre
+            # zeradas no portal, então não são guardadas.
             "empenhado": numero_br(tds[4]),
-            "liquidado": numero_br(tds[5]),
-            "pago": numero_br(tds[6]),
         })
     return itens
 
 
 # ---------- coleta ----------
+
+def decodificar(conteudo):
+    """O portal manda 'text/html' sem dizer a codificação; o conteúdo é UTF-8.
+    (Sem isto, o requests supõe ISO-8859-1 e os acentos viram 'Ã§'.)"""
+    try:
+        return conteudo.decode("utf-8")
+    except UnicodeDecodeError:
+        return conteudo.decode("cp1252", errors="replace")
+
 
 def baixar_mes(orgao, ano, mes):
     time.sleep(PAUSA)
@@ -131,10 +145,11 @@ def baixar_mes(orgao, ano, mes):
         try:
             r = sessao.get(url_mes(orgao, ano, mes), timeout=120)
             r.raise_for_status()
-            r.encoding = r.encoding or "utf-8"
-            if "<table" not in r.text:
+            pagina = decodificar(r.content)
+            if "<table" not in pagina:
                 raise RuntimeError("resposta sem tabela")
-            return ler_tabela(r.text)
+            prefixo = f"{ano}-{mes:02d}"
+            return [i for i in ler_tabela(pagina) if (i["data"] or "").startswith(prefixo)]
         except Exception as e:  # noqa: BLE001
             if tentativa == 2:
                 raise
@@ -147,12 +162,19 @@ def arquivo(orgao, ano):
     return pasta() / f"{orgao}-{ano}.json"
 
 
+def versao_do_arquivo(orgao, ano):
+    try:
+        return json.loads(arquivo(orgao, ano).read_text(encoding="utf-8")).get("versao", 1)
+    except (FileNotFoundError, json.JSONDecodeError):
+        return 0
+
+
 def anos_a_atualizar(orgao):
     hoje = date.today()
     anos = []
     for ano in range(CONFIG["ano_inicial"], hoje.year + 1):
         recente = ano == hoje.year or (ano == hoje.year - 1 and hoje.month <= 2)
-        if recente or not arquivo(orgao, ano).exists():
+        if recente or versao_do_arquivo(orgao, ano) < VERSAO:
             anos.append(ano)
     return anos
 
@@ -167,12 +189,12 @@ def coletar_ano(orgao, ano):
         itens += lote
     vistos, unicos = set(), []
     for i in sorted(itens, key=lambda x: (x["data"] or "", x["empenho"]), reverse=True):
-        chave = (i["empenho"], i["data"], i["credor"])
+        chave = i["chave"] or (i["empenho"], i["data"], i["credor"], i["empenhado"])
         if chave not in vistos:
             vistos.add(chave)
             unicos.append(i)
     arquivo(orgao, ano).write_text(json.dumps({
-        "orgao": orgao, "ano": ano, "atualizado_em": agora(),
+        "orgao": orgao, "ano": ano, "versao": VERSAO, "atualizado_em": agora(),
         "fonte": f"{BASE}/despesa.php?id={ORGAOS[orgao]['id']}",
         "empenhos": unicos,
     }, ensure_ascii=False, separators=(",", ":")), encoding="utf-8")

@@ -172,7 +172,16 @@ def main():
     assert pref[2]["documento"] == "xxx.584.365-xx" and pref[2]["elemento"] == "Diarias - Civil"
     assert pref[0]["unidade"] == "SECRETARIA MUNICIPAL DE SAÚDE" and pref[0]["funcao"] == "SAÚDE" and pref[0]["modalidade"] is None
     cam = amostras["camara"]
-    assert cam[1]["liquidado"] == 4000.0 and cam[1]["pago"] == 3500.5 and "&" in cam[1]["objeto"]
+    assert "&" in cam[1]["objeto"] and cam[1]["empenhado"] == 12345.67
+    assert [i["chave"] for i in pref] == ["3_2601020161_15139629000194", "3_2602180001_39514474000197", "6_2609020001_xxx_584_365_xx"]
+    # acentos: o portal manda UTF-8 sem avisar; decodificar() não pode estragar
+    bruto = (RAIZ / "testes/fixtures/fator_despesa_prefeitura.html").read_bytes()
+    assert despesas.ler_tabela(despesas.decodificar(bruto))[0]["unidade"] == "SECRETARIA MUNICIPAL DE SAÚDE"
+    # mesmo número de empenho em fundos diferentes não pode ser descartado
+    dup = [dict(pref[0], chave="2_X"), dict(pref[0], chave="3_X")]
+    despesas.baixar_mes = lambda o, a, m: dup if (a, m) == (2024, 5) else []
+    assert despesas.coletar_ano("prefeitura", 2024) == 2
+    despesas.baixar_mes = falso_mes
     d25 = json.loads((SAIDA / "despesas" / "prefeitura-2025.json").read_text())
     assert len(d25["empenhos"]) == 3
     ind = json.loads((SAIDA / "despesas" / "indice.json").read_text())

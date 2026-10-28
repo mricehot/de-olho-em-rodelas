@@ -182,7 +182,7 @@ details.tabela td.n { text-align: right; font-variant-numeric: tabular-nums; }
     <p class="explica">Quanto a prefeitura arrecadou e gastou, e em quais áreas. Vem do Relatório Resumido da Execução Orçamentária (RREO), que a prefeitura envia ao Tesouro Nacional a cada dois meses.</p>
     <div id="gastos-conteudo"></div>
     <h2 class="bloco">Cada despesa, uma por uma</h2>
-    <p class="explica">Todos os empenhos da Prefeitura e dos fundos municipais (saúde, educação, assistência): quem recebeu, quanto e para quê. Empenho é o primeiro passo do gasto, quando a prefeitura reserva o dinheiro; depois vêm a liquidação (serviço entregue) e o pagamento.</p>
+    <p class="explica">Todos os empenhos da Prefeitura e dos fundos municipais (saúde, educação, assistência): quem recebeu, quanto e para quê. Empenho é o primeiro passo do gasto: a prefeitura reserva o dinheiro para aquela despesa; depois vêm a liquidação (serviço entregue) e o pagamento.</p>
     <div id="gastos-empenhos"></div>
   </section>
 
@@ -276,7 +276,7 @@ function achar(linhas, reConta, reColuna) {
   return l ? Number(l.valor) : null;
 }
 
-function leitor(alvo, linhas, preferencias, { porcentagem = false } = {}) {
+function leitor(alvo, linhas, preferencias, { porcentagem = false, filtro = null, ordenar = false, nomeLista = "linhas" } = {}) {
   const colunas = colunasDe(linhas);
   let coluna = escolherColuna(colunas, preferencias);
   alvo.innerHTML = `
@@ -294,10 +294,11 @@ function leitor(alvo, linhas, preferencias, { porcentagem = false } = {}) {
     const vistas = new Set();
     const itens = linhas.filter((l) => {
       if (l.coluna !== coluna || l.valor == null) return false;
-      if (vistas.has(l.conta)) return false;
+      if (vistas.has(l.conta) || (filtro && !filtro(l))) return false;
       vistas.add(l.conta);
       return !termo || (l.conta || "").toLowerCase().includes(termo);
     });
+    if (ordenar) itens.sort((a, b) => Number(b.valor) - Number(a.valor));
     const maior = Math.max(...itens.map((i) => Math.abs(Number(i.valor))), 1);
     const ehPct = porcentagem && /%/.test(coluna);
     ul.innerHTML = itens.length ? itens.map((i) => {
@@ -307,7 +308,7 @@ function leitor(alvo, linhas, preferencias, { porcentagem = false } = {}) {
         <span class="valor">${ehPct ? v.toLocaleString("pt-BR", { maximumFractionDigits: 2 }) + "%" : brl.format(v)}</span></div>
         <div class="trilho"><div class="enche" style="width:${largura.toFixed(2)}%"></div></div></li>`;
     }).join("") : `<li>Nada encontrado para essa busca.</li>`;
-    nota.textContent = `${itens.length} ${itens.length === 1 ? "linha" : "linhas"} do relatório oficial, na ordem em que aparecem nele.`;
+    nota.textContent = ordenar ? `${itens.length} ${nomeLista}, da maior para a menor.` : `${itens.length} ${itens.length === 1 ? "linha" : "linhas"} do relatório oficial, na ordem em que aparecem nele.`;
   };
   $(`#${alvo.id}-col`).addEventListener("change", (e) => { coluna = e.target.value; desenhar(); });
   $(`#${alvo.id}-busca`).addEventListener("input", desenhar);
@@ -328,6 +329,13 @@ const PERIODO_RGF = (r) => r.periodicidade === "S"
   ? (r.periodo === 2 ? "2º semestre (ano completo)" : "1º semestre")
   : (r.periodo === 3 ? "3º quadrimestre (ano completo)" : `${r.periodo}º quadrimestre`);
 
+// As 28 funções de governo (Portaria MOG 42/1999). O RREO Anexo 2 mistura funções e
+// subfunções na mesma lista; o site mostra só as funções, para não somar duas vezes.
+const semAcento = (t) => String(t || "").normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().trim();
+const FUNCOES = new Set(["Legislativa", "Judiciária", "Essencial à Justiça", "Administração", "Defesa Nacional", "Segurança Pública",
+  "Relações Exteriores", "Assistência Social", "Previdência Social", "Saúde", "Trabalho", "Educação", "Cultura", "Direitos da Cidadania",
+  "Urbanismo", "Habitação", "Saneamento", "Gestão Ambiental", "Ciência e Tecnologia", "Agricultura", "Organização Agrária", "Indústria",
+  "Comércio e Serviços", "Comunicações", "Energia", "Transporte", "Desporto e Lazer", "Encargos Especiais"].map(semAcento));
 const PREF_FUNCAO = [/liquidad.*at[eé] o bimestre/i, /liquidad/i, /empenhad.*at[eé] o bimestre/i, /empenhad/i];
 const PREF_BALANCO = [/at[eé] o bimestre/i, /realizad/i];
 const PREF_PESSOAL = [/total.*12 meses/i, /12 meses/i, /valor/i];
@@ -355,7 +363,7 @@ function montarGastos() {
       <h3>Receitas e despesas do orçamento</h3>
       ${b.rreo_01 ? `<div id="g-balanco"></div>` : vazio("A prefeitura ainda não enviou este anexo para o ano escolhido.")}
       <p class="nota">Fonte: RREO de ${esc(ano)} (${per}), Siconfi/Tesouro Nacional. Atualizado em ${dataHora(s.atualizado_em)}.</p>`;
-    if (b.rreo_02) leitor($("#g-funcao", corpo), b.rreo_02.linhas, PREF_FUNCAO);
+    if (b.rreo_02) leitor($("#g-funcao", corpo), b.rreo_02.linhas, PREF_FUNCAO, { filtro: (l) => FUNCOES.has(semAcento(l.conta)), ordenar: true, nomeLista: "áreas" });
     if (b.rreo_01) leitor($("#g-balanco", corpo), b.rreo_01.linhas, PREF_BALANCO);
   };
   raiz.replaceChildren(seletorAno(anos, mostrar, "ano-gastos"), corpo);
@@ -419,6 +427,12 @@ function montarLicitacoes() {
   const desenhar = () => {
     const ano = $("#lic-ano").value, termo = $("#lic-busca").value.trim().toLowerCase();
     const fonte = aba === "contratacoes" ? p.contratacoes : p.contratos;
+    if (aba === "contratos" && !p.contratos.length) {
+      $("#lic-totais").innerHTML = "";
+      $("#lic-lista").innerHTML = `<div class="vazio"><strong>Nenhum contrato publicado no PNCP.</strong><br>A Prefeitura de Rodelas publica as licitações no Portal Nacional de Contratações Públicas, mas até agora não publicou ali os contratos assinados. Os pagamentos a cada empresa aparecem em <a href="#gastos">Gastos → Cada despesa, uma por uma</a>.</div>`;
+      $("#lic-mais").hidden = true;
+      return;
+    }
     const itens = fonte.filter((i) => (!ano || anoDe(i) === ano) &&
       (!termo || `${i.objeto} ${i.fornecedor || ""} ${i.modalidade || ""}`.toLowerCase().includes(termo)));
     const valorDe = (i) => Number(aba === "contratacoes" ? (i.valor_homologado || i.valor_estimado || 0) : (i.valor_global || i.valor_inicial || 0));
@@ -538,7 +552,7 @@ function montarFederais() {
     <h3>Convênios com o Governo Federal</h3>
     <div class="lista">${conv.length ? conv.map((x) => `
       <article class="item">
-        <p class="obj">${esc(x.objeto)}</p>
+        <p class="obj">${esc(x.objeto || `Convênio com ${x.orgao || "órgão federal"}`)}</p>
         <p class="meta"><span class="grande">${brl.format(Number(x.valor || 0))}</span>${x.valor_liberado != null ? `<span>liberado: ${brl.format(Number(x.valor_liberado))}</span>` : ""}</p>
         <p class="meta"><span>${esc(x.orgao)}</span><span class="etq">${esc(x.situacao)}</span>${x.inicio ? `<span>${data(x.inicio)} a ${data(x.fim)}</span>` : ""}</p>
       </article>`).join("") : `<div class="vazio">Nenhum convênio retornado pela API.</div>`}</div>
@@ -573,7 +587,7 @@ function montarTransferencias() {
       <div class="painel"><ul class="barras">${lista.map(([nome, v]) => `
         <li><div class="linha"><span class="nome">${esc(nome)}</span><span class="valor">${brl.format(v)}</span></div>
         <div class="trilho"><div class="enche" style="width:${(v / maior * 100).toFixed(2)}%"></div></div></li>`).join("")}</ul></div>
-      <p class="nota">FPM: Fundo de Participação dos Municípios. FUNDEB: fundo da educação básica. ITR: imposto territorial rural. CFH e CFEM: compensações pelo uso de recursos hídricos e minerais.</p>`;
+      <p class="nota">FPM: Fundo de Participação dos Municípios (o "FPM 1%" é a parcela extra paga em julho e dezembro). FUNDEB: fundo da educação básica. Royalties: compensação pelo uso de recursos hídricos e minerais. ITR: imposto territorial rural. O mês corrente aparece menor porque ainda está em andamento.</p>`;
   };
   raiz.replaceChildren(seletorAno(anos, mostrar, "ano-transf"), corpo);
   const fim = document.createElement("div");
@@ -656,7 +670,7 @@ function montarEmpenhos(alvoId, orgao) {
     $p("corpo").innerHTML = `
       <div class="cartoes">
         <div class="cartao"><p class="rot">Empenhado</p><p class="num">${brlCurto(soma("empenhado"))}</p><p class="det">${num(itens.length)} ${itens.length === 1 ? "empenho" : "empenhos"}</p></div>
-        <div class="cartao"><p class="rot">Já pago</p><p class="num">${brlCurto(soma("pago"))}</p><p class="det">liquidado: ${brlCurto(soma("liquidado"))}</p></div>
+        <div class="cartao"><p class="rot">Quem recebeu</p><p class="num">${num(credores.size)}</p><p class="det">${credores.size === 1 ? "credor" : "credores diferentes"}</p></div>
       </div>
       ${top.length > 1 ? `<h3>Quem mais recebeu</h3>
       <div class="painel"><ul class="barras">${top.map(([nome, v]) => `
@@ -667,7 +681,7 @@ function montarEmpenhos(alvoId, orgao) {
       <div class="lista">${itens.slice(0, limite).map((e) => `
         <article class="item">
           <p class="obj">${esc(e.objeto || e.elemento || "Sem descrição")}</p>
-          <p class="valores"><span class="grande">${brl.format(e.empenhado)}</span><span>pago: ${brl.format(e.pago)}</span></p>
+          <p class="valores"><span class="grande">${brl.format(e.empenhado)}</span><span>empenhado</span></p>
           <p class="meta">
             <span><strong>${esc(e.credor)}</strong>${e.documento ? " · " + esc(e.documento) : ""}</span>
             <span>${data(e.data)}</span>
@@ -678,7 +692,7 @@ function montarEmpenhos(alvoId, orgao) {
           </p>
         </article>`).join("") || `<div class="vazio">Nada encontrado com esses filtros.</div>`}</div>
       ${itens.length > limite ? `<div class="mais"><button class="btn" type="button" data-mais>Mostrar mais (${num(itens.length - limite)} restantes)</button></div>` : ""}
-      <p class="nota">Fonte: <a href="${esc(info.fonte)}" target="_blank" rel="noopener">portal de despesas da ${orgao === "camara" ? "Câmara" : "Prefeitura"}</a> (Fator Sistemas). Atualizado em ${dataHora(cacheEmp[`${orgao}-${$p("ano").value}`]?.atualizado_em)}. O CPF de pessoas físicas já vem mascarado da fonte.</p>`;
+      <p class="nota">Fonte: <a href="${esc(info.fonte)}" target="_blank" rel="noopener">portal de despesas da ${orgao === "camara" ? "Câmara" : "Prefeitura"}</a> (Fator Sistemas). Atualizado em ${dataHora(cacheEmp[`${orgao}-${$p("ano").value}`]?.atualizado_em)}. Os valores são empenhados (dinheiro reservado); o portal não informa, nesta lista, quanto já foi pago. O CPF de pessoas físicas já vem mascarado da fonte.</p>`;
   };
   $p("corpo").addEventListener("click", (ev) => {
     const c = ev.target.closest("[data-credor]");
@@ -721,9 +735,10 @@ function montarInicio() {
     cartoes.push(["#transferencias", `Transferências da União em ${ano}`, brlCurto(tot), "FPM, FUNDEB, ITR e outras"]);
   }
   if (D.pncp) {
-    const ano = D.pncp.contratos.map((c) => (c.assinatura || "").slice(0, 4)).filter(Boolean).sort().at(-1) || String(new Date().getFullYear());
-    const doAno = D.pncp.contratos.filter((c) => (c.assinatura || "").startsWith(ano));
-    cartoes.push(["#licitacoes", `Contratos assinados em ${ano}`, num(doAno.length), brlCurto(doAno.reduce((t, c) => t + Number(c.valor_global || 0), 0)) + " no total"]);
+    const ano = D.pncp.contratacoes.map((c) => (c.data || "").slice(0, 4)).filter(Boolean).sort().at(-1) || String(new Date().getFullYear());
+    const doAno = D.pncp.contratacoes.filter((c) => (c.data || "").startsWith(ano));
+    const valor = doAno.reduce((t, c) => t + Number(c.valor_homologado || c.valor_estimado || 0), 0);
+    cartoes.push(["#licitacoes", `Licitações e dispensas em ${ano}`, num(doAno.length), brlCurto(valor) + " homologado ou estimado"]);
   }
   if (D.cgu?.bolsa_familia?.length) {
     const u = D.cgu.bolsa_familia.at(-1);
