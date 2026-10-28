@@ -18,6 +18,7 @@ SAIDA = RAIZ / "testes" / "saida"
 comum.PASTA_DADOS = SAIDA
 
 import cgu  # noqa: E402
+import despesas  # noqa: E402
 import transferencias  # noqa: E402
 import coletar_tudo  # noqa: E402
 import pncp  # noqa: E402
@@ -125,15 +126,25 @@ def falso_cgu(url, params=None, headers=None):
 
 def main():
     SAIDA.mkdir(parents=True, exist_ok=True)
-    for f in SAIDA.glob("*.json"):
-        f.unlink()
-    for m in (siconfi, pncp, cgu, transferencias, coletar_tudo):
+    import shutil
+    shutil.rmtree(SAIDA, ignore_errors=True)
+    SAIDA.mkdir(parents=True)
+    for m in (siconfi, pncp, cgu, transferencias, despesas, coletar_tudo):
         if hasattr(m, "PASTA_DADOS"):
             m.PASTA_DADOS = SAIDA
     siconfi.get_json = falso_siconfi
     pncp.get_json = falso_pncp
     cgu.get_json = falso_cgu
     transferencias.get_json = falso_transf
+    despesas.PAUSA = 0
+    amostras = {"prefeitura": despesas.ler_tabela((RAIZ / "testes/fixtures/fator_despesa_prefeitura.html").read_text(encoding="utf-8")),
+                "camara": despesas.ler_tabela((RAIZ / "testes/fixtures/fator_despesa_amostra.html").read_text(encoding="utf-8"))}
+    pedidos = []
+
+    def falso_mes(orgao, ano, mes):
+        pedidos.append((orgao, ano, mes))
+        return [dict(i, data=f"{ano}-{mes:02d}-02") for i in amostras[orgao]] if (ano, mes) == (2025, 9) else []
+    despesas.baixar_mes = falso_mes
     os.environ["CGU_API_KEY"] = "teste"
     sys.argv = ["coletar_tudo.py"]
     coletar_tudo.main()
@@ -154,6 +165,20 @@ def main():
         {"mes": "2025-02", "transferencia": "FPM", "valor": 950000.0},
     ], t["serie"]
 
+    # leitura do HTML real do portal
+    pref = amostras["prefeitura"]
+    assert [i["credor"] for i in pref] == ["COELBA - IMOVEL LOCADO", "INSTITUTO MOVIMENTA NORDESTE", "EUSTECLIANA DE SOUZA NASCIMENTO"]
+    assert pref[1]["empenhado"] == 249000.0 and pref[1]["contrato"] == "001/2026TERMO" and pref[1]["modalidade"] == "Credenciamento"
+    assert pref[2]["documento"] == "xxx.584.365-xx" and pref[2]["elemento"] == "Diarias - Civil"
+    assert pref[0]["unidade"] == "SECRETARIA MUNICIPAL DE SAÚDE" and pref[0]["funcao"] == "SAÚDE" and pref[0]["modalidade"] is None
+    cam = amostras["camara"]
+    assert cam[1]["liquidado"] == 4000.0 and cam[1]["pago"] == 3500.5 and "&" in cam[1]["objeto"]
+    d25 = json.loads((SAIDA / "despesas" / "prefeitura-2025.json").read_text())
+    assert len(d25["empenhos"]) == 3
+    ind = json.loads((SAIDA / "despesas" / "indice.json").read_text())
+    assert 2025 in ind["orgaos"]["camara"]["anos"]
+    assert ("camara", 2025, 12) in pedidos
+
     p = json.loads((SAIDA / "pncp.json").read_text())
     assert len(p["contratacoes"]) == 1, "filtro de CNPJ"
     assert p["contratacoes"][0]["link"] == f"https://pncp.gov.br/app/editais/{CNPJ}/2025/1"
@@ -164,7 +189,7 @@ def main():
     assert c["convenios"][0]["objeto"] == "Pavimentação de vias"
 
     m = json.loads((SAIDA / "meta.json").read_text())
-    assert all(m["fontes"][k]["ok"] for k in ("siconfi", "transferencias", "pncp", "cgu"))
+    assert all(m["fontes"][k]["ok"] for k in ("siconfi", "transferencias", "despesas", "pncp", "cgu"))
 
     # sem chave da CGU: as outras fontes seguem e o erro fica registrado
     del os.environ["CGU_API_KEY"]

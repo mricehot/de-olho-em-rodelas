@@ -6,11 +6,12 @@ Os dados são coletados sozinhos todo dia pelo GitHub e o site é publicado de g
 | Seção do site | Fonte oficial | O que mostra |
 |---|---|---|
 | Gastos | Siconfi / Tesouro Nacional (RREO, anexos 1 e 2) | Receita arrecadada, despesa liquidada, gastos por área (saúde, educação…) |
+| Gastos, item por item | Portal de despesas da Prefeitura e da Câmara (Fator Sistemas) | Cada empenho: credor, valor empenhado e pago, secretaria, o que foi comprado |
 | Salários | Siconfi / Tesouro Nacional (RGF, anexo 1) | Gasto com pessoal e % da receita (limite da LRF: 54%) |
 | Transferências | Tesouro Nacional (Transferências Constitucionais) | FPM, FUNDEB, ITR, royalties: repasses obrigatórios da União, por mês e por tipo |
 | Licitações e contratos | PNCP | Cada licitação e contrato, com valor, empresa e link para o edital |
 | Recursos federais | Portal da Transparência (CGU) | Convênios, Bolsa Família e BPC pagos na cidade |
-| Câmara | Siconfi / Tesouro Nacional (RGF do Poder Legislativo) | Gasto da Câmara com pessoal e % da receita (limite: 6%) |
+| Câmara | Siconfi (RGF do Poder Legislativo) + portal de despesas da Câmara | Gasto com pessoal e % da receita (limite: 6%) e cada empenho da Câmara |
 
 ## Como colocar no ar (uns 15 minutos, tudo grátis)
 
@@ -30,14 +31,13 @@ config.json              código IBGE, CNPJ da prefeitura e ano inicial
 coletores/
   siconfi.py             gastos e pessoal da Prefeitura e da Câmara (Tesouro Nacional)
   transferencias.py      FPM, FUNDEB e outras transferências constitucionais
-  camara_descoberta.py   baixa a documentação da API da Câmara para a próxima versão
+  despesas.py            cada empenho da Prefeitura e da Câmara (lê o portal da Fator Sistemas)
   pncp.py                licitações e contratos
   cgu.py                 recursos federais (precisa da chave)
   coletar_tudo.py        roda todos e registra o status em site/data/meta.json
 site/
   index.html             o site inteiro (HTML + CSS + JS, sem dependências)
   data/                  JSONs gerados pelos coletores
-dados_brutos/            material de apoio (ex.: documentação da API da Câmara)
 testes/teste_coletores.py  testa os coletores sem internet, com respostas simuladas
 .github/workflows/coletar.yml  coleta diária + publicação
 ```
@@ -63,4 +63,9 @@ Para usar com outra cidade, troque `config.json` (código IBGE de 7 dígitos e C
 ## Ideias para depois
 
 - Folha de pagamento por servidor e despesas detalhadas (empenhos por fornecedor): estão no portal da prefeitura (rodelas.ba.gov.br), que hoje não oferece API. Dá para pedir os dados em formato aberto pelo e-SIC, com base na Lei de Acesso à Informação.
-- Câmara Municipal, despesas detalhadas: o portal da Câmara tem API REST (api.imap.org.br). A coleta diária guarda a documentação dela em `dados_brutos/` para montar esse coletor.
+- Folha de pagamento individual: a da Prefeitura só está em rodelas.ba.gov.br (que bloqueia coleta automática); a da Câmara parou em março de 2020. O caminho é pedir pelo e-SIC.
+
+## Sobre as fontes da Prefeitura e da Câmara
+
+- **Despesas detalhadas:** a Prefeitura (`pm_rodelas`) e a Câmara (`cm_rodelas`) publicam a execução da despesa no portal "Transparência 131" da Fator Sistemas. Não há API oficial: o coletor lê a mesma tabela que o portal carrega, um mês por vez, com pausa de 2 s entre consultas. O CPF já vem mascarado pela fonte.
+- **API da Câmara (api.imap.org.br, código do órgão 1848):** existe e responde, mas está desatualizada (folha até 02/2020, empenhos vazios, contratos até 2023). Por isso não é usada.

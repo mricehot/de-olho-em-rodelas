@@ -70,6 +70,11 @@ main { max-width: 960px; margin: 0 auto; padding: 20px 16px 64px; }
 section[hidden] { display: none; }
 h2 { font-size: 24px; margin: 0 0 4px; letter-spacing: -0.01em; }
 h3 { font-size: 17px; margin: 28px 0 10px; }
+h2.bloco { margin-top: 44px; padding-top: 24px; border-top: 1px solid var(--line); }
+.item .valores { display: flex; flex-wrap: wrap; gap: 2px 14px; align-items: baseline; margin: 0 0 6px; font-size: 13px; color: var(--text-2); }
+button.link { font: inherit; background: none; border: 0; padding: 0; color: var(--accent); cursor: pointer; text-align: left; }
+.barras button.link { color: var(--text); }
+.barras button.link:hover { color: var(--accent); text-decoration: underline; }
 .explica { color: var(--text-2); margin: 0 0 18px; max-width: 65ch; }
 
 .cartoes { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; margin: 16px 0; }
@@ -86,6 +91,8 @@ select, input[type="search"] {
   border: 1px solid var(--line); border-radius: 10px; padding: 8px 10px; min-height: 40px;
 }
 input[type="search"] { flex: 1 1 200px; }
+.controles select { max-width: 100%; text-overflow: ellipsis; }
+.controles > * { min-width: 0; }
 .abas { display: flex; gap: 6px; margin: 4px 0 12px; }
 .abas button {
   font: inherit; font-size: 15px; border: 1px solid var(--line); background: var(--surface);
@@ -174,6 +181,9 @@ details.tabela td.n { text-align: right; font-variant-numeric: tabular-nums; }
     <h2>Gastos da prefeitura</h2>
     <p class="explica">Quanto a prefeitura arrecadou e gastou, e em quais áreas. Vem do Relatório Resumido da Execução Orçamentária (RREO), que a prefeitura envia ao Tesouro Nacional a cada dois meses.</p>
     <div id="gastos-conteudo"></div>
+    <h2 class="bloco">Cada despesa, uma por uma</h2>
+    <p class="explica">Todos os empenhos da Prefeitura e dos fundos municipais (saúde, educação, assistência): quem recebeu, quanto e para quê. Empenho é o primeiro passo do gasto, quando a prefeitura reserva o dinheiro; depois vêm a liquidação (serviço entregue) e o pagamento.</p>
+    <div id="gastos-empenhos"></div>
   </section>
 
   <section id="salarios" hidden>
@@ -204,6 +214,9 @@ details.tabela td.n { text-align: right; font-variant-numeric: tabular-nums; }
     <h2>Câmara Municipal</h2>
     <p class="explica">Quanto a Câmara de Vereadores gasta com pessoal (vereadores e servidores). A Lei de Responsabilidade Fiscal limita esse gasto a 6% da receita corrente líquida do município. Vem do Relatório de Gestão Fiscal do Poder Legislativo.</p>
     <div id="camara-conteudo"></div>
+    <h2 class="bloco">Despesas da Câmara, uma por uma</h2>
+    <p class="explica">Cada empenho da Câmara: diárias de vereadores, assessorias, materiais e serviços.</p>
+    <div id="camara-empenhos"></div>
   </section>
 </main>
 
@@ -575,7 +588,7 @@ function montarCamara() {
   const raiz = $("#camara-conteudo");
   const s = D.siconfi;
   const anos = s ? Object.keys(s.anos).filter((a) => s.anos[a].rgf_01_camara).sort().reverse() : [];
-  const portal = `<p class="nota">Despesas detalhadas, diárias e a folha da Câmara estão no <a href="https://transparencia.camararodelas.ba.gov.br/" target="_blank" rel="noopener">portal da transparência da Câmara</a>. Essa parte entra aqui numa próxima versão.</p>`;
+  const portal = `<p class="nota">A folha de pagamento individual da Câmara não entra aqui: no <a href="https://transparencia.camararodelas.ba.gov.br/folha-pagamento" target="_blank" rel="noopener">portal da Câmara</a> ela não é atualizada desde março de 2020.</p>`;
   if (!anos.length) { raiz.innerHTML = vazio("O relatório da Câmara aparece depois da primeira coleta automática.") + portal; return; }
   const corpo = document.createElement("div");
   const mostrar = (ano) => {
@@ -594,6 +607,98 @@ function montarCamara() {
   };
   raiz.replaceChildren(seletorAno(anos, mostrar, "ano-camara"), corpo);
   mostrar(anos[0]);
+}
+
+/* ---------- Despesas detalhadas (empenhos) ---------- */
+const cacheEmp = {};
+async function carregarEmpenhos(orgao, ano) {
+  const k = `${orgao}-${ano}`;
+  if (!(k in cacheEmp)) cacheEmp[k] = await carregar(`despesas/${k}`);
+  return cacheEmp[k];
+}
+const MESES = ["jan", "fev", "mar", "abr", "mai", "jun", "jul", "ago", "set", "out", "nov", "dez"];
+function montarEmpenhos(alvoId, orgao) {
+  const raiz = document.getElementById(alvoId);
+  const info = D.despesasIndice?.orgaos?.[orgao];
+  if (!info?.anos?.length) { raiz.innerHTML = vazio("As despesas detalhadas aparecem depois da primeira coleta automática."); return; }
+  const anos = info.anos.slice().sort().reverse();
+  const p = alvoId;
+  raiz.innerHTML = `
+    <div class="controles">
+      <label class="sr" for="${p}-ano">Ano</label>
+      <select id="${p}-ano">${anos.map((a) => `<option>${a}</option>`).join("")}</select>
+      <label class="sr" for="${p}-mes">Mês</label>
+      <select id="${p}-mes"><option value="">Ano todo</option>${MESES.map((m, i) => `<option value="${String(i + 1).padStart(2, "0")}">${m}</option>`).join("")}</select>
+      <label class="sr" for="${p}-uni">Secretaria</label>
+      <select id="${p}-uni"></select>
+      <label class="sr" for="${p}-tipo">Tipo de gasto</label>
+      <select id="${p}-tipo"></select>
+      <label class="sr" for="${p}-busca">Buscar</label>
+      <input type="search" id="${p}-busca" placeholder="Buscar empresa, pessoa ou o que foi comprado">
+    </div>
+    <div id="${p}-corpo"></div>`;
+  const $p = (s) => document.getElementById(`${p}-${s}`);
+  let dados = [], limite = 30;
+  const preencher = (sel, valores, rotulo) => {
+    const atual = sel.value;
+    sel.innerHTML = `<option value="">${rotulo}</option>` + valores.map((v) => `<option ${v === atual ? "selected" : ""}>${esc(v)}</option>`).join("");
+  };
+  const desenhar = () => {
+    const mes = $p("mes").value, uni = $p("uni").value, tipo = $p("tipo").value;
+    const termo = $p("busca").value.trim().toLowerCase();
+    const itens = dados.filter((e) => (!mes || (e.data || "").slice(5, 7) === mes) && (!uni || e.unidade === uni) &&
+      (!tipo || e.elemento === tipo) && (!termo || `${e.credor} ${e.objeto || ""} ${e.documento || ""}`.toLowerCase().includes(termo)));
+    const soma = (k) => itens.reduce((t, e) => t + (e[k] || 0), 0);
+    const credores = new Map();
+    for (const e of itens) credores.set(e.credor, (credores.get(e.credor) || 0) + e.empenhado);
+    const top = [...credores].sort((a, b) => b[1] - a[1]).slice(0, 10);
+    const maior = top[0]?.[1] || 1;
+    $p("corpo").innerHTML = `
+      <div class="cartoes">
+        <div class="cartao"><p class="rot">Empenhado</p><p class="num">${brlCurto(soma("empenhado"))}</p><p class="det">${num(itens.length)} ${itens.length === 1 ? "empenho" : "empenhos"}</p></div>
+        <div class="cartao"><p class="rot">Já pago</p><p class="num">${brlCurto(soma("pago"))}</p><p class="det">liquidado: ${brlCurto(soma("liquidado"))}</p></div>
+      </div>
+      ${top.length > 1 ? `<h3>Quem mais recebeu</h3>
+      <div class="painel"><ul class="barras">${top.map(([nome, v]) => `
+        <li><div class="linha"><button type="button" class="link nome" data-credor="${esc(nome)}">${esc(nome)}</button><span class="valor">${brl.format(v)}</span></div>
+        <div class="trilho"><div class="enche" style="width:${(v / maior * 100).toFixed(2)}%"></div></div></li>`).join("")}</ul></div>
+      <p class="nota">Toque num nome para ver só as despesas dele. Valores empenhados.</p>` : ""}
+      <h3>Lista de empenhos</h3>
+      <div class="lista">${itens.slice(0, limite).map((e) => `
+        <article class="item">
+          <p class="obj">${esc(e.objeto || e.elemento || "Sem descrição")}</p>
+          <p class="valores"><span class="grande">${brl.format(e.empenhado)}</span><span>pago: ${brl.format(e.pago)}</span></p>
+          <p class="meta">
+            <span><strong>${esc(e.credor)}</strong>${e.documento ? " · " + esc(e.documento) : ""}</span>
+            <span>${data(e.data)}</span>
+            ${e.unidade ? `<span>${esc(e.unidade)}</span>` : ""}
+            ${e.elemento ? `<span class="etq">${esc(e.elemento)}</span>` : ""}
+            ${e.modalidade ? `<span>${esc(e.modalidade)}${e.licitacao ? " " + esc(e.licitacao) : ""}</span>` : ""}
+            ${e.contrato ? `<span>contrato ${esc(e.contrato)}</span>` : ""}
+          </p>
+        </article>`).join("") || `<div class="vazio">Nada encontrado com esses filtros.</div>`}</div>
+      ${itens.length > limite ? `<div class="mais"><button class="btn" type="button" data-mais>Mostrar mais (${num(itens.length - limite)} restantes)</button></div>` : ""}
+      <p class="nota">Fonte: <a href="${esc(info.fonte)}" target="_blank" rel="noopener">portal de despesas da ${orgao === "camara" ? "Câmara" : "Prefeitura"}</a> (Fator Sistemas). Atualizado em ${dataHora(cacheEmp[`${orgao}-${$p("ano").value}`]?.atualizado_em)}. O CPF de pessoas físicas já vem mascarado da fonte.</p>`;
+  };
+  $p("corpo").addEventListener("click", (ev) => {
+    const c = ev.target.closest("[data-credor]");
+    if (c) { $p("busca").value = c.dataset.credor; limite = 30; desenhar(); return; }
+    if (ev.target.closest("[data-mais]")) { limite += 30; desenhar(); }
+  });
+  const trocarAno = async () => {
+    $p("corpo").innerHTML = `<p class="nota">Carregando…</p>`;
+    const arq = await carregarEmpenhos(orgao, $p("ano").value);
+    dados = arq?.empenhos || [];
+    const contar = (k) => { const m = new Map(); for (const e of dados) if (e[k]) m.set(e[k], (m.get(e[k]) || 0) + e.empenhado); return [...m].sort((a, b) => b[1] - a[1]).map(([v]) => v); };
+    preencher($p("uni"), contar("unidade"), "Todas as secretarias");
+    preencher($p("tipo"), contar("elemento"), "Todos os tipos de gasto");
+    $p("uni").hidden = orgao === "camara";
+    limite = 30; desenhar();
+  };
+  for (const id of ["mes", "uni", "tipo"]) $p(id).addEventListener("change", () => { limite = 30; desenhar(); });
+  let tBusca; $p("busca").addEventListener("input", () => { clearTimeout(tBusca); tBusca = setTimeout(() => { limite = 30; desenhar(); }, 200); });
+  $p("ano").addEventListener("change", trocarAno);
+  trocarAno();
 }
 
 /* ---------- Início ---------- */
@@ -628,7 +733,7 @@ function montarInicio() {
     ? cartoes.map(([h, r, n, d]) => `<a class="cartao" href="${h}"><p class="rot">${esc(r)}</p><p class="num">${esc(n)}</p><p class="det">${esc(d)}</p></a>`).join("")
     : vazio("A primeira coleta automática ainda não rodou. Quando rodar, os números aparecem aqui.");
 
-  const nomes = { siconfi: "Tesouro Nacional (Siconfi): gastos, pessoal e Câmara", transferencias: "Tesouro Nacional: transferências constitucionais", pncp: "PNCP: licitações e contratos", cgu: "Portal da Transparência (CGU): recursos federais" };
+  const nomes = { siconfi: "Tesouro Nacional (Siconfi): gastos, pessoal e Câmara", transferencias: "Tesouro Nacional: transferências constitucionais", despesas: "Fator Sistemas: despesas detalhadas da Prefeitura e da Câmara", pncp: "PNCP: licitações e contratos", cgu: "Portal da Transparência (CGU): recursos federais" };
   const meta = D.meta?.fontes || {};
   $("#fontes").innerHTML = Object.entries(nomes).map(([k, nome]) => {
     const f = meta[k];
@@ -657,8 +762,9 @@ window.addEventListener("hashchange", rota);
 
 (async () => {
   rota();
-  [D.meta, D.siconfi, D.transferencias, D.pncp, D.cgu] = await Promise.all(["meta", "siconfi", "transferencias", "pncp", "cgu"].map(carregar));
-  for (const f of [montarInicio, montarGastos, montarSalarios, montarTransferencias, montarLicitacoes, montarFederais, montarCamara]) {
+  [D.meta, D.siconfi, D.transferencias, D.pncp, D.cgu, D.despesasIndice] = await Promise.all(["meta", "siconfi", "transferencias", "pncp", "cgu", "despesas/indice"].map(carregar));
+  for (const f of [montarInicio, montarGastos, montarSalarios, montarTransferencias, montarLicitacoes, montarFederais, montarCamara,
+                   () => montarEmpenhos("gastos-empenhos", "prefeitura"), () => montarEmpenhos("camara-empenhos", "camara")]) {
     try { f(); } catch (e) { console.error(f.name, e); }
   }
   redesenhar();
