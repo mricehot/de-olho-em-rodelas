@@ -18,6 +18,7 @@ SAIDA = RAIZ / "testes" / "saida"
 comum.PASTA_DADOS = SAIDA
 
 import cgu  # noqa: E402
+import transferencias  # noqa: E402
 import coletar_tudo  # noqa: E402
 import pncp  # noqa: E402
 import siconfi  # noqa: E402
@@ -49,6 +50,13 @@ def falso_siconfi(url, params=None, headers=None):
         if p.get("offset", 0) == 0:
             return {"items": itens[:1], "hasMore": True}
         return {"items": itens[1:], "hasMore": False}
+    if url.endswith("/rgf") and p["co_poder"] == "L":
+        if (p["in_periodicidade"], p["nr_periodo"]) != ("Q", 3):
+            raise comum.SemDados(url)
+        return {"items": [
+            {"conta": "DESPESA TOTAL COM PESSOAL - DTP (VIII) = (IIIa + IIIb)", "coluna": "TOTAL (ÚLTIMOS 12 MESES) (a)", "valor": 1300000, "cod_conta": "e", "rotulo": "x"},
+            {"conta": "DESPESA TOTAL COM PESSOAL - DTP (VIII) = (IIIa + IIIb)", "coluna": "% SOBRE A RCL AJUSTADA", "valor": 3.1, "cod_conta": "e", "rotulo": "x"},
+        ], "hasMore": False}
     if url.endswith("/rgf"):
         if (p["in_periodicidade"], p["nr_periodo"], p["co_tipo_demonstrativo"]) != ("S", 1, "RGF"):
             raise comum.SemDados(url)
@@ -83,6 +91,24 @@ def falso_pncp(url, params=None, headers=None):
     ], "totalPaginas": 1}
 
 
+def falso_transf(url, params=None, headers=None):
+    p = params or {}
+    if url.endswith("/estados"):
+        return {"registros": [{"CODIGO": 4, "NOME": "BAHIA"}, {"CODIGO": 16, "NOME": "PERNAMBUCO"}]}
+    if url.endswith("/municipios"):
+        assert p["p_uf"] == 4
+        return {"registros": [{"codigo": 2671, "codigo_uf": 4, "nome": "RODELAS"}]}
+    assert url.endswith("/por_estado_municipio"), url
+    assert p["p_municipio"] == 2671 and p["p_estado"] == 4 and "2025" in p["p_ano"]
+    reg = lambda mes, t, v, ibge="2927101": {"UF": "BA", "ANO": "2025", "MES": mes, "TRANSFERENCIA": t,
+                                            "codigo_siafi": 3871, "CO_IBGE": ibge, "MUNICIPIO": "RODELAS", "VALOR": v}
+    if p["page"] == 1:
+        # pageSize grande: devolve página curta e encerra
+        return {"registros": [reg("01", "FPM", 900000.10), reg("01", "FUNDEB", 700000), reg("02", "FPM", 950000),
+                              reg("01", "FPM", 5, ibge="2900000")], "page": 1}
+    raise AssertionError("não devia pedir página 2")
+
+
 def falso_cgu(url, params=None, headers=None):
     assert headers["chave-api-dados"] == "teste"
     p = params or {}
@@ -101,12 +127,13 @@ def main():
     SAIDA.mkdir(parents=True, exist_ok=True)
     for f in SAIDA.glob("*.json"):
         f.unlink()
-    for m in (siconfi, pncp, cgu, coletar_tudo):
+    for m in (siconfi, pncp, cgu, transferencias, coletar_tudo):
         if hasattr(m, "PASTA_DADOS"):
             m.PASTA_DADOS = SAIDA
     siconfi.get_json = falso_siconfi
     pncp.get_json = falso_pncp
     cgu.get_json = falso_cgu
+    transferencias.get_json = falso_transf
     os.environ["CGU_API_KEY"] = "teste"
     sys.argv = ["coletar_tudo.py"]
     coletar_tudo.main()
@@ -116,6 +143,16 @@ def main():
     assert a["rreo_01"]["periodo"] == 4 and len(a["rreo_01"]["linhas"]) == 3, "paginação do Siconfi"
     assert a["rgf_01"]["periodicidade"] == "S", "RGF semestral"
     assert set(s["anos"]) == {"2025"}
+
+    assert a["rgf_01_camara"]["periodicidade"] == "Q", "RGF da Câmara"
+    assert s["anos"]["2025"]["rgf_01"]["linhas"][1]["valor"] == 51.37
+
+    t = json.loads((SAIDA / "transferencias.json").read_text())
+    assert t["serie"] == [
+        {"mes": "2025-01", "transferencia": "FPM", "valor": 900000.1},
+        {"mes": "2025-01", "transferencia": "FUNDEB", "valor": 700000.0},
+        {"mes": "2025-02", "transferencia": "FPM", "valor": 950000.0},
+    ], t["serie"]
 
     p = json.loads((SAIDA / "pncp.json").read_text())
     assert len(p["contratacoes"]) == 1, "filtro de CNPJ"
@@ -127,7 +164,7 @@ def main():
     assert c["convenios"][0]["objeto"] == "Pavimentação de vias"
 
     m = json.loads((SAIDA / "meta.json").read_text())
-    assert all(m["fontes"][k]["ok"] for k in ("siconfi", "pncp", "cgu"))
+    assert all(m["fontes"][k]["ok"] for k in ("siconfi", "transferencias", "pncp", "cgu"))
 
     # sem chave da CGU: as outras fontes seguem e o erro fica registrado
     del os.environ["CGU_API_KEY"]

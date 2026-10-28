@@ -7,8 +7,10 @@ Os dados são coletados sozinhos todo dia pelo GitHub e o site é publicado de g
 |---|---|---|
 | Gastos | Siconfi / Tesouro Nacional (RREO, anexos 1 e 2) | Receita arrecadada, despesa liquidada, gastos por área (saúde, educação…) |
 | Salários | Siconfi / Tesouro Nacional (RGF, anexo 1) | Gasto com pessoal e % da receita (limite da LRF: 54%) |
+| Transferências | Tesouro Nacional (Transferências Constitucionais) | FPM, FUNDEB, ITR, royalties: repasses obrigatórios da União, por mês e por tipo |
 | Licitações e contratos | PNCP | Cada licitação e contrato, com valor, empresa e link para o edital |
 | Recursos federais | Portal da Transparência (CGU) | Convênios, Bolsa Família e BPC pagos na cidade |
+| Câmara | Siconfi / Tesouro Nacional (RGF do Poder Legislativo) | Gasto da Câmara com pessoal e % da receita (limite: 6%) |
 
 ## Como colocar no ar (uns 15 minutos, tudo grátis)
 
@@ -26,13 +28,16 @@ Se uma fonte falhar num dia, as outras continuam e o site mostra na página inic
 ```
 config.json              código IBGE, CNPJ da prefeitura e ano inicial
 coletores/
-  siconfi.py             gastos e pessoal (Tesouro Nacional)
+  siconfi.py             gastos e pessoal da Prefeitura e da Câmara (Tesouro Nacional)
+  transferencias.py      FPM, FUNDEB e outras transferências constitucionais
+  camara_descoberta.py   baixa a documentação da API da Câmara para a próxima versão
   pncp.py                licitações e contratos
   cgu.py                 recursos federais (precisa da chave)
   coletar_tudo.py        roda todos e registra o status em site/data/meta.json
 site/
   index.html             o site inteiro (HTML + CSS + JS, sem dependências)
   data/                  JSONs gerados pelos coletores
+dados_brutos/            material de apoio (ex.: documentação da API da Câmara)
 testes/teste_coletores.py  testa os coletores sem internet, com respostas simuladas
 .github/workflows/coletar.yml  coleta diária + publicação
 ```
@@ -58,5 +63,4 @@ Para usar com outra cidade, troque `config.json` (código IBGE de 7 dígitos e C
 ## Ideias para depois
 
 - Folha de pagamento por servidor e despesas detalhadas (empenhos por fornecedor): estão no portal da prefeitura (rodelas.ba.gov.br), que hoje não oferece API. Dá para pedir os dados em formato aberto pelo e-SIC, com base na Lei de Acesso à Informação.
-- Câmara Municipal: o portal da Câmara tem API REST (api.imap.org.br) e pode ganhar uma seção própria.
-- Transferências constitucionais (FPM, FUNDEB) pelo Tesouro Transparente.
+- Câmara Municipal, despesas detalhadas: o portal da Câmara tem API REST (api.imap.org.br). A coleta diária guarda a documentação dela em `dados_brutos/` para montar esse coletor.

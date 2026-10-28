@@ -7,9 +7,10 @@ import traceback
 import cgu
 import pncp
 import siconfi
+import transferencias
 from comum import CONFIG, PASTA_DADOS, agora, salvar
 
-FONTES = {"siconfi": siconfi, "pncp": pncp, "cgu": cgu}
+FONTES = {"siconfi": siconfi, "transferencias": transferencias, "pncp": pncp, "cgu": cgu}
 
 
 def main():

@@ -2,7 +2,7 @@
 
 RREO Anexo 01: receitas e despesas do orçamento.
 RREO Anexo 02: despesas por função (saúde, educação...).
-RGF  Anexo 01: despesa com pessoal e limite da LRF.
+RGF  Anexo 01: despesa com pessoal e limite da LRF (Prefeitura e Câmara).
 
 Docs: https://apidatalake.tesouro.gov.br/docs/siconfi/
 """
@@ -46,8 +46,9 @@ def rreo(ano, anexo):
     return None
 
 
-def rgf_pessoal(ano):
-    """Municípios pequenos podem publicar o RGF por semestre (S) ou quadrimestre (Q),
+def rgf_pessoal(ano, poder="E"):
+    """Poder "E" = Prefeitura, "L" = Câmara Municipal.
+    Municípios pequenos podem publicar o RGF por semestre (S) ou quadrimestre (Q),
     e às vezes na versão simplificada."""
     for tipo in ("RGF", "RGF Simplificado"):
         for periodicidade, ultimo in (("Q", 3), ("S", 2)):
@@ -57,7 +58,7 @@ def rgf_pessoal(ano):
                         "an_exercicio": ano, "in_periodicidade": periodicidade,
                         "nr_periodo": periodo, "co_tipo_demonstrativo": tipo,
                         "no_anexo": "RGF-Anexo 01", "co_esfera": "M",
-                        "co_poder": "E", "id_ente": CONFIG["ibge"],
+                        "co_poder": poder, "id_ente": CONFIG["ibge"],
                     })
                 except SemDados:
                     continue
@@ -76,6 +77,7 @@ def coletar():
             "rreo_01": rreo(ano, "RREO-Anexo 01"),
             "rreo_02": rreo(ano, "RREO-Anexo 02"),
             "rgf_01": rgf_pessoal(ano),
+            "rgf_01_camara": rgf_pessoal(ano, "L"),
         }
         if any(bloco.values()):
             saida["anos"][str(ano)] = bloco

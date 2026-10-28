@@ -153,8 +153,10 @@ details.tabela td.n { text-align: right; font-variant-numeric: tabular-nums; }
     <li><a href="#inicio">Início</a></li>
     <li><a href="#gastos">Gastos</a></li>
     <li><a href="#salarios">Salários</a></li>
+    <li><a href="#transferencias">Transferências</a></li>
     <li><a href="#licitacoes">Licitações e contratos</a></li>
     <li><a href="#federais">Recursos federais</a></li>
+    <li><a href="#camara">Câmara</a></li>
   </ul>
 </nav>
 
@@ -180,6 +182,12 @@ details.tabela td.n { text-align: right; font-variant-numeric: tabular-nums; }
     <div id="salarios-conteudo"></div>
   </section>
 
+  <section id="transferencias" hidden>
+    <h2>Transferências constitucionais</h2>
+    <p class="explica">Dinheiro que a União repassa a Rodelas por obrigação da Constituição, sem precisar de convênio: FPM, FUNDEB, ITR, royalties e outros. Para cidades pequenas, costuma ser a maior fonte de receita. Vem do Tesouro Nacional.</p>
+    <div id="transferencias-conteudo"></div>
+  </section>
+
   <section id="licitacoes" hidden>
     <h2>Licitações e contratos</h2>
     <p class="explica">Compras e contratações publicadas pela prefeitura no Portal Nacional de Contratações Públicas (PNCP).</p>
@@ -190,6 +198,12 @@ details.tabela td.n { text-align: right; font-variant-numeric: tabular-nums; }
     <h2>Recursos federais</h2>
     <p class="explica">Dinheiro do Governo Federal que chega à cidade: convênios com a prefeitura e benefícios pagos direto às famílias. Vem do Portal da Transparência da CGU.</p>
     <div id="federais-conteudo"></div>
+  </section>
+
+  <section id="camara" hidden>
+    <h2>Câmara Municipal</h2>
+    <p class="explica">Quanto a Câmara de Vereadores gasta com pessoal (vereadores e servidores). A Lei de Responsabilidade Fiscal limita esse gasto a 6% da receita corrente líquida do município. Vem do Relatório de Gestão Fiscal do Poder Legislativo.</p>
+    <div id="camara-conteudo"></div>
   </section>
 </main>
 
@@ -257,7 +271,7 @@ function leitor(alvo, linhas, preferencias, { porcentagem = false } = {}) {
       <label class="sr" for="${alvo.id}-col">Coluna do relatório</label>
       <select id="${alvo.id}-col">${colunas.map((c) => `<option ${c === coluna ? "selected" : ""}>${esc(c)}</option>`).join("")}</select>
       <label class="sr" for="${alvo.id}-busca">Buscar</label>
-      <input type="search" id="${alvo.id}-busca" placeholder="Buscar (ex.: saúde, educação)">
+      <input type="search" id="${alvo.id}-busca" placeholder="Buscar no relatório">
     </div>
     <div class="painel"><ul class="barras"></ul></div>
     <p class="nota"></p>`;
@@ -280,7 +294,7 @@ function leitor(alvo, linhas, preferencias, { porcentagem = false } = {}) {
         <span class="valor">${ehPct ? v.toLocaleString("pt-BR", { maximumFractionDigits: 2 }) + "%" : brl.format(v)}</span></div>
         <div class="trilho"><div class="enche" style="width:${largura.toFixed(2)}%"></div></div></li>`;
     }).join("") : `<li>Nada encontrado para essa busca.</li>`;
-    nota.textContent = `${itens.length} ${itens.length === 1 ? "linha" : "linhas"} do relatório oficial, na ordem em que a prefeitura as apresenta.`;
+    nota.textContent = `${itens.length} ${itens.length === 1 ? "linha" : "linhas"} do relatório oficial, na ordem em que aparecem nele.`;
   };
   $(`#${alvo.id}-col`).addEventListener("change", (e) => { coluna = e.target.value; desenhar(); });
   $(`#${alvo.id}-busca`).addEventListener("input", desenhar);
@@ -462,6 +476,7 @@ function svgColunas(ult, L) {
 }
 function colunasMensais(serie, titulo) {
   const ult = serie.slice(-24);
+  const comBenef = serie.some((x) => x.beneficiados != null);
   const id = "g" + Math.random().toString(36).slice(2, 8);
   graficos.add(() => {
     const el = document.getElementById(id); if (!el) return;
@@ -472,7 +487,7 @@ function colunasMensais(serie, titulo) {
       r.addEventListener("pointerenter", () => {
         const x = ult[r.dataset.i];
         el.querySelectorAll("path").forEach((p) => p.classList.toggle("ativo", p.dataset.i === r.dataset.i));
-        dica.textContent = `${nomeMes(x.mes)} · ${brl.format(x.valor)} · ${num(x.beneficiados)} benef.`;
+        dica.textContent = `${nomeMes(x.mes)} · ${brl.format(x.valor)}` + (x.beneficiados != null ? ` · ${num(x.beneficiados)} benef.` : "");
         const c = r.getBoundingClientRect(), base = el.getBoundingClientRect();
         dica.style.left = Math.min(Math.max(c.left - base.left + c.width / 2, 110), base.width - 110) + "px";
         dica.style.top = "34px";
@@ -485,8 +500,8 @@ function colunasMensais(serie, titulo) {
       <div class="svg" role="img" aria-label="${esc(titulo)}"></div>
       <div class="dica" hidden></div>
       <details class="tabela"><summary>Ver em tabela</summary>
-        <table><thead><tr><th>Mês</th><th>Valor</th><th>Beneficiados</th></tr></thead>
-        <tbody>${serie.slice().reverse().map((x) => `<tr><td>${nomeMes(x.mes)}</td><td class="n">${brl.format(x.valor)}</td><td class="n">${num(x.beneficiados)}</td></tr>`).join("")}</tbody></table>
+        <table><thead><tr><th>Mês</th><th>Valor</th>${comBenef ? "<th>Beneficiados</th>" : ""}</tr></thead>
+        <tbody>${serie.slice().reverse().map((x) => `<tr><td>${nomeMes(x.mes)}</td><td class="n">${brl.format(x.valor)}</td>${comBenef ? `<td class="n">${num(x.beneficiados)}</td>` : ""}</tr>`).join("")}</tbody></table>
       </details>
     </div>`;
 }
@@ -517,6 +532,70 @@ function montarFederais() {
     <p class="nota">Fonte: Portal da Transparência (CGU). Atualizado em ${dataHora(c.atualizado_em)}.</p>`;
 }
 
+/* ---------- Transferências constitucionais ---------- */
+function montarTransferencias() {
+  const raiz = $("#transferencias-conteudo");
+  const t = D.transferencias;
+  if (!t?.serie?.length) { raiz.innerHTML = vazio("As transferências aparecem depois da primeira coleta automática no Tesouro Nacional."); return; }
+  const porMes = new Map();
+  for (const x of t.serie) porMes.set(x.mes, (porMes.get(x.mes) || 0) + x.valor);
+  const mensal = [...porMes].sort(([a], [b]) => a.localeCompare(b)).map(([mes, valor]) => ({ mes, valor }));
+  const anos = [...new Set(t.serie.map((x) => x.mes.slice(0, 4)))].sort().reverse();
+  const corpo = document.createElement("div");
+  const mostrar = (ano) => {
+    const doAno = t.serie.filter((x) => x.mes.startsWith(ano));
+    const tipos = new Map();
+    for (const x of doAno) tipos.set(x.transferencia, (tipos.get(x.transferencia) || 0) + x.valor);
+    const lista = [...tipos].sort((a, b) => b[1] - a[1]);
+    const total = lista.reduce((s, [, v]) => s + v, 0);
+    const maior = lista[0]?.[1] || 1;
+    const meses = new Set(doAno.map((x) => x.mes));
+    const ultimoMes = [...meses].sort().at(-1);
+    corpo.innerHTML = `
+      <div class="cartoes">
+        <div class="cartao"><p class="rot">Total recebido em ${esc(ano)}</p><p class="num">${brlCurto(total)}</p><p class="det">${meses.size === 12 ? "ano completo" : `até ${nomeMes(ultimoMes)}`}</p></div>
+        ${lista[0] ? `<div class="cartao"><p class="rot">Maior repasse</p><p class="num">${esc(lista[0][0])}</p><p class="det">${brlCurto(lista[0][1])} · ${(lista[0][1] / total * 100).toLocaleString("pt-BR", { maximumFractionDigits: 0 })}% do total</p></div>` : ""}
+      </div>
+      <h3>Por tipo de repasse em ${esc(ano)}</h3>
+      <div class="painel"><ul class="barras">${lista.map(([nome, v]) => `
+        <li><div class="linha"><span class="nome">${esc(nome)}</span><span class="valor">${brl.format(v)}</span></div>
+        <div class="trilho"><div class="enche" style="width:${(v / maior * 100).toFixed(2)}%"></div></div></li>`).join("")}</ul></div>
+      <p class="nota">FPM: Fundo de Participação dos Municípios. FUNDEB: fundo da educação básica. ITR: imposto territorial rural. CFH e CFEM: compensações pelo uso de recursos hídricos e minerais.</p>`;
+  };
+  raiz.replaceChildren(seletorAno(anos, mostrar, "ano-transf"), corpo);
+  const fim = document.createElement("div");
+  fim.innerHTML = `<h3>Total recebido por mês</h3>${colunasMensais(mensal, "Transferências constitucionais por mês")}
+    <p class="nota">Fonte: Tesouro Nacional, API de Transferências Constitucionais. Atualizado em ${dataHora(t.atualizado_em)}.</p>`;
+  raiz.append(fim);
+  mostrar(anos[0]);
+}
+
+/* ---------- Câmara Municipal ---------- */
+function montarCamara() {
+  const raiz = $("#camara-conteudo");
+  const s = D.siconfi;
+  const anos = s ? Object.keys(s.anos).filter((a) => s.anos[a].rgf_01_camara).sort().reverse() : [];
+  const portal = `<p class="nota">Despesas detalhadas, diárias e a folha da Câmara estão no <a href="https://transparencia.camararodelas.ba.gov.br/" target="_blank" rel="noopener">portal da transparência da Câmara</a>. Essa parte entra aqui numa próxima versão.</p>`;
+  if (!anos.length) { raiz.innerHTML = vazio("O relatório da Câmara aparece depois da primeira coleta automática.") + portal; return; }
+  const corpo = document.createElement("div");
+  const mostrar = (ano) => {
+    const r = s.anos[ano].rgf_01_camara;
+    const pct = pctPessoal(r.linhas);
+    const total = achar(r.linhas, /DESPESA TOTAL COM PESSOAL/i, /^(?!.*%).*/);
+    corpo.innerHTML = `
+      <div class="cartoes">
+        ${total != null ? `<div class="cartao"><p class="rot">Gasto da Câmara com pessoal em 12 meses</p><p class="num">${brlCurto(total)}</p><p class="det">${PERIODO_RGF(r)} de ${esc(ano)}</p></div>` : ""}
+        ${pct != null ? `<div class="cartao"><p class="rot">Parte da receita do município</p><p class="num">${pct.toLocaleString("pt-BR", { maximumFractionDigits: 2 })}%</p><p class="det">Limite da lei: 6% · alerta a partir de 5,4%</p></div>` : ""}
+      </div>
+      <h3>Detalhe do relatório</h3>
+      <div id="c-rgf"></div>
+      <p class="nota">Fonte: RGF Anexo 1 (Poder Legislativo), ${PERIODO_RGF(r)} de ${esc(ano)}, Siconfi/Tesouro Nacional.</p>${portal}`;
+    leitor($("#c-rgf", corpo), r.linhas, PREF_PESSOAL, { porcentagem: true });
+  };
+  raiz.replaceChildren(seletorAno(anos, mostrar, "ano-camara"), corpo);
+  mostrar(anos[0]);
+}
+
 /* ---------- Início ---------- */
 function montarInicio() {
   const cartoes = [];
@@ -531,6 +610,11 @@ function montarInicio() {
     const pct = anoP && pctPessoal(s.anos[anoP].rgf_01.linhas);
     if (pct != null && anoP) cartoes.push(["#salarios", "Receita usada com pessoal", pct.toLocaleString("pt-BR", { maximumFractionDigits: 1 }) + "%", `limite legal 54% · ${anoP}`]);
   }
+  if (D.transferencias?.serie?.length) {
+    const ano = D.transferencias.serie.at(-1).mes.slice(0, 4);
+    const tot = D.transferencias.serie.filter((x) => x.mes.startsWith(ano)).reduce((t, x) => t + x.valor, 0);
+    cartoes.push(["#transferencias", `Transferências da União em ${ano}`, brlCurto(tot), "FPM, FUNDEB, ITR e outras"]);
+  }
   if (D.pncp) {
     const ano = D.pncp.contratos.map((c) => (c.assinatura || "").slice(0, 4)).filter(Boolean).sort().at(-1) || String(new Date().getFullYear());
     const doAno = D.pncp.contratos.filter((c) => (c.assinatura || "").startsWith(ano));
@@ -544,7 +628,7 @@ function montarInicio() {
     ? cartoes.map(([h, r, n, d]) => `<a class="cartao" href="${h}"><p class="rot">${esc(r)}</p><p class="num">${esc(n)}</p><p class="det">${esc(d)}</p></a>`).join("")
     : vazio("A primeira coleta automática ainda não rodou. Quando rodar, os números aparecem aqui.");
 
-  const nomes = { siconfi: "Tesouro Nacional (Siconfi): gastos e pessoal", pncp: "PNCP: licitações e contratos", cgu: "Portal da Transparência (CGU): recursos federais" };
+  const nomes = { siconfi: "Tesouro Nacional (Siconfi): gastos, pessoal e Câmara", transferencias: "Tesouro Nacional: transferências constitucionais", pncp: "PNCP: licitações e contratos", cgu: "Portal da Transparência (CGU): recursos federais" };
   const meta = D.meta?.fontes || {};
   $("#fontes").innerHTML = Object.entries(nomes).map(([k, nome]) => {
     const f = meta[k];
@@ -573,8 +657,8 @@ window.addEventListener("hashchange", rota);
 
 (async () => {
   rota();
-  [D.meta, D.siconfi, D.pncp, D.cgu] = await Promise.all(["meta", "siconfi", "pncp", "cgu"].map(carregar));
-  for (const f of [montarInicio, montarGastos, montarSalarios, montarLicitacoes, montarFederais]) {
+  [D.meta, D.siconfi, D.transferencias, D.pncp, D.cgu] = await Promise.all(["meta", "siconfi", "transferencias", "pncp", "cgu"].map(carregar));
+  for (const f of [montarInicio, montarGastos, montarSalarios, montarTransferencias, montarLicitacoes, montarFederais, montarCamara]) {
     try { f(); } catch (e) { console.error(f.name, e); }
   }
   redesenhar();
