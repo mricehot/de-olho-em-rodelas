@@ -1,0 +1,25 @@
+{
+ "atualizado_em": "2026-10-28T23:28:10+00:00",
+ "orgaos": {
+  "prefeitura": {
+   "nome": "Prefeitura (consolidado)",
+   "anos": [
+    2023,
+    2024,
+    2025,
+    2026
+   ],
+   "fonte": "https://transparencia.fatorsistemas.com.br/dados/despesa.php?id=pm_rodelas"
+  },
+  "camara": {
+   "nome": "Câmara Municipal",
+   "anos": [
+    2023,
+    2024,
+    2025,
+    2026
+   ],
+   "fonte": "https://transparencia.fatorsistemas.com.br/dados/despesa.php?id=cm_rodelas"
+  }
+ }
+}

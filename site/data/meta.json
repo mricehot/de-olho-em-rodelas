@@ -1,0 +1,41 @@
+{
+ "fontes": {
+  "siconfi": {
+   "tentativa": "2026-10-28T23:22:13+00:00",
+   "ok": true,
+   "sucesso": "2026-10-28T23:22:13+00:00",
+   "erro": null
+  },
+  "transferencias": {
+   "tentativa": "2026-10-28T23:22:29+00:00",
+   "ok": true,
+   "sucesso": "2026-10-28T23:22:29+00:00",
+   "erro": null
+  },
+  "despesas": {
+   "tentativa": "2026-10-28T23:22:36+00:00",
+   "ok": true,
+   "sucesso": "2026-10-28T23:22:36+00:00",
+   "erro": null
+  },
+  "pncp": {
+   "tentativa": "2026-10-28T23:28:10+00:00",
+   "ok": true,
+   "sucesso": "2026-10-28T23:28:10+00:00",
+   "erro": null
+  },
+  "cgu": {
+   "tentativa": "2026-10-28T23:42:22+00:00",
+   "ok": true,
+   "sucesso": "2026-10-28T23:42:22+00:00",
+   "erro": null
+  }
+ },
+ "municipio": {
+  "municipio": "Rodelas",
+  "uf": "BA",
+  "ibge": "2927101",
+  "cnpj_prefeitura": "14217350000119",
+  "ano_inicial": 2023
+ }
+}

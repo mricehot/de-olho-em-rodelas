@@ -1,0 +1,1326 @@
+{
+ "fonte": "Tesouro Nacional - Transferências Constitucionais",
+ "atualizado_em": "2026-10-28T23:22:36+00:00",
+ "serie": [
+  {
+   "mes": "2023-01",
+   "transferencia": "CIDE-Combustíveis",
+   "valor": 71.31
+  },
+  {
+   "mes": "2023-01",
+   "transferencia": "FPM",
+   "valor": 1446095.21
+  },
+  {
+   "mes": "2023-01",
+   "transferencia": "FUNDEB",
+   "valor": 1705363.24
+  },
+  {
+   "mes": "2023-01",
+   "transferencia": "ITR",
+   "valor": 265.49
+  },
+  {
+   "mes": "2023-01",
+   "transferencia": "LC 176/2020 (ADO25)",
+   "valor": 2744.8
+  },
+  {
+   "mes": "2023-01",
+   "transferencia": "Royalties",
+   "valor": 37750.65
+  },
+  {
+   "mes": "2023-02",
+   "transferencia": "FPM",
+   "valor": 1913786.58
+  },
+  {
+   "mes": "2023-02",
+   "transferencia": "FUNDEB",
+   "valor": 1148508.85
+  },
+  {
+   "mes": "2023-02",
+   "transferencia": "ITR",
+   "valor": 590.86
+  },
+  {
+   "mes": "2023-02",
+   "transferencia": "LC 176/2020 (ADO25)",
+   "valor": 2744.8
+  },
+  {
+   "mes": "2023-02",
+   "transferencia": "Royalties",
+   "valor": 311201.57
+  },
+  {
+   "mes": "2023-03",
+   "transferencia": "FPM",
+   "valor": 1170751.05
+  },
+  {
+   "mes": "2023-03",
+   "transferencia": "FUNDEB",
+   "valor": 1006660.29
+  },
+  {
+   "mes": "2023-03",
+   "transferencia": "ITR",
+   "valor": 1635.41
+  },
+  {
+   "mes": "2023-03",
+   "transferencia": "LC 176/2020 (ADO25)",
+   "valor": 2744.8
+  },
+  {
+   "mes": "2023-03",
+   "transferencia": "Royalties",
+   "valor": 626217.77
+  },
+  {
+   "mes": "2023-04",
+   "transferencia": "AJUSTE FUNDEB",
+   "valor": -30060.8
+  },
+  {
+   "mes": "2023-04",
+   "transferencia": "FPM",
+   "valor": 1338533.81
+  },
+  {
+   "mes": "2023-04",
+   "transferencia": "FUNDEB",
+   "valor": 1044361.37
+  },
+  {
+   "mes": "2023-04",
+   "transferencia": "ITR",
+   "valor": 741.65
+  },
+  {
+   "mes": "2023-04",
+   "transferencia": "LC 176/2020 (ADO25)",
+   "valor": 2744.8
+  },
+  {
+   "mes": "2023-04",
+   "transferencia": "Royalties",
+   "valor": 32738.67
+  },
+  {
+   "mes": "2023-05",
+   "transferencia": "AJUSTE FUNDEB",
+   "valor": 190972.94
+  },
+  {
+   "mes": "2023-05",
+   "transferencia": "FPM",
+   "valor": 1487995.22
+  },
+  {
+   "mes": "2023-05",
+   "transferencia": "FUNDEB",
+   "valor": 1045917.43
+  },
+  {
+   "mes": "2023-05",
+   "transferencia": "ITR",
+   "valor": 227.81
+  },
+  {
+   "mes": "2023-05",
+   "transferencia": "LC 176/2020 (ADO25)",
+   "valor": 2744.8
+  },
+  {
+   "mes": "2023-05",
+   "transferencia": "Royalties",
+   "valor": 504751.18
+  },
+  {
+   "mes": "2023-06",
+   "transferencia": "FPM",
+   "valor": 1389776.38
+  },
+  {
+   "mes": "2023-06",
+   "transferencia": "FUNDEB",
+   "valor": 1100362.14
+  },
+  {
+   "mes": "2023-06",
+   "transferencia": "ITR",
+   "valor": 151.7
+  },
+  {
+   "mes": "2023-06",
+   "transferencia": "LC 176/2020 (ADO25)",
+   "valor": 2744.8
+  },
+  {
+   "mes": "2023-06",
+   "transferencia": "Royalties",
+   "valor": 33877.41
+  },
+  {
+   "mes": "2023-07",
+   "transferencia": "FPM",
+   "valor": 1887366.2
+  },
+  {
+   "mes": "2023-07",
+   "transferencia": "FUNDEB",
+   "valor": 1070114.06
+  },
+  {
+   "mes": "2023-07",
+   "transferencia": "ITR",
+   "valor": 116.63
+  },
+  {
+   "mes": "2023-07",
+   "transferencia": "LC 176/2020 (ADO25)",
+   "valor": 2744.8
+  },
+  {
+   "mes": "2023-07",
+   "transferencia": "Royalties",
+   "valor": 401941.07
+  },
+  {
+   "mes": "2023-08",
+   "transferencia": "FPM",
+   "valor": 1178516.6
+  },
+  {
+   "mes": "2023-08",
+   "transferencia": "FUNDEB",
+   "valor": 1163160.71
+  },
+  {
+   "mes": "2023-08",
+   "transferencia": "ITR",
+   "valor": 335.25
+  },
+  {
+   "mes": "2023-08",
+   "transferencia": "LC 176/2020 (ADO25)",
+   "valor": 2744.8
+  },
+  {
+   "mes": "2023-08",
+   "transferencia": "Royalties",
+   "valor": 31338.84
+  },
+  {
+   "mes": "2023-09",
+   "transferencia": "AJUSTE FUNDEB",
+   "valor": -10026.19
+  },
+  {
+   "mes": "2023-09",
+   "transferencia": "FPM",
+   "valor": 1245206.04
+  },
+  {
+   "mes": "2023-09",
+   "transferencia": "FUNDEB",
+   "valor": 1089053.55
+  },
+  {
+   "mes": "2023-09",
+   "transferencia": "ITR",
+   "valor": 1437.73
+  },
+  {
+   "mes": "2023-09",
+   "transferencia": "LC 176/2020 (ADO25)",
+   "valor": 2744.8
+  },
+  {
+   "mes": "2023-09",
+   "transferencia": "Royalties",
+   "valor": 473144.02
+  },
+  {
+   "mes": "2023-10",
+   "transferencia": "CIDE-Combustíveis",
+   "valor": 2072.95
+  },
+  {
+   "mes": "2023-10",
+   "transferencia": "FPM",
+   "valor": 1115795.15
+  },
+  {
+   "mes": "2023-10",
+   "transferencia": "FUNDEB",
+   "valor": 1130022.52
+  },
+  {
+   "mes": "2023-10",
+   "transferencia": "ITR",
+   "valor": 5505.67
+  },
+  {
+   "mes": "2023-10",
+   "transferencia": "LC 176/2020 (ADO25)",
+   "valor": 2744.8
+  },
+  {
+   "mes": "2023-10",
+   "transferencia": "Royalties",
+   "valor": 257371.21
+  },
+  {
+   "mes": "2023-11",
+   "transferencia": "AFM/AFE",
+   "valor": 494175.61
+  },
+  {
+   "mes": "2023-11",
+   "transferencia": "FPM",
+   "valor": 1447704.54
+  },
+  {
+   "mes": "2023-11",
+   "transferencia": "FUNDEB",
+   "valor": 1252570.72
+  },
+  {
+   "mes": "2023-11",
+   "transferencia": "ITR",
+   "valor": 798.66
+  },
+  {
+   "mes": "2023-11",
+   "transferencia": "LC 176/2020 (ADO25)",
+   "valor": 2744.8
+  },
+  {
+   "mes": "2023-11",
+   "transferencia": "Royalties",
+   "valor": 43977.24
+  },
+  {
+   "mes": "2023-12",
+   "transferencia": "FPM",
+   "valor": 2475606.65
+  },
+  {
+   "mes": "2023-12",
+   "transferencia": "FUNDEB",
+   "valor": 1424387.51
+  },
+  {
+   "mes": "2023-12",
+   "transferencia": "ITR",
+   "valor": 219.4
+  },
+  {
+   "mes": "2023-12",
+   "transferencia": "LC 176/2020 (ADO25)",
+   "valor": 2744.8
+  },
+  {
+   "mes": "2023-12",
+   "transferencia": "Royalties",
+   "valor": 483168.74
+  },
+  {
+   "mes": "2024-01",
+   "transferencia": "AJUSTE FUNDEB",
+   "valor": 625881.03
+  },
+  {
+   "mes": "2024-01",
+   "transferencia": "CIDE-Combustíveis",
+   "valor": 3320.54
+  },
+  {
+   "mes": "2024-01",
+   "transferencia": "FPM",
+   "valor": 1594001.88
+  },
+  {
+   "mes": "2024-01",
+   "transferencia": "FUNDEB",
+   "valor": 1554255.49
+  },
+  {
+   "mes": "2024-01",
+   "transferencia": "ITR",
+   "valor": 205.05
+  },
+  {
+   "mes": "2024-01",
+   "transferencia": "LC 176/2020 (ADO25)",
+   "valor": 2797.79
+  },
+  {
+   "mes": "2024-01",
+   "transferencia": "Royalties",
+   "valor": 303087.27
+  },
+  {
+   "mes": "2024-02",
+   "transferencia": "FPM",
+   "valor": 2167445.61
+  },
+  {
+   "mes": "2024-02",
+   "transferencia": "FUNDEB",
+   "valor": 1292978.59
+  },
+  {
+   "mes": "2024-02",
+   "transferencia": "ITR",
+   "valor": 88.58
+  },
+  {
+   "mes": "2024-02",
+   "transferencia": "LC 176/2020 (ADO25)",
+   "valor": 2797.79
+  },
+  {
+   "mes": "2024-02",
+   "transferencia": "Royalties",
+   "valor": 36767.32
+  },
+  {
+   "mes": "2024-03",
+   "transferencia": "FPM",
+   "valor": 1351173.59
+  },
+  {
+   "mes": "2024-03",
+   "transferencia": "FUNDEB",
+   "valor": 1088362.21
+  },
+  {
+   "mes": "2024-03",
+   "transferencia": "ITR",
+   "valor": 169.92
+  },
+  {
+   "mes": "2024-03",
+   "transferencia": "LC 176/2020 (ADO25)",
+   "valor": 2797.79
+  },
+  {
+   "mes": "2024-03",
+   "transferencia": "Royalties",
+   "valor": 279118.7
+  },
+  {
+   "mes": "2024-04",
+   "transferencia": "AJUSTE FUNDEB",
+   "valor": 58101.75
+  },
+  {
+   "mes": "2024-04",
+   "transferencia": "CIDE-Combustíveis",
+   "valor": 3447.83
+  },
+  {
+   "mes": "2024-04",
+   "transferencia": "FPM",
+   "valor": 1417183.53
+  },
+  {
+   "mes": "2024-04",
+   "transferencia": "FUNDEB",
+   "valor": 1162360.6
+  },
+  {
+   "mes": "2024-04",
+   "transferencia": "ITR",
+   "valor": 401.85
+  },
+  {
+   "mes": "2024-04",
+   "transferencia": "LC 176/2020 (ADO25)",
+   "valor": 2797.79
+  },
+  {
+   "mes": "2024-04",
+   "transferencia": "Royalties",
+   "valor": 241672.66
+  },
+  {
+   "mes": "2024-05",
+   "transferencia": "FPM",
+   "valor": 1648846.43
+  },
+  {
+   "mes": "2024-05",
+   "transferencia": "FUNDEB",
+   "valor": 1303648.69
+  },
+  {
+   "mes": "2024-05",
+   "transferencia": "ITR",
+   "valor": 174.93
+  },
+  {
+   "mes": "2024-05",
+   "transferencia": "LC 176/2020 (ADO25)",
+   "valor": 2797.79
+  },
+  {
+   "mes": "2024-05",
+   "transferencia": "Royalties",
+   "valor": 230149.83
+  },
+  {
+   "mes": "2024-06",
+   "transferencia": "FPM",
+   "valor": 1770586.15
+  },
+  {
+   "mes": "2024-06",
+   "transferencia": "FUNDEB",
+   "valor": 1326633.12
+  },
+  {
+   "mes": "2024-06",
+   "transferencia": "ITR",
+   "valor": 182.69
+  },
+  {
+   "mes": "2024-06",
+   "transferencia": "LC 176/2020 (ADO25)",
+   "valor": 2797.79
+  },
+  {
+   "mes": "2024-06",
+   "transferencia": "Royalties",
+   "valor": 257307.29
+  },
+  {
+   "mes": "2024-07",
+   "transferencia": "CIDE-Combustíveis",
+   "valor": 3345.18
+  },
+  {
+   "mes": "2024-07",
+   "transferencia": "FPM",
+   "valor": 2111359.48
+  },
+  {
+   "mes": "2024-07",
+   "transferencia": "FUNDEB",
+   "valor": 1265254.55
+  },
+  {
+   "mes": "2024-07",
+   "transferencia": "ITR",
+   "valor": 167.57
+  },
+  {
+   "mes": "2024-07",
+   "transferencia": "LC 176/2020 (ADO25)",
+   "valor": 2797.79
+  },
+  {
+   "mes": "2024-07",
+   "transferencia": "Royalties",
+   "valor": 276567.96
+  },
+  {
+   "mes": "2024-08",
+   "transferencia": "FPM",
+   "valor": 1500853.69
+  },
+  {
+   "mes": "2024-08",
+   "transferencia": "FUNDEB",
+   "valor": 1285368.17
+  },
+  {
+   "mes": "2024-08",
+   "transferencia": "ITR",
+   "valor": 768.57
+  },
+  {
+   "mes": "2024-08",
+   "transferencia": "LC 176/2020 (ADO25)",
+   "valor": 2797.79
+  },
+  {
+   "mes": "2024-08",
+   "transferencia": "Royalties",
+   "valor": 505042.0
+  },
+  {
+   "mes": "2024-09",
+   "transferencia": "AJUSTE FUNDEB",
+   "valor": 150193.34
+  },
+  {
+   "mes": "2024-09",
+   "transferencia": "FPM",
+   "valor": 1647068.25
+  },
+  {
+   "mes": "2024-09",
+   "transferencia": "FUNDEB",
+   "valor": 1318945.47
+  },
+  {
+   "mes": "2024-09",
+   "transferencia": "ITR",
+   "valor": 2779.12
+  },
+  {
+   "mes": "2024-09",
+   "transferencia": "LC 176/2020 (ADO25)",
+   "valor": 2797.79
+  },
+  {
+   "mes": "2024-09",
+   "transferencia": "Royalties",
+   "valor": 283003.61
+  },
+  {
+   "mes": "2024-10",
+   "transferencia": "CIDE-Combustíveis",
+   "valor": 5555.77
+  },
+  {
+   "mes": "2024-10",
+   "transferencia": "FPM",
+   "valor": 1307365.8
+  },
+  {
+   "mes": "2024-10",
+   "transferencia": "FUNDEB",
+   "valor": 1446189.68
+  },
+  {
+   "mes": "2024-10",
+   "transferencia": "ITR",
+   "valor": 4379.8
+  },
+  {
+   "mes": "2024-10",
+   "transferencia": "LC 176/2020 (ADO25)",
+   "valor": 2797.79
+  },
+  {
+   "mes": "2024-10",
+   "transferencia": "Royalties",
+   "valor": 41042.55
+  },
+  {
+   "mes": "2024-11",
+   "transferencia": "FPM",
+   "valor": 1673487.89
+  },
+  {
+   "mes": "2024-11",
+   "transferencia": "FUNDEB",
+   "valor": 1473963.02
+  },
+  {
+   "mes": "2024-11",
+   "transferencia": "ITR",
+   "valor": 167.05
+  },
+  {
+   "mes": "2024-11",
+   "transferencia": "LC 176/2020 (ADO25)",
+   "valor": 2797.79
+  },
+  {
+   "mes": "2024-11",
+   "transferencia": "Royalties",
+   "valor": 264016.98
+  },
+  {
+   "mes": "2024-12",
+   "transferencia": "FPM",
+   "valor": 2904836.71
+  },
+  {
+   "mes": "2024-12",
+   "transferencia": "FUNDEB",
+   "valor": 1583978.17
+  },
+  {
+   "mes": "2024-12",
+   "transferencia": "ITR",
+   "valor": 596.34
+  },
+  {
+   "mes": "2024-12",
+   "transferencia": "LC 176/2020 (ADO25)",
+   "valor": 2797.79
+  },
+  {
+   "mes": "2024-12",
+   "transferencia": "Royalties",
+   "valor": 425966.42
+  },
+  {
+   "mes": "2025-01",
+   "transferencia": "AJUSTE FUNDEB",
+   "valor": -14019.92
+  },
+  {
+   "mes": "2025-01",
+   "transferencia": "CIDE-Combustíveis",
+   "valor": 3674.66
+  },
+  {
+   "mes": "2025-01",
+   "transferencia": "FPM",
+   "valor": 1691322.05
+  },
+  {
+   "mes": "2025-01",
+   "transferencia": "FUNDEB",
+   "valor": 2519217.49
+  },
+  {
+   "mes": "2025-01",
+   "transferencia": "ITR",
+   "valor": 253.81
+  },
+  {
+   "mes": "2025-01",
+   "transferencia": "LC 176/2020 (ADO25)",
+   "valor": 2754.83
+  },
+  {
+   "mes": "2025-01",
+   "transferencia": "Royalties",
+   "valor": 232827.52
+  },
+  {
+   "mes": "2025-02",
+   "transferencia": "FPM",
+   "valor": 2269558.91
+  },
+  {
+   "mes": "2025-02",
+   "transferencia": "FUNDEB",
+   "valor": 1518970.58
+  },
+  {
+   "mes": "2025-02",
+   "transferencia": "ITR",
+   "valor": 187.41
+  },
+  {
+   "mes": "2025-02",
+   "transferencia": "LC 176/2020 (ADO25)",
+   "valor": 2754.83
+  },
+  {
+   "mes": "2025-02",
+   "transferencia": "Royalties",
+   "valor": 43156.9
+  },
+  {
+   "mes": "2025-03",
+   "transferencia": "FPM",
+   "valor": 1494608.95
+  },
+  {
+   "mes": "2025-03",
+   "transferencia": "FUNDEB",
+   "valor": 1265664.57
+  },
+  {
+   "mes": "2025-03",
+   "transferencia": "ITR",
+   "valor": 891.27
+  },
+  {
+   "mes": "2025-03",
+   "transferencia": "LC 176/2020 (ADO25)",
+   "valor": 2754.83
+  },
+  {
+   "mes": "2025-03",
+   "transferencia": "Royalties",
+   "valor": 471398.82
+  },
+  {
+   "mes": "2025-04",
+   "transferencia": "AJUSTE FUNDEB",
+   "valor": 129560.65
+  },
+  {
+   "mes": "2025-04",
+   "transferencia": "CIDE-Combustíveis",
+   "valor": 3473.81
+  },
+  {
+   "mes": "2025-04",
+   "transferencia": "FPM",
+   "valor": 1518777.74
+  },
+  {
+   "mes": "2025-04",
+   "transferencia": "FUNDEB",
+   "valor": 1369822.24
+  },
+  {
+   "mes": "2025-04",
+   "transferencia": "ITR",
+   "valor": 223.63
+  },
+  {
+   "mes": "2025-04",
+   "transferencia": "LC 176/2020 (ADO25)",
+   "valor": 2754.83
+  },
+  {
+   "mes": "2025-04",
+   "transferencia": "Royalties",
+   "valor": 262197.3
+  },
+  {
+   "mes": "2025-05",
+   "transferencia": "FPM",
+   "valor": 1937416.33
+  },
+  {
+   "mes": "2025-05",
+   "transferencia": "FUNDEB",
+   "valor": 1529419.63
+  },
+  {
+   "mes": "2025-05",
+   "transferencia": "ITR",
+   "valor": 247.48
+  },
+  {
+   "mes": "2025-05",
+   "transferencia": "LC 176/2020 (ADO25)",
+   "valor": 2754.83
+  },
+  {
+   "mes": "2025-05",
+   "transferencia": "Royalties",
+   "valor": 42887.34
+  },
+  {
+   "mes": "2025-06",
+   "transferencia": "FPM",
+   "valor": 1989992.76
+  },
+  {
+   "mes": "2025-06",
+   "transferencia": "FUNDEB",
+   "valor": 1553286.13
+  },
+  {
+   "mes": "2025-06",
+   "transferencia": "ITR",
+   "valor": 885.71
+  },
+  {
+   "mes": "2025-06",
+   "transferencia": "LC 176/2020 (ADO25)",
+   "valor": 2754.83
+  },
+  {
+   "mes": "2025-06",
+   "transferencia": "Royalties",
+   "valor": 284684.37
+  },
+  {
+   "mes": "2025-07",
+   "transferencia": "CIDE-Combustíveis",
+   "valor": 3821.14
+  },
+  {
+   "mes": "2025-07",
+   "transferencia": "FPM",
+   "valor": 1221586.19
+  },
+  {
+   "mes": "2025-07",
+   "transferencia": "FPM 1%",
+   "valor": 1087525.81
+  },
+  {
+   "mes": "2025-07",
+   "transferencia": "FUNDEB",
+   "valor": 1474720.64
+  },
+  {
+   "mes": "2025-07",
+   "transferencia": "ITR",
+   "valor": 127.17
+  },
+  {
+   "mes": "2025-07",
+   "transferencia": "LC 176/2020 (ADO25)",
+   "valor": 2754.83
+  },
+  {
+   "mes": "2025-07",
+   "transferencia": "Royalties",
+   "valor": 542964.81
+  },
+  {
+   "mes": "2025-08",
+   "transferencia": "FPM",
+   "valor": 1611698.89
+  },
+  {
+   "mes": "2025-08",
+   "transferencia": "FUNDEB",
+   "valor": 1527964.77
+  },
+  {
+   "mes": "2025-08",
+   "transferencia": "ITR",
+   "valor": 537.61
+  },
+  {
+   "mes": "2025-08",
+   "transferencia": "LC 176/2020 (ADO25)",
+   "valor": 2754.83
+  },
+  {
+   "mes": "2025-08",
+   "transferencia": "Royalties",
+   "valor": 40472.24
+  },
+  {
+   "mes": "2025-09",
+   "transferencia": "AJUSTE FUNDEB",
+   "valor": -591.58
+  },
+  {
+   "mes": "2025-09",
+   "transferencia": "FPM",
+   "valor": 1301284.34
+  },
+  {
+   "mes": "2025-09",
+   "transferencia": "FPM 1%",
+   "valor": 930031.02
+  },
+  {
+   "mes": "2025-09",
+   "transferencia": "FUNDEB",
+   "valor": 1383943.55
+  },
+  {
+   "mes": "2025-09",
+   "transferencia": "ITR",
+   "valor": 1303.21
+  },
+  {
+   "mes": "2025-09",
+   "transferencia": "LC 176/2020 (ADO25)",
+   "valor": 2754.83
+  },
+  {
+   "mes": "2025-09",
+   "transferencia": "Royalties",
+   "valor": 492079.99
+  },
+  {
+   "mes": "2025-10",
+   "transferencia": "CIDE-Combustíveis",
+   "valor": 4029.45
+  },
+  {
+   "mes": "2025-10",
+   "transferencia": "FPM",
+   "valor": 1371717.04
+  },
+  {
+   "mes": "2025-10",
+   "transferencia": "FUNDEB",
+   "valor": 1647326.25
+  },
+  {
+   "mes": "2025-10",
+   "transferencia": "ITR",
+   "valor": 5660.45
+  },
+  {
+   "mes": "2025-10",
+   "transferencia": "LC 176/2020 (ADO25)",
+   "valor": 2754.83
+  },
+  {
+   "mes": "2025-10",
+   "transferencia": "Royalties",
+   "valor": 40377.73
+  },
+  {
+   "mes": "2025-11",
+   "transferencia": "FPM",
+   "valor": 1864629.46
+  },
+  {
+   "mes": "2025-11",
+   "transferencia": "FUNDEB",
+   "valor": 1611520.32
+  },
+  {
+   "mes": "2025-11",
+   "transferencia": "ITR",
+   "valor": 310.48
+  },
+  {
+   "mes": "2025-11",
+   "transferencia": "LC 176/2020 (ADO25)",
+   "valor": 2754.83
+  },
+  {
+   "mes": "2025-11",
+   "transferencia": "Royalties",
+   "valor": 430484.18
+  },
+  {
+   "mes": "2025-12",
+   "transferencia": "AJUSTE FUNDEB",
+   "valor": 197865.13
+  },
+  {
+   "mes": "2025-12",
+   "transferencia": "FPM",
+   "valor": 2104647.86
+  },
+  {
+   "mes": "2025-12",
+   "transferencia": "FPM 1%",
+   "valor": 1122625.46
+  },
+  {
+   "mes": "2025-12",
+   "transferencia": "FUNDEB",
+   "valor": 1698853.92
+  },
+  {
+   "mes": "2025-12",
+   "transferencia": "ITR",
+   "valor": 225.1
+  },
+  {
+   "mes": "2025-12",
+   "transferencia": "LC 176/2020 (ADO25)",
+   "valor": 2754.83
+  },
+  {
+   "mes": "2025-12",
+   "transferencia": "Royalties",
+   "valor": 241453.7
+  },
+  {
+   "mes": "2026-01",
+   "transferencia": "AJUSTE FUNDEB",
+   "valor": 526248.67
+  },
+  {
+   "mes": "2026-01",
+   "transferencia": "CIDE-Combustíveis",
+   "valor": 4421.8
+  },
+  {
+   "mes": "2026-01",
+   "transferencia": "FPM",
+   "valor": 1908662.22
+  },
+  {
+   "mes": "2026-01",
+   "transferencia": "FUNDEB",
+   "valor": 1999165.8
+  },
+  {
+   "mes": "2026-01",
+   "transferencia": "ITR",
+   "valor": 186.71
+  },
+  {
+   "mes": "2026-01",
+   "transferencia": "LC 176/2020 (ADO25)",
+   "valor": 3164.54
+  },
+  {
+   "mes": "2026-01",
+   "transferencia": "Royalties",
+   "valor": 245901.51
+  },
+  {
+   "mes": "2026-02",
+   "transferencia": "FPM",
+   "valor": 2399760.18
+  },
+  {
+   "mes": "2026-02",
+   "transferencia": "FUNDEB",
+   "valor": 1516452.25
+  },
+  {
+   "mes": "2026-02",
+   "transferencia": "ITR",
+   "valor": 147.04
+  },
+  {
+   "mes": "2026-02",
+   "transferencia": "LC 176/2020 (ADO25)",
+   "valor": 3164.54
+  },
+  {
+   "mes": "2026-02",
+   "transferencia": "Royalties",
+   "valor": 38614.08
+  },
+  {
+   "mes": "2026-03",
+   "transferencia": "FPM",
+   "valor": 1453200.06
+  },
+  {
+   "mes": "2026-03",
+   "transferencia": "FUNDEB",
+   "valor": 1351929.44
+  },
+  {
+   "mes": "2026-03",
+   "transferencia": "ITR",
+   "valor": 578.41
+  },
+  {
+   "mes": "2026-03",
+   "transferencia": "LC 176/2020 (ADO25)",
+   "valor": 3164.54
+  },
+  {
+   "mes": "2026-03",
+   "transferencia": "Royalties",
+   "valor": 516627.42
+  },
+  {
+   "mes": "2026-04",
+   "transferencia": "AJUSTE FUNDEB",
+   "valor": 42431.33
+  },
+  {
+   "mes": "2026-04",
+   "transferencia": "CIDE-Combustíveis",
+   "valor": 3593.27
+  },
+  {
+   "mes": "2026-04",
+   "transferencia": "FPM",
+   "valor": 1711001.91
+  },
+  {
+   "mes": "2026-04",
+   "transferencia": "FUNDEB",
+   "valor": 1461176.61
+  },
+  {
+   "mes": "2026-04",
+   "transferencia": "ITR",
+   "valor": 357.33
+  },
+  {
+   "mes": "2026-04",
+   "transferencia": "LC 176/2020 (ADO25)",
+   "valor": 3164.54
+  },
+  {
+   "mes": "2026-04",
+   "transferencia": "Royalties",
+   "valor": 38452.55
+  },
+  {
+   "mes": "2026-05",
+   "transferencia": "AJUSTE FUNDEB",
+   "valor": 290467.96
+  },
+  {
+   "mes": "2026-05",
+   "transferencia": "FPM",
+   "valor": 2070855.51
+  },
+  {
+   "mes": "2026-05",
+   "transferencia": "FUNDEB",
+   "valor": 1307592.72
+  },
+  {
+   "mes": "2026-05",
+   "transferencia": "ITR",
+   "valor": 536.72
+  },
+  {
+   "mes": "2026-05",
+   "transferencia": "LC 176/2020 (ADO25)",
+   "valor": 3164.54
+  },
+  {
+   "mes": "2026-05",
+   "transferencia": "Royalties",
+   "valor": 265493.35
+  },
+  {
+   "mes": "2026-06",
+   "transferencia": "FPM",
+   "valor": 2181835.46
+  },
+  {
+   "mes": "2026-06",
+   "transferencia": "FUNDEB",
+   "valor": 1666912.02
+  },
+  {
+   "mes": "2026-06",
+   "transferencia": "ITR",
+   "valor": 259.9
+  },
+  {
+   "mes": "2026-06",
+   "transferencia": "LC 176/2020 (ADO25)",
+   "valor": 3164.54
+  },
+  {
+   "mes": "2026-06",
+   "transferencia": "Royalties",
+   "valor": 637102.0
+  },
+  {
+   "mes": "2026-07",
+   "transferencia": "CIDE-Combustíveis",
+   "valor": 3986.95
+  },
+  {
+   "mes": "2026-07",
+   "transferencia": "FPM",
+   "valor": 1373090.13
+  },
+  {
+   "mes": "2026-07",
+   "transferencia": "FPM 1%",
+   "valor": 1183866.56
+  },
+  {
+   "mes": "2026-07",
+   "transferencia": "FUNDEB",
+   "valor": 1518121.61
+  },
+  {
+   "mes": "2026-07",
+   "transferencia": "ITR",
+   "valor": 15.7
+  },
+  {
+   "mes": "2026-07",
+   "transferencia": "LC 176/2020 (ADO25)",
+   "valor": 3164.54
+  },
+  {
+   "mes": "2026-07",
+   "transferencia": "Royalties",
+   "valor": 64515.87
+  },
+  {
+   "mes": "2026-08",
+   "transferencia": "AJUSTE FUNDEB",
+   "valor": -73.48
+  },
+  {
+   "mes": "2026-08",
+   "transferencia": "FPM",
+   "valor": 1841316.79
+  },
+  {
+   "mes": "2026-08",
+   "transferencia": "FUNDEB",
+   "valor": 1660882.25
+  },
+  {
+   "mes": "2026-08",
+   "transferencia": "ITR",
+   "valor": 442.89
+  },
+  {
+   "mes": "2026-08",
+   "transferencia": "LC 176/2020 (ADO25)",
+   "valor": 3164.54
+  },
+  {
+   "mes": "2026-08",
+   "transferencia": "Royalties",
+   "valor": 591276.7
+  },
+  {
+   "mes": "2026-09",
+   "transferencia": "AJUSTE FUNDEB",
+   "valor": -8600.76
+  },
+  {
+   "mes": "2026-09",
+   "transferencia": "FPM",
+   "valor": 1473032.35
+  },
+  {
+   "mes": "2026-09",
+   "transferencia": "FPM 1%",
+   "valor": 1201219.33
+  },
+  {
+   "mes": "2026-09",
+   "transferencia": "FUNDEB",
+   "valor": 1631255.97
+  },
+  {
+   "mes": "2026-09",
+   "transferencia": "ITR",
+   "valor": 1424.94
+  },
+  {
+   "mes": "2026-09",
+   "transferencia": "LC 176/2020 (ADO25)",
+   "valor": 3164.54
+  },
+  {
+   "mes": "2026-09",
+   "transferencia": "Royalties",
+   "valor": 51292.03
+  },
+  {
+   "mes": "2026-10",
+   "transferencia": "CIDE-Combustíveis",
+   "valor": 4653.94
+  },
+  {
+   "mes": "2026-10",
+   "transferencia": "FPM",
+   "valor": 915633.34
+  },
+  {
+   "mes": "2026-10",
+   "transferencia": "FUNDEB",
+   "valor": 455415.73
+  },
+  {
+   "mes": "2026-10",
+   "transferencia": "ITR",
+   "valor": 11410.5
+  },
+  {
+   "mes": "2026-10",
+   "transferencia": "Royalties",
+   "valor": 296923.74
+  }
+ ]
+}

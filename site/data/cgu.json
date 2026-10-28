@@ -1,0 +1,632 @@
+{
+ "fonte": "Portal da Transparência - CGU",
+ "atualizado_em": "2026-10-28T23:42:22+00:00",
+ "convenios": [
+  {
+   "numero": "024019/2026",
+   "objeto": "Execucao de obras e servicos de engenharia para Estradas Vicinais no municipio de Rodelas BA.",
+   "orgao": "Ministério da Agricultura e Pecuária - Unidades com vínculo direto",
+   "convenente": "MUNICIPIO DE RODELAS",
+   "situacao": "EM EXECUÇÃO",
+   "valor": 700000.0,
+   "valor_liberado": 0.0,
+   "inicio": "2026-07-31",
+   "fim": "2029-07-31"
+  },
+  {
+   "numero": null,
+   "objeto": null,
+   "orgao": "Fundo Nacional de Habitação de Interesse Social",
+   "convenente": "MUNICIPIO DE RODELAS",
+   "situacao": "EM EXECUÇÃO",
+   "valor": 2800000.0,
+   "valor_liberado": 0.0,
+   "inicio": "2026-06-16",
+   "fim": "2028-06-16"
+  },
+  {
+   "numero": "52160/2018",
+   "objeto": "Pavimentacao em ruas da sede do municipio de Rodelas/BA.",
+   "orgao": "Ministério das Cidades - Unidades com vínculo direto",
+   "convenente": "MUNICIPIO DE RODELAS",
+   "situacao": "NORMAL",
+   "valor": 222857.14,
+   "valor_liberado": 222857.14,
+   "inicio": "2018-12-27",
+   "fim": "2023-03-05"
+  },
+  {
+   "numero": "01157/2017",
+   "objeto": "Implantacao de melhorias sanitarias domiciliares no municipio de Rodelas BA.",
+   "orgao": "Fundação Nacional de Saúde",
+   "convenente": "MUNICIPIO DE RODELAS",
+   "situacao": "CONVÊNIO ANULADO",
+   "valor": 340000.0,
+   "valor_liberado": 0.0,
+   "inicio": "2017-12-29",
+   "fim": "2020-09-29"
+  },
+  {
+   "numero": "25974/2017",
+   "objeto": "Pavimentacao de Ruas do perimetro urbano do municipio de Rodelas BA.",
+   "orgao": "Ministério das Cidades - Unidades com vínculo direto",
+   "convenente": "MUNICIPIO DE RODELAS",
+   "situacao": "NORMAL",
+   "valor": 293900.0,
+   "valor_liberado": 293900.0,
+   "inicio": "2017-12-27",
+   "fim": "2021-05-05"
+  },
+  {
+   "numero": "00218/2016",
+   "objeto": "Implantacao de melhorias sanitarias domiciliares nas localidades de Kambiua, Pankarare, Atikum e Atikum Nova Alianca no municipio de Rodelas BA.",
+   "orgao": "Fundação Nacional de Saúde",
+   "convenente": "MUNICIPIO DE RODELAS",
+   "situacao": "EM EXECUÇÃO",
+   "valor": 334856.74,
+   "valor_liberado": 167428.37,
+   "inicio": "2016-12-30",
+   "fim": "2026-12-31"
+  },
+  {
+   "numero": "04583/2016",
+   "objeto": "Pavimentacao em Ruas do municipio de Rodelas BA.",
+   "orgao": "Ministério das Cidades - Unidades com vínculo direto",
+   "convenente": "MUNICIPIO DE RODELAS",
+   "situacao": "NORMAL",
+   "valor": 245850.0,
+   "valor_liberado": 245850.0,
+   "inicio": "2016-12-02",
+   "fim": "2021-09-05"
+  },
+  {
+   "numero": "79785/2013",
+   "objeto": "ESTRUTURACAO DA REDE DE SERVICOS DA PROTECAO SOCIAL BASICA  CONSTRUCAO DE CRAS",
+   "orgao": "Ministério do Desenvolvimento e Assistência Social, Família e Combate à Fome - Unidades com vínculo direto",
+   "convenente": "MUNICIPIO DE RODELAS",
+   "situacao": "NORMAL",
+   "valor": 350000.0,
+   "valor_liberado": 350000.0,
+   "inicio": "2013-12-30",
+   "fim": "2020-05-05"
+  },
+  {
+   "numero": "701197/2011",
+   "objeto": "AQUISIçãO DE VEíCULOS ESCOLARES, NO âMBITO DO PROGRAMA CAMINHO DA ES- COLA",
+   "orgao": "Fundo Nacional de Desenvolvimento da Educação",
+   "convenente": "MUNICIPIO DE RODELAS",
+   "situacao": "ARQUIVADO",
+   "valor": 224571.6,
+   "valor_liberado": 224571.6,
+   "inicio": "2011-12-29",
+   "fim": "2012-12-27"
+  },
+  {
+   "numero": "703566/2010",
+   "objeto": "O OBJETO DESTE CONVENIO E CONSTRUCAO DE ESCOLA(S), NO AMBITO DO PROGRAMA NACIONAL DE REESTRUTURACAO E APARELHAGEM DA REDE ESCOLAR PUBLICA DEEDUCACAO INFANTIL - PROINFANCIA.",
+   "orgao": "Fundo Nacional de Desenvolvimento da Educação",
+   "convenente": "MUNICIPIO DE RODELAS",
+   "situacao": "INADIMPLÊNCIA SUSPENSA",
+   "valor": 559350.0,
+   "valor_liberado": 559350.0,
+   "inicio": "2010-12-29",
+   "fim": "2016-05-30"
+  },
+  {
+   "numero": "700994/2010",
+   "objeto": "AQUISICAO DE VEICULO AUTOMOTOR, ZERO QUILOMETRO, COM ESPECIFICACOES PARA TRANSPORTE ESCOLAR,  POR MEIO DE APOIO FINANCEIRO, NO .MBITO DO PROGRAMA CAMINHO DA ESCOLA.",
+   "orgao": "Fundo Nacional de Desenvolvimento da Educação",
+   "convenente": "MUNICIPIO DE RODELAS",
+   "situacao": "CONCLUÍDO",
+   "valor": 196020.0,
+   "valor_liberado": 196020.0,
+   "inicio": "2010-07-02",
+   "fim": "2011-10-05"
+  },
+  {
+   "numero": "25126/2010",
+   "objeto": "PAVIMENTACAO EM PARALELEPIPEDO NO MUNICIPIO DE RODELAS-BA",
+   "orgao": "Ministério das Cidades - Unidades com vínculo direto",
+   "convenente": "MUNICIPIO DE RODELAS",
+   "situacao": "PRESTAÇÃO DE CONTAS APROVADA",
+   "valor": 394200.0,
+   "valor_liberado": 394200.0,
+   "inicio": "2010-06-09",
+   "fim": "2017-03-05"
+  },
+  {
+   "numero": "08977/2009",
+   "objeto": "PAVIMENTACAO EM PARALELEPIPEDO NO BAIRRO CAIXA D AGUA, MUNICIPIO DE RODELAS-BA.",
+   "orgao": "Ministério das Cidades - Unidades com vínculo direto",
+   "convenente": "MUNICIPIO DE RODELAS",
+   "situacao": "PRESTAÇÃO DE CONTAS APROVADA",
+   "valor": 295300.0,
+   "valor_liberado": 295300.0,
+   "inicio": "2009-12-18",
+   "fim": "2017-03-05"
+  },
+  {
+   "numero": "6.97.08.003-00",
+   "objeto": "1.545 HORAS DE TRATOR PARA IMPLANTACAO E LIMPEZA DE PEQUENAS BARRAGENSDE TERRA E AGUADAS EM DIVERSAS LOCALIDADES NO MUNICIPIO DE RODELAS.",
+   "orgao": "Companhia de Desenvolvimento dos Vales do São Francisco e do Parnaíba",
+   "convenente": "MUNICIPIO DE RODELAS",
+   "situacao": "CONCLUÍDO",
+   "valor": 180000.0,
+   "valor_liberado": 180000.0,
+   "inicio": "2008-02-20",
+   "fim": "2011-04-08"
+  },
+  {
+   "numero": "CR.NR.0212233-80",
+   "objeto": "AQUISICAO DE PATRULHA MECANIZADA PARA O MUNICIPIO DE RODELAS",
+   "orgao": "Ministério da Agricultura e Pecuária - Unidades com vínculo direto",
+   "convenente": "MUNICIPIO DE RODELAS",
+   "situacao": "EXCLUÍDO",
+   "valor": 58500.0,
+   "valor_liberado": 0.0,
+   "inicio": "2006-12-29",
+   "fim": "2007-10-13"
+  },
+  {
+   "numero": "550007200600046",
+   "objeto": "Objeto: Tem por objetivo a realizacao de acoesde cadastramento e atualizacao das bases de dados dos cidadaos dos municipios incluidas no ca                d Unico (Bolsa Familia).",
+   "orgao": "Ministério do Desenvolvimento e Assistência Social, Família e Combate à Fome - Unidades com vínculo direto",
+   "convenente": "MUNICIPIO DE RODELAS",
+   "situacao": "CONCLUÍDO",
+   "valor": 3606.0,
+   "valor_liberado": 2754.0,
+   "inicio": "2006-02-08",
+   "fim": "2006-08-31"
+  },
+  {
+   "numero": "750/96",
+   "objeto": "IMPLANTACAO DO PSF NA PERSPECTIVA DE MODELO DE ASSISTENCIA PRIORIZANDOA ATENCAO A SAUDE, VISANDO FORTALECIMENTO DO PROCESSO DE MUNICIPALIZA-CAO E CONSOLIDACAO DO SUS.",
+   "orgao": "Ministério da Saúde - Unidades com vínculo direto",
+   "convenente": "MUNICIPIO DE RODELAS",
+   "situacao": "CONCLUÍDO",
+   "valor": 83000.0,
+   "valor_liberado": 83000.0,
+   "inicio": "1996-06-29",
+   "fim": "1998-06-29"
+  }
+ ],
+ "bolsa_familia": [
+  {
+   "mes": "2023-03",
+   "valor": 1774082.0,
+   "beneficiados": 2820
+  },
+  {
+   "mes": "2023-04",
+   "valor": 1743658.0,
+   "beneficiados": 2779
+  },
+  {
+   "mes": "2023-05",
+   "valor": 1858234.0,
+   "beneficiados": 2898
+  },
+  {
+   "mes": "2023-06",
+   "valor": 2088402.0,
+   "beneficiados": 3167
+  },
+  {
+   "mes": "2023-07",
+   "valor": 1960483.0,
+   "beneficiados": 2921
+  },
+  {
+   "mes": "2023-08",
+   "valor": 1939425.0,
+   "beneficiados": 3003
+  },
+  {
+   "mes": "2023-09",
+   "valor": 2045120.0,
+   "beneficiados": 3123
+  },
+  {
+   "mes": "2023-10",
+   "valor": 2063641.0,
+   "beneficiados": 3165
+  },
+  {
+   "mes": "2023-11",
+   "valor": 1991812.0,
+   "beneficiados": 3171
+  },
+  {
+   "mes": "2023-12",
+   "valor": 2022983.0,
+   "beneficiados": 3215
+  },
+  {
+   "mes": "2024-01",
+   "valor": 2138985.0,
+   "beneficiados": 3272
+  },
+  {
+   "mes": "2024-02",
+   "valor": 2168197.0,
+   "beneficiados": 3318
+  },
+  {
+   "mes": "2024-03",
+   "valor": 2161614.0,
+   "beneficiados": 3340
+  },
+  {
+   "mes": "2024-04",
+   "valor": 2209683.0,
+   "beneficiados": 3417
+  },
+  {
+   "mes": "2024-05",
+   "valor": 2174515.0,
+   "beneficiados": 3354
+  },
+  {
+   "mes": "2024-06",
+   "valor": 2183117.0,
+   "beneficiados": 3368
+  },
+  {
+   "mes": "2024-07",
+   "valor": 2271589.0,
+   "beneficiados": 3469
+  },
+  {
+   "mes": "2024-08",
+   "valor": 2358372.0,
+   "beneficiados": 3520
+  },
+  {
+   "mes": "2024-09",
+   "valor": 2451806.0,
+   "beneficiados": 3596
+  },
+  {
+   "mes": "2024-10",
+   "valor": 2348630.0,
+   "beneficiados": 3613
+  },
+  {
+   "mes": "2024-11",
+   "valor": 2465457.0,
+   "beneficiados": 3608
+  },
+  {
+   "mes": "2024-12",
+   "valor": 2464124.0,
+   "beneficiados": 3601
+  },
+  {
+   "mes": "2025-01",
+   "valor": 2457071.0,
+   "beneficiados": 3598
+  },
+  {
+   "mes": "2025-02",
+   "valor": 2484280.0,
+   "beneficiados": 3627
+  },
+  {
+   "mes": "2025-03",
+   "valor": 2479541.0,
+   "beneficiados": 3623
+  },
+  {
+   "mes": "2025-04",
+   "valor": 2484461.0,
+   "beneficiados": 3643
+  },
+  {
+   "mes": "2025-05",
+   "valor": 2461961.0,
+   "beneficiados": 3641
+  },
+  {
+   "mes": "2025-06",
+   "valor": 2464304.0,
+   "beneficiados": 3634
+  },
+  {
+   "mes": "2025-07",
+   "valor": 2485522.0,
+   "beneficiados": 3659
+  },
+  {
+   "mes": "2025-08",
+   "valor": 2496679.0,
+   "beneficiados": 3679
+  },
+  {
+   "mes": "2025-09",
+   "valor": 2556401.0,
+   "beneficiados": 3750
+  },
+  {
+   "mes": "2025-10",
+   "valor": 2557733.0,
+   "beneficiados": 3770
+  },
+  {
+   "mes": "2025-11",
+   "valor": 2553034.0,
+   "beneficiados": 3768
+  },
+  {
+   "mes": "2025-12",
+   "valor": 2578060.0,
+   "beneficiados": 3797
+  },
+  {
+   "mes": "2026-01",
+   "valor": 2597891.0,
+   "beneficiados": 3827
+  },
+  {
+   "mes": "2026-02",
+   "valor": 2595374.0,
+   "beneficiados": 3836
+  },
+  {
+   "mes": "2026-03",
+   "valor": 2622089.0,
+   "beneficiados": 3858
+  },
+  {
+   "mes": "2026-04",
+   "valor": 2601164.0,
+   "beneficiados": 3856
+  },
+  {
+   "mes": "2026-05",
+   "valor": 2622471.0,
+   "beneficiados": 3866
+  },
+  {
+   "mes": "2026-06",
+   "valor": 2628839.0,
+   "beneficiados": 3889
+  },
+  {
+   "mes": "2026-07",
+   "valor": 2655360.0,
+   "beneficiados": 3913
+  },
+  {
+   "mes": "2026-08",
+   "valor": 2621540.0,
+   "beneficiados": 3875
+  }
+ ],
+ "bpc": [
+  {
+   "mes": "2023-01",
+   "valor": 153636.31,
+   "beneficiados": 91
+  },
+  {
+   "mes": "2023-02",
+   "valor": 153637.09,
+   "beneficiados": 91
+  },
+  {
+   "mes": "2023-03",
+   "valor": 153638.05,
+   "beneficiados": 91
+  },
+  {
+   "mes": "2023-04",
+   "valor": 153638.0,
+   "beneficiados": 91
+  },
+  {
+   "mes": "2023-05",
+   "valor": 155762.0,
+   "beneficiados": 91
+  },
+  {
+   "mes": "2023-06",
+   "valor": 151801.15,
+   "beneficiados": 89
+  },
+  {
+   "mes": "2023-07",
+   "valor": 151801.15,
+   "beneficiados": 89
+  },
+  {
+   "mes": "2023-08",
+   "valor": 155761.62,
+   "beneficiados": 91
+  },
+  {
+   "mes": "2023-09",
+   "valor": 158401.72,
+   "beneficiados": 93
+  },
+  {
+   "mes": "2023-10",
+   "valor": 159721.42,
+   "beneficiados": 93
+  },
+  {
+   "mes": "2023-11",
+   "valor": 161047.36,
+   "beneficiados": 93
+  },
+  {
+   "mes": "2023-12",
+   "valor": 159721.42,
+   "beneficiados": 93
+  },
+  {
+   "mes": "2024-01",
+   "valor": 168030.06,
+   "beneficiados": 91
+  },
+  {
+   "mes": "2024-02",
+   "valor": 173678.06,
+   "beneficiados": 95
+  },
+  {
+   "mes": "2024-03",
+   "valor": 172265.75,
+   "beneficiados": 93
+  },
+  {
+   "mes": "2024-04",
+   "valor": 172265.75,
+   "beneficiados": 92
+  },
+  {
+   "mes": "2024-05",
+   "valor": 172265.75,
+   "beneficiados": 92
+  },
+  {
+   "mes": "2024-06",
+   "valor": 176502.53,
+   "beneficiados": 94
+  },
+  {
+   "mes": "2024-07",
+   "valor": 77665.31,
+   "beneficiados": 37
+  },
+  {
+   "mes": "2024-08",
+   "valor": 159570.8,
+   "beneficiados": 80
+  },
+  {
+   "mes": "2024-09",
+   "valor": 160982.74,
+   "beneficiados": 81
+  },
+  {
+   "mes": "2024-10",
+   "valor": 159571.34,
+   "beneficiados": 81
+  },
+  {
+   "mes": "2024-11",
+   "valor": 159573.03,
+   "beneficiados": 80
+  },
+  {
+   "mes": "2024-12",
+   "valor": 159571.34,
+   "beneficiados": 81
+  },
+  {
+   "mes": "2025-01",
+   "valor": 180657.63,
+   "beneficiados": 83
+  },
+  {
+   "mes": "2025-02",
+   "valor": 180657.63,
+   "beneficiados": 83
+  },
+  {
+   "mes": "2025-03",
+   "valor": 183693.9,
+   "beneficiados": 84
+  },
+  {
+   "mes": "2025-04",
+   "valor": 186729.72,
+   "beneficiados": 84
+  },
+  {
+   "mes": "2025-05",
+   "valor": 186730.78,
+   "beneficiados": 84
+  },
+  {
+   "mes": "2025-06",
+   "valor": 189767.0,
+   "beneficiados": 85
+  },
+  {
+   "mes": "2025-07",
+   "valor": 191285.56,
+   "beneficiados": 83
+  },
+  {
+   "mes": "2025-08",
+   "valor": 197357.89,
+   "beneficiados": 85
+  },
+  {
+   "mes": "2025-09",
+   "valor": 194321.49,
+   "beneficiados": 84
+  },
+  {
+   "mes": "2025-10",
+   "valor": 197357.99,
+   "beneficiados": 85
+  },
+  {
+   "mes": "2025-11",
+   "valor": 195845.01,
+   "beneficiados": 86
+  },
+  {
+   "mes": "2025-12",
+   "valor": 194321.48,
+   "beneficiados": 86
+  },
+  {
+   "mes": "2026-01",
+   "valor": 196157.47,
+   "beneficiados": 79
+  },
+  {
+   "mes": "2026-02",
+   "valor": 192914.69,
+   "beneficiados": 77
+  },
+  {
+   "mes": "2026-03",
+   "valor": 199398.02,
+   "beneficiados": 81
+  },
+  {
+   "mes": "2026-04",
+   "valor": 189671.73,
+   "beneficiados": 75
+  },
+  {
+   "mes": "2026-05",
+   "valor": 184808.83,
+   "beneficiados": 72
+  },
+  {
+   "mes": "2026-06",
+   "valor": 184808.93,
+   "beneficiados": 71
+  },
+  {
+   "mes": "2026-07",
+   "valor": 189671.43,
+   "beneficiados": 71
+  },
+  {
+   "mes": "2026-08",
+   "valor": 199397.33,
+   "beneficiados": 74
+  },
+  {
+   "mes": "2026-09",
+   "valor": 209123.23,
+   "beneficiados": 79
+  }
+ ]
+}
