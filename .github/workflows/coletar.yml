@@ -1,0 +1,59 @@
+name: Coletar dados e publicar site
+
+on:
+  schedule:
+    - cron: "37 9 * * *"   # todo dia, 06:37 no horário da Bahia
+  workflow_dispatch:        # botão "Run workflow" para rodar na hora
+  push:
+    branches: [main]
+    paths: ["site/**"]      # republica quando você mexer no site
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: coleta
+  cancel-in-progress: false
+
+jobs:
+  coletar:
+    if: github.event_name != 'push'
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -r requirements.txt
+      - name: Rodar coletores
+        env:
+          CGU_API_KEY: ${{ secrets.CGU_API_KEY }}
+        run: python coletores/coletar_tudo.py
+      - name: Salvar dados no repositório
+        run: |
+          git config user.name "coletor-automatico"
+          git config user.email "actions@users.noreply.github.com"
+          git add site/data
+          git diff --cached --quiet || git commit -m "Dados atualizados $(date -u +%F)"
+          git push
+
+  publicar:
+    needs: coletar
+    if: always() && (needs.coletar.result == 'success' || needs.coletar.result == 'skipped')
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: site
+      - id: deploy
+        uses: actions/deploy-pages@v4

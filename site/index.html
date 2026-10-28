@@ -1,0 +1,584 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>De Olho em Rodelas</title>
+<meta name="description" content="Gastos, salários, licitações e recursos federais da Prefeitura de Rodelas (BA), com dados oficiais atualizados todo dia.">
+<style>
+:root {
+  color-scheme: light;
+  --bg: #f6f5f1;
+  --surface: #fcfcfb;
+  --surface-2: #efeee9;
+  --line: #dddbd3;
+  --text: #0b0b0b;
+  --text-2: #52514e;
+  --muted: #77756f;
+  --accent: #1f5fae;
+  --accent-soft: #e3edf9;
+  --bar: #2a78d6;
+  --bar-track: #ebeae4;
+  --ok: #1d7a3e;
+  --warn: #9a5b00;
+  --radius: 14px;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --bg: #121211; --surface: #1a1a19; --surface-2: #232321; --line: #34332f;
+    --text: #f0efec; --text-2: #c3c2b7; --muted: #9a998f;
+    --accent: #7fb0f0; --accent-soft: #1d2a3b; --bar: #3987e5; --bar-track: #2a2a27;
+    --ok: #5cc184; --warn: #e0a346;
+  }
+}
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --bg: #121211; --surface: #1a1a19; --surface-2: #232321; --line: #34332f;
+  --text: #f0efec; --text-2: #c3c2b7; --muted: #9a998f;
+  --accent: #7fb0f0; --accent-soft: #1d2a3b; --bar: #3987e5; --bar-track: #2a2a27;
+  --ok: #5cc184; --warn: #e0a346;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0; background: var(--bg); color: var(--text);
+  font: 16px/1.5 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  -webkit-text-size-adjust: 100%;
+}
+a { color: var(--accent); }
+header.topo { padding: 28px 16px 12px; max-width: 960px; margin: 0 auto; }
+.marca { font-size: 13px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); margin: 0; }
+h1 { font-size: clamp(28px, 7vw, 40px); line-height: 1.1; margin: 4px 0 8px; letter-spacing: -0.02em; }
+.sub { color: var(--text-2); margin: 0; max-width: 60ch; }
+
+nav.menu {
+  position: sticky; top: 0; z-index: 5; background: color-mix(in srgb, var(--bg) 92%, transparent);
+  backdrop-filter: blur(8px); border-bottom: 1px solid var(--line);
+}
+nav.menu ul {
+  list-style: none; margin: 0 auto; padding: 10px 16px; max-width: 960px;
+  display: flex; gap: 6px; overflow-x: auto; scrollbar-width: none;
+}
+nav.menu ul::-webkit-scrollbar { display: none; }
+nav.menu a {
+  display: block; white-space: nowrap; padding: 8px 14px; border-radius: 999px;
+  text-decoration: none; color: var(--text-2); font-weight: 500; font-size: 15px;
+}
+nav.menu a[aria-current="page"] { background: var(--accent); color: var(--surface); }
+
+main { max-width: 960px; margin: 0 auto; padding: 20px 16px 64px; }
+section[hidden] { display: none; }
+h2 { font-size: 24px; margin: 0 0 4px; letter-spacing: -0.01em; }
+h3 { font-size: 17px; margin: 28px 0 10px; }
+.explica { color: var(--text-2); margin: 0 0 18px; max-width: 65ch; }
+
+.cartoes { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; margin: 16px 0; }
+.cartao { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 16px; }
+.cartao .rot { font-size: 13px; color: var(--muted); margin: 0 0 4px; }
+.cartao .num { font-size: 26px; font-weight: 650; letter-spacing: -0.02em; margin: 0; font-variant-numeric: tabular-nums; }
+.cartao .det { font-size: 13px; color: var(--text-2); margin: 6px 0 0; }
+a.cartao { text-decoration: none; color: inherit; display: block; }
+a.cartao:hover { border-color: var(--accent); }
+
+.controles { display: flex; flex-wrap: wrap; gap: 8px; margin: 8px 0 14px; }
+select, input[type="search"] {
+  font: inherit; font-size: 15px; color: var(--text); background: var(--surface);
+  border: 1px solid var(--line); border-radius: 10px; padding: 8px 10px; min-height: 40px;
+}
+input[type="search"] { flex: 1 1 200px; }
+.abas { display: flex; gap: 6px; margin: 4px 0 12px; }
+.abas button {
+  font: inherit; font-size: 15px; border: 1px solid var(--line); background: var(--surface);
+  color: var(--text-2); border-radius: 999px; padding: 7px 14px; cursor: pointer;
+}
+.abas button[aria-pressed="true"] { background: var(--accent-soft); border-color: var(--accent); color: var(--text); font-weight: 600; }
+
+.painel { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 6px 16px; }
+.barras { list-style: none; margin: 0; padding: 0; }
+.barras li { padding: 10px 0; border-bottom: 1px solid var(--line); }
+.barras li:last-child { border-bottom: 0; }
+.barras .linha { display: flex; justify-content: space-between; gap: 12px; font-size: 14px; }
+.barras .nome { color: var(--text); overflow-wrap: anywhere; }
+.barras .valor { color: var(--text); font-variant-numeric: tabular-nums; white-space: nowrap; font-weight: 550; }
+.barras .trilho { height: 8px; background: var(--bar-track); border-radius: 4px; margin-top: 6px; overflow: hidden; }
+.barras .enche { height: 100%; background: var(--bar); border-radius: 0 4px 4px 0; min-width: 2px; }
+
+.lista { display: grid; gap: 10px; }
+.item { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 14px 16px; }
+.item .obj { margin: 0 0 8px; font-weight: 550; overflow-wrap: anywhere; }
+.item .meta { display: flex; flex-wrap: wrap; gap: 4px 14px; font-size: 13px; color: var(--text-2); margin: 0; }
+.item .grande { font-size: 18px; font-weight: 650; color: var(--text); font-variant-numeric: tabular-nums; }
+.etq { display: inline-block; font-size: 12px; padding: 2px 8px; border-radius: 999px; background: var(--surface-2); color: var(--text-2); }
+.mais { margin-top: 12px; }
+button.btn {
+  font: inherit; font-size: 15px; border: 1px solid var(--accent); color: var(--accent);
+  background: transparent; border-radius: 10px; padding: 8px 14px; cursor: pointer;
+}
+
+.grafico { position: relative; }
+.grafico svg { display: block; max-width: 100%; height: auto; }
+.grafico .eixo { fill: var(--muted); font-size: 12px; font-variant-numeric: tabular-nums; }
+.grafico .grade { stroke: var(--line); stroke-width: 1; }
+.grafico rect.coluna { fill: var(--bar); }
+.grafico rect.alvo { fill: transparent; cursor: default; }
+.grafico rect.alvo:hover + rect.coluna, .grafico .ativo { opacity: .75; }
+.dica {
+  position: absolute; pointer-events: none; background: var(--text); color: var(--bg);
+  font-size: 13px; padding: 6px 10px; border-radius: 8px; white-space: nowrap; transform: translate(-50%, -110%);
+}
+.vazio { background: var(--surface); border: 1px dashed var(--line); border-radius: var(--radius); padding: 22px 16px; color: var(--text-2); }
+.vazio strong { color: var(--text); }
+.nota { font-size: 13px; color: var(--muted); margin: 10px 0 0; }
+.fontes { list-style: none; padding: 0; margin: 0; display: grid; gap: 8px; }
+.fontes li { display: flex; gap: 10px; align-items: baseline; font-size: 14px; }
+.pt { width: 9px; height: 9px; border-radius: 50%; flex: none; transform: translateY(-1px); }
+.pt.ok { background: var(--ok); } .pt.erro { background: var(--warn); } .pt.nada { background: var(--muted); }
+footer { max-width: 960px; margin: 0 auto; padding: 0 16px 40px; color: var(--muted); font-size: 13px; }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+details.tabela { margin-top: 10px; font-size: 14px; }
+details.tabela table { width: 100%; border-collapse: collapse; margin-top: 8px; }
+details.tabela td, details.tabela th { text-align: left; padding: 4px 6px; border-bottom: 1px solid var(--line); }
+details.tabela td.n { text-align: right; font-variant-numeric: tabular-nums; }
+</style>
+</head>
+<body>
+<header class="topo">
+  <p class="marca">Rodelas · Bahia</p>
+  <h1>De Olho em Rodelas</h1>
+  <p class="sub">Para onde vai o dinheiro público da cidade, com dados oficiais atualizados automaticamente todo dia.</p>
+</header>
+
+<nav class="menu" aria-label="Seções">
+  <ul>
+    <li><a href="#inicio">Início</a></li>
+    <li><a href="#gastos">Gastos</a></li>
+    <li><a href="#salarios">Salários</a></li>
+    <li><a href="#licitacoes">Licitações e contratos</a></li>
+    <li><a href="#federais">Recursos federais</a></li>
+  </ul>
+</nav>
+
+<main>
+  <section id="inicio">
+    <h2>Resumo</h2>
+    <p class="explica">Um panorama rápido. Toque em cada número para ver os detalhes.</p>
+    <div class="cartoes" id="resumo"></div>
+    <h3>De onde vêm os dados</h3>
+    <ul class="fontes" id="fontes"></ul>
+    <p class="nota">Todos os dados são públicos, garantidos pela Lei de Acesso à Informação (Lei 12.527/2011). Este site é um projeto cidadão independente e não tem ligação com a Prefeitura.</p>
+  </section>
+
+  <section id="gastos" hidden>
+    <h2>Gastos da prefeitura</h2>
+    <p class="explica">Quanto a prefeitura arrecadou e gastou, e em quais áreas. Vem do Relatório Resumido da Execução Orçamentária (RREO), que a prefeitura envia ao Tesouro Nacional a cada dois meses.</p>
+    <div id="gastos-conteudo"></div>
+  </section>
+
+  <section id="salarios" hidden>
+    <h2>Salários e pessoal</h2>
+    <p class="explica">Quanto a prefeitura gasta com servidores. A Lei de Responsabilidade Fiscal limita esse gasto a 54% da receita corrente líquida. Vem do Relatório de Gestão Fiscal (RGF).</p>
+    <div id="salarios-conteudo"></div>
+  </section>
+
+  <section id="licitacoes" hidden>
+    <h2>Licitações e contratos</h2>
+    <p class="explica">Compras e contratações publicadas pela prefeitura no Portal Nacional de Contratações Públicas (PNCP).</p>
+    <div id="licitacoes-conteudo"></div>
+  </section>
+
+  <section id="federais" hidden>
+    <h2>Recursos federais</h2>
+    <p class="explica">Dinheiro do Governo Federal que chega à cidade: convênios com a prefeitura e benefícios pagos direto às famílias. Vem do Portal da Transparência da CGU.</p>
+    <div id="federais-conteudo"></div>
+  </section>
+</main>
+
+<footer>
+  Código aberto. Encontrou um erro? Confira sempre na fonte oficial indicada em cada seção.
+</footer>
+
+<script>
+"use strict";
+const $ = (s, el = document) => el.querySelector(s);
+const esc = (v) => String(v ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+const brl = new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL", maximumFractionDigits: 2 });
+const brlCurto = (v) => {
+  const a = Math.abs(v);
+  if (a >= 1e9) return "R$ " + (v / 1e9).toLocaleString("pt-BR", { maximumFractionDigits: 1 }) + " bi";
+  if (a >= 1e6) return "R$ " + (v / 1e6).toLocaleString("pt-BR", { maximumFractionDigits: 1 }) + " mi";
+  if (a >= 1e3) return "R$ " + (v / 1e3).toLocaleString("pt-BR", { maximumFractionDigits: 0 }) + " mil";
+  return brl.format(v);
+};
+const num = (v) => Number(v || 0).toLocaleString("pt-BR");
+const data = (iso) => {
+  if (!iso) return "";
+  const [a, m, d] = String(iso).slice(0, 10).split("-");
+  return d ? `${d}/${m}/${a}` : iso;
+};
+const dataHora = (iso) => iso ? new Date(iso).toLocaleString("pt-BR", { dateStyle: "short", timeStyle: "short" }) : "";
+
+const D = {};
+async function carregar(nome) {
+  try {
+    const r = await fetch(`data/${nome}.json`, { cache: "no-cache" });
+    if (!r.ok) return null;
+    return await r.json();
+  } catch { return null; }
+}
+
+function vazio(msg) {
+  return `<div class="vazio"><strong>Ainda sem dados aqui.</strong><br>${msg}</div>`;
+}
+
+/* ---------- Leitor de relatórios do Siconfi ---------- */
+// Cada linha tem conta, coluna e valor. O leitor mostra uma coluna por vez.
+function colunasDe(linhas) {
+  const vistos = new Map();
+  for (const l of linhas) if (l.valor != null) vistos.set(l.coluna, (vistos.get(l.coluna) || 0) + 1);
+  return [...vistos.keys()];
+}
+function escolherColuna(colunas, preferencias) {
+  for (const re of preferencias) {
+    const c = colunas.find((x) => re.test(x || ""));
+    if (c) return c;
+  }
+  return colunas[0];
+}
+function achar(linhas, reConta, reColuna) {
+  const l = linhas.find((x) => reConta.test(x.conta || "") && reColuna.test(x.coluna || "") && x.valor != null);
+  return l ? Number(l.valor) : null;
+}
+
+function leitor(alvo, linhas, preferencias, { porcentagem = false } = {}) {
+  const colunas = colunasDe(linhas);
+  let coluna = escolherColuna(colunas, preferencias);
+  alvo.innerHTML = `
+    <div class="controles">
+      <label class="sr" for="${alvo.id}-col">Coluna do relatório</label>
+      <select id="${alvo.id}-col">${colunas.map((c) => `<option ${c === coluna ? "selected" : ""}>${esc(c)}</option>`).join("")}</select>
+      <label class="sr" for="${alvo.id}-busca">Buscar</label>
+      <input type="search" id="${alvo.id}-busca" placeholder="Buscar (ex.: saúde, educação)">
+    </div>
+    <div class="painel"><ul class="barras"></ul></div>
+    <p class="nota"></p>`;
+  const ul = $(".barras", alvo), nota = $(".nota", alvo);
+  const desenhar = () => {
+    const termo = $(`#${alvo.id}-busca`).value.trim().toLowerCase();
+    const vistas = new Set();
+    const itens = linhas.filter((l) => {
+      if (l.coluna !== coluna || l.valor == null) return false;
+      if (vistas.has(l.conta)) return false;
+      vistas.add(l.conta);
+      return !termo || (l.conta || "").toLowerCase().includes(termo);
+    });
+    const maior = Math.max(...itens.map((i) => Math.abs(Number(i.valor))), 1);
+    const ehPct = porcentagem && /%/.test(coluna);
+    ul.innerHTML = itens.length ? itens.map((i) => {
+      const v = Number(i.valor);
+      const largura = ehPct ? Math.min(Math.abs(v), 100) : (Math.abs(v) / maior) * 100;
+      return `<li><div class="linha"><span class="nome">${esc(i.conta)}</span>
+        <span class="valor">${ehPct ? v.toLocaleString("pt-BR", { maximumFractionDigits: 2 }) + "%" : brl.format(v)}</span></div>
+        <div class="trilho"><div class="enche" style="width:${largura.toFixed(2)}%"></div></div></li>`;
+    }).join("") : `<li>Nada encontrado para essa busca.</li>`;
+    nota.textContent = `${itens.length} ${itens.length === 1 ? "linha" : "linhas"} do relatório oficial, na ordem em que a prefeitura as apresenta.`;
+  };
+  $(`#${alvo.id}-col`).addEventListener("change", (e) => { coluna = e.target.value; desenhar(); });
+  $(`#${alvo.id}-busca`).addEventListener("input", desenhar);
+  desenhar();
+}
+
+function seletorAno(anos, aoMudar, id) {
+  const wrap = document.createElement("div");
+  wrap.className = "controles";
+  wrap.innerHTML = `<label for="${id}">Ano</label>
+    <select id="${id}">${anos.map((a) => `<option>${esc(a)}</option>`).join("")}</select>`;
+  $("select", wrap).addEventListener("change", (e) => aoMudar(e.target.value));
+  return wrap;
+}
+
+const PERIODO_RREO = (p) => p === 6 ? "ano completo" : `até o ${p}º bimestre`;
+const PERIODO_RGF = (r) => r.periodicidade === "S"
+  ? (r.periodo === 2 ? "2º semestre (ano completo)" : "1º semestre")
+  : (r.periodo === 3 ? "3º quadrimestre (ano completo)" : `${r.periodo}º quadrimestre`);
+
+const PREF_FUNCAO = [/liquidad.*at[eé] o bimestre/i, /liquidad/i, /empenhad.*at[eé] o bimestre/i, /empenhad/i];
+const PREF_BALANCO = [/at[eé] o bimestre/i, /realizad/i];
+const PREF_PESSOAL = [/total.*12 meses/i, /12 meses/i, /valor/i];
+
+/* ---------- Gastos ---------- */
+function montarGastos() {
+  const raiz = $("#gastos-conteudo");
+  const s = D.siconfi;
+  const anos = s ? Object.keys(s.anos).filter((a) => s.anos[a].rreo_01 || s.anos[a].rreo_02).sort().reverse() : [];
+  if (!anos.length) { raiz.innerHTML = vazio("Os relatórios do Tesouro aparecem depois da primeira coleta automática."); return; }
+  const corpo = document.createElement("div");
+  const mostrar = (ano) => {
+    const b = s.anos[ano];
+    const r1 = b.rreo_01?.linhas || [];
+    const receita = achar(r1, /^(TOTAL DAS )?RECEITAS \(EXCETO INTRA|^TOTAL DAS RECEITAS/i, /at[eé] o bimestre/i);
+    const despesa = achar(r1, /^(TOTAL DAS )?DESPESAS \(EXCETO INTRA|^TOTAL DAS DESPESAS/i, /liquidad.*at[eé] o bimestre/i);
+    const per = b.rreo_01 ? PERIODO_RREO(b.rreo_01.periodo) : b.rreo_02 ? PERIODO_RREO(b.rreo_02.periodo) : "";
+    corpo.innerHTML = `
+      <div class="cartoes">
+        ${receita != null ? `<div class="cartao"><p class="rot">Receita arrecadada</p><p class="num">${brlCurto(receita)}</p><p class="det">${esc(ano)}, ${per}</p></div>` : ""}
+        ${despesa != null ? `<div class="cartao"><p class="rot">Despesa paga ou a pagar (liquidada)</p><p class="num">${brlCurto(despesa)}</p><p class="det">${esc(ano)}, ${per}</p></div>` : ""}
+      </div>
+      <h3>Gastos por área</h3>
+      ${b.rreo_02 ? `<div id="g-funcao"></div>` : vazio("A prefeitura ainda não enviou este anexo para o ano escolhido.")}
+      <h3>Receitas e despesas do orçamento</h3>
+      ${b.rreo_01 ? `<div id="g-balanco"></div>` : vazio("A prefeitura ainda não enviou este anexo para o ano escolhido.")}
+      <p class="nota">Fonte: RREO de ${esc(ano)} (${per}), Siconfi/Tesouro Nacional. Atualizado em ${dataHora(s.atualizado_em)}.</p>`;
+    if (b.rreo_02) leitor($("#g-funcao", corpo), b.rreo_02.linhas, PREF_FUNCAO);
+    if (b.rreo_01) leitor($("#g-balanco", corpo), b.rreo_01.linhas, PREF_BALANCO);
+  };
+  raiz.replaceChildren(seletorAno(anos, mostrar, "ano-gastos"), corpo);
+  mostrar(anos[0]);
+}
+
+/* ---------- Salários ---------- */
+function pctPessoal(linhas) {
+  return achar(linhas, /DESPESA TOTAL COM PESSOAL/i, /%|RCL/i);
+}
+function montarSalarios() {
+  const raiz = $("#salarios-conteudo");
+  const s = D.siconfi;
+  const anos = s ? Object.keys(s.anos).filter((a) => s.anos[a].rgf_01).sort().reverse() : [];
+  if (!anos.length) { raiz.innerHTML = vazio("O Relatório de Gestão Fiscal aparece depois da primeira coleta automática."); return; }
+  const corpo = document.createElement("div");
+  const mostrar = (ano) => {
+    const r = s.anos[ano].rgf_01;
+    const pct = pctPessoal(r.linhas);
+    const total = achar(r.linhas, /DESPESA TOTAL COM PESSOAL/i, /^(?!.*%).*/);
+    corpo.innerHTML = `
+      <div class="cartoes">
+        ${total != null ? `<div class="cartao"><p class="rot">Gasto com pessoal em 12 meses</p><p class="num">${brlCurto(total)}</p><p class="det">${PERIODO_RGF(r)} de ${esc(ano)}</p></div>` : ""}
+        ${pct != null ? `<div class="cartao"><p class="rot">Parte da receita usada com pessoal</p><p class="num">${pct.toLocaleString("pt-BR", { maximumFractionDigits: 1 })}%</p><p class="det">Limite da lei: 54% · alerta a partir de 48,6%</p></div>` : ""}
+      </div>
+      <h3>Detalhe do relatório</h3>
+      <div id="s-rgf"></div>
+      <p class="nota">Fonte: RGF Anexo 1 (Poder Executivo), ${PERIODO_RGF(r)} de ${esc(ano)}, Siconfi/Tesouro Nacional. A lista de servidores com salário individual fica no portal da prefeitura, que ainda não oferece esses dados num formato que dê para coletar automaticamente.</p>`;
+    leitor($("#s-rgf", corpo), r.linhas, PREF_PESSOAL, { porcentagem: true });
+  };
+  raiz.replaceChildren(seletorAno(anos, mostrar, "ano-salarios"), corpo);
+  mostrar(anos[0]);
+}
+
+/* ---------- Licitações e contratos ---------- */
+function montarLicitacoes() {
+  const raiz = $("#licitacoes-conteudo");
+  const p = D.pncp;
+  if (!p || (!p.contratacoes?.length && !p.contratos?.length)) {
+    raiz.innerHTML = vazio("As licitações e contratos aparecem depois da primeira coleta automática no PNCP."); return;
+  }
+  let aba = "contratacoes";
+  const anoDe = (i) => (i.data || i.assinatura || "").slice(0, 4);
+  const anos = [...new Set([...p.contratacoes, ...p.contratos].map(anoDe).filter(Boolean))].sort().reverse();
+  raiz.innerHTML = `
+    <div class="abas" role="group" aria-label="Tipo">
+      <button type="button" data-aba="contratacoes" aria-pressed="true">Licitações (${num(p.contratacoes.length)})</button>
+      <button type="button" data-aba="contratos" aria-pressed="false">Contratos (${num(p.contratos.length)})</button>
+    </div>
+    <div class="controles">
+      <label class="sr" for="lic-ano">Ano</label>
+      <select id="lic-ano"><option value="">Todos os anos</option>${anos.map((a) => `<option>${esc(a)}</option>`).join("")}</select>
+      <label class="sr" for="lic-busca">Buscar</label>
+      <input type="search" id="lic-busca" placeholder="Buscar objeto ou empresa">
+    </div>
+    <div class="cartoes" id="lic-totais"></div>
+    <div class="lista" id="lic-lista"></div>
+    <div class="mais"><button class="btn" type="button" id="lic-mais" hidden>Mostrar mais</button></div>
+    <p class="nota">Fonte: PNCP. Atualizado em ${dataHora(p.atualizado_em)}. Toque em “ver no PNCP” para o edital e os documentos completos.</p>`;
+  let limite = 30;
+  const desenhar = () => {
+    const ano = $("#lic-ano").value, termo = $("#lic-busca").value.trim().toLowerCase();
+    const fonte = aba === "contratacoes" ? p.contratacoes : p.contratos;
+    const itens = fonte.filter((i) => (!ano || anoDe(i) === ano) &&
+      (!termo || `${i.objeto} ${i.fornecedor || ""} ${i.modalidade || ""}`.toLowerCase().includes(termo)));
+    const valorDe = (i) => Number(aba === "contratacoes" ? (i.valor_homologado || i.valor_estimado || 0) : (i.valor_global || i.valor_inicial || 0));
+    const soma = itens.reduce((t, i) => t + valorDe(i), 0);
+    $("#lic-totais").innerHTML = `
+      <div class="cartao"><p class="rot">${aba === "contratacoes" ? "Licitações" : "Contratos"}</p><p class="num">${num(itens.length)}</p><p class="det">${ano || "todos os anos"}</p></div>
+      <div class="cartao"><p class="rot">${aba === "contratacoes" ? "Valor homologado ou estimado" : "Valor total dos contratos"}</p><p class="num">${brlCurto(soma)}</p><p class="det">soma dos itens listados</p></div>`;
+    $("#lic-lista").innerHTML = itens.slice(0, limite).map((i) => aba === "contratacoes" ? `
+      <article class="item">
+        <p class="obj">${esc(i.objeto)}</p>
+        <p class="meta">
+          <span class="grande">${valorDe(i) ? brl.format(valorDe(i)) : "valor não informado"}</span>
+          ${i.valor_homologado ? `<span class="etq">homologado</span>` : i.valor_estimado ? `<span class="etq">estimado</span>` : ""}
+        </p>
+        <p class="meta">
+          <span>${esc(i.modalidade)}${i.numero ? " nº " + esc(i.numero) : ""}</span>
+          <span>${esc(i.situacao)}</span>
+          <span>Publicada em ${data(i.data)}</span>
+          ${i.link ? `<a href="${esc(i.link)}" target="_blank" rel="noopener">ver no PNCP</a>` : ""}
+        </p>
+      </article>` : `
+      <article class="item">
+        <p class="obj">${esc(i.objeto)}</p>
+        <p class="meta"><span class="grande">${brl.format(valorDe(i))}</span></p>
+        <p class="meta">
+          <span><strong>${esc(i.fornecedor)}</strong>${i.documento ? " · " + esc(i.documento) : ""}</span>
+          <span>Assinado em ${data(i.assinatura)}</span>
+          ${i.vigencia_fim ? `<span>Vale até ${data(i.vigencia_fim)}</span>` : ""}
+          ${i.link ? `<a href="${esc(i.link)}" target="_blank" rel="noopener">ver no PNCP</a>` : ""}
+        </p>
+      </article>`).join("") || `<div class="vazio">Nada encontrado com esses filtros.</div>`;
+    $("#lic-mais").hidden = itens.length <= limite;
+  };
+  raiz.querySelectorAll(".abas button").forEach((b) => b.addEventListener("click", () => {
+    aba = b.dataset.aba; limite = 30;
+    raiz.querySelectorAll(".abas button").forEach((x) => x.setAttribute("aria-pressed", String(x === b)));
+    desenhar();
+  }));
+  $("#lic-ano").addEventListener("change", () => { limite = 30; desenhar(); });
+  $("#lic-busca").addEventListener("input", () => { limite = 30; desenhar(); });
+  $("#lic-mais").addEventListener("click", () => { limite += 30; desenhar(); });
+  desenhar();
+}
+
+/* ---------- Gráfico de colunas por mês (série única) ---------- */
+const graficos = new Set();
+const redesenhar = () => graficos.forEach((f) => f());
+let tRes; window.addEventListener("resize", () => { clearTimeout(tRes); tRes = setTimeout(redesenhar, 150); });
+const nomeMes = (m) => { const [a, mm] = m.split("-"); return `${mm}/${a.slice(2)}`; };
+function svgColunas(ult, L) {
+  const A = 220, mE = 48, mD = 18, mB = 26, mT = 10;
+  const max = Math.max(...ult.map((x) => x.valor), 1);
+  const passo = (L - mE - mD) / ult.length, larg = Math.min(Math.max(passo - 2, 2), 28);
+  const y = (v) => mT + (A - mT - mB) * (1 - v / max);
+  const grades = [0, 0.5, 1].map((f) => {
+    const v = max * f;
+    return `<line class="grade" x1="${mE}" x2="${L - mD}" y1="${y(v)}" y2="${y(v)}"/><text class="eixo" x="${mE - 6}" y="${y(v) + 4}" text-anchor="end">${v ? esc(brlCurto(v).replace("R$ ", "")) : "0"}</text>`;
+  }).join("");
+  const cada = Math.ceil(ult.length / Math.max(Math.floor((L - mE - mD) / 52), 1));
+  const barras = ult.map((x, i) => {
+    const x0 = mE + i * passo + (passo - larg) / 2, yy = y(x.valor);
+    const r = Math.min(4, larg / 2, A - mB - yy);
+    const path = `M${x0},${A - mB} V${yy + r} Q${x0},${yy} ${x0 + r},${yy} H${x0 + larg - r} Q${x0 + larg},${yy} ${x0 + larg},${yy + r} V${A - mB} Z`;
+    const rot = i % cada === 0 ? `<text class="eixo" x="${x0 + larg / 2}" y="${A - 8}" text-anchor="middle">${nomeMes(x.mes)}</text>` : "";
+    return `<path d="${path}" fill="var(--bar)" data-i="${i}"/><rect class="alvo" x="${mE + i * passo}" y="${mT}" width="${passo}" height="${A - mT - mB}" data-i="${i}"/>${rot}`;
+  }).join("");
+  return `<svg viewBox="0 0 ${L} ${A}" width="${L}" height="${A}">${grades}${barras}</svg>`;
+}
+function colunasMensais(serie, titulo) {
+  const ult = serie.slice(-24);
+  const id = "g" + Math.random().toString(36).slice(2, 8);
+  graficos.add(() => {
+    const el = document.getElementById(id); if (!el) return;
+    const caixaSvg = $(".svg", el), dica = $(".dica", el);
+    if (!caixaSvg.clientWidth) return; // seção escondida: desenha quando abrir
+    caixaSvg.innerHTML = svgColunas(ult, caixaSvg.clientWidth);
+    el.querySelectorAll("rect.alvo").forEach((r) => {
+      r.addEventListener("pointerenter", () => {
+        const x = ult[r.dataset.i];
+        el.querySelectorAll("path").forEach((p) => p.classList.toggle("ativo", p.dataset.i === r.dataset.i));
+        dica.textContent = `${nomeMes(x.mes)} · ${brl.format(x.valor)} · ${num(x.beneficiados)} benef.`;
+        const c = r.getBoundingClientRect(), base = el.getBoundingClientRect();
+        dica.style.left = Math.min(Math.max(c.left - base.left + c.width / 2, 110), base.width - 110) + "px";
+        dica.style.top = "34px";
+        dica.hidden = false;
+      });
+      r.addEventListener("pointerleave", () => { dica.hidden = true; el.querySelectorAll("path").forEach((p) => p.classList.remove("ativo")); });
+    });
+  });
+  return `<div class="grafico painel" id="${id}" style="padding:12px">
+      <div class="svg" role="img" aria-label="${esc(titulo)}"></div>
+      <div class="dica" hidden></div>
+      <details class="tabela"><summary>Ver em tabela</summary>
+        <table><thead><tr><th>Mês</th><th>Valor</th><th>Beneficiados</th></tr></thead>
+        <tbody>${serie.slice().reverse().map((x) => `<tr><td>${nomeMes(x.mes)}</td><td class="n">${brl.format(x.valor)}</td><td class="n">${num(x.beneficiados)}</td></tr>`).join("")}</tbody></table>
+      </details>
+    </div>`;
+}
+
+/* ---------- Recursos federais ---------- */
+function montarFederais() {
+  const raiz = $("#federais-conteudo");
+  const c = D.cgu;
+  if (!c) { raiz.innerHTML = vazio("Os dados federais aparecem depois que a chave da API da CGU for configurada e a coleta rodar."); return; }
+  const ultimos12 = (s) => s.slice(-12).reduce((t, x) => t + x.valor, 0);
+  const bf = c.bolsa_familia || [], bpc = c.bpc || [], conv = c.convenios || [];
+  const totConv = conv.reduce((t, x) => t + Number(x.valor || 0), 0);
+  raiz.innerHTML = `
+    <div class="cartoes">
+      ${bf.length ? `<div class="cartao"><p class="rot">Bolsa Família, últimos 12 meses</p><p class="num">${brlCurto(ultimos12(bf))}</p><p class="det">${num(bf.at(-1).beneficiados)} famílias em ${bf.at(-1).mes.split("-").reverse().join("/")}</p></div>` : ""}
+      ${bpc.length ? `<div class="cartao"><p class="rot">BPC, últimos 12 meses</p><p class="num">${brlCurto(ultimos12(bpc))}</p><p class="det">${num(bpc.at(-1).beneficiados)} pessoas em ${bpc.at(-1).mes.split("-").reverse().join("/")}</p></div>` : ""}
+      ${conv.length ? `<div class="cartao"><p class="rot">Convênios federais</p><p class="num">${brlCurto(totConv)}</p><p class="det">${num(conv.length)} ${conv.length === 1 ? "convênio registrado" : "convênios registrados"}</p></div>` : ""}
+    </div>
+    ${bf.length ? `<h3>Bolsa Família pago em Rodelas, por mês</h3>${colunasMensais(bf, "Bolsa Família por mês")}` : ""}
+    ${bpc.length ? `<h3>BPC (Benefício de Prestação Continuada), por mês</h3>${colunasMensais(bpc, "BPC por mês")}` : ""}
+    <h3>Convênios com o Governo Federal</h3>
+    <div class="lista">${conv.length ? conv.map((x) => `
+      <article class="item">
+        <p class="obj">${esc(x.objeto)}</p>
+        <p class="meta"><span class="grande">${brl.format(Number(x.valor || 0))}</span>${x.valor_liberado != null ? `<span>liberado: ${brl.format(Number(x.valor_liberado))}</span>` : ""}</p>
+        <p class="meta"><span>${esc(x.orgao)}</span><span class="etq">${esc(x.situacao)}</span>${x.inicio ? `<span>${data(x.inicio)} a ${data(x.fim)}</span>` : ""}</p>
+      </article>`).join("") : `<div class="vazio">Nenhum convênio retornado pela API.</div>`}</div>
+    <p class="nota">Fonte: Portal da Transparência (CGU). Atualizado em ${dataHora(c.atualizado_em)}.</p>`;
+}
+
+/* ---------- Início ---------- */
+function montarInicio() {
+  const cartoes = [];
+  const s = D.siconfi;
+  if (s) {
+    const ano = Object.keys(s.anos).filter((a) => s.anos[a].rreo_01).sort().at(-1);
+    if (ano) {
+      const desp = achar(s.anos[ano].rreo_01.linhas, /^(TOTAL DAS )?DESPESAS \(EXCETO INTRA|^TOTAL DAS DESPESAS/i, /liquidad.*at[eé] o bimestre/i);
+      if (desp != null) cartoes.push(["#gastos", "Gasto da prefeitura", brlCurto(desp), `${ano}, ${PERIODO_RREO(s.anos[ano].rreo_01.periodo)}`]);
+    }
+    const anoP = Object.keys(s.anos).filter((a) => s.anos[a].rgf_01).sort().at(-1);
+    const pct = anoP && pctPessoal(s.anos[anoP].rgf_01.linhas);
+    if (pct != null && anoP) cartoes.push(["#salarios", "Receita usada com pessoal", pct.toLocaleString("pt-BR", { maximumFractionDigits: 1 }) + "%", `limite legal 54% · ${anoP}`]);
+  }
+  if (D.pncp) {
+    const ano = D.pncp.contratos.map((c) => (c.assinatura || "").slice(0, 4)).filter(Boolean).sort().at(-1) || String(new Date().getFullYear());
+    const doAno = D.pncp.contratos.filter((c) => (c.assinatura || "").startsWith(ano));
+    cartoes.push(["#licitacoes", `Contratos assinados em ${ano}`, num(doAno.length), brlCurto(doAno.reduce((t, c) => t + Number(c.valor_global || 0), 0)) + " no total"]);
+  }
+  if (D.cgu?.bolsa_familia?.length) {
+    const u = D.cgu.bolsa_familia.at(-1);
+    cartoes.push(["#federais", "Bolsa Família no último mês", brlCurto(u.valor), `${num(u.beneficiados)} famílias`]);
+  }
+  $("#resumo").innerHTML = cartoes.length
+    ? cartoes.map(([h, r, n, d]) => `<a class="cartao" href="${h}"><p class="rot">${esc(r)}</p><p class="num">${esc(n)}</p><p class="det">${esc(d)}</p></a>`).join("")
+    : vazio("A primeira coleta automática ainda não rodou. Quando rodar, os números aparecem aqui.");
+
+  const nomes = { siconfi: "Tesouro Nacional (Siconfi): gastos e pessoal", pncp: "PNCP: licitações e contratos", cgu: "Portal da Transparência (CGU): recursos federais" };
+  const meta = D.meta?.fontes || {};
+  $("#fontes").innerHTML = Object.entries(nomes).map(([k, nome]) => {
+    const f = meta[k];
+    const cls = !f ? "nada" : f.ok ? "ok" : "erro";
+    const txt = !f ? "ainda não coletado"
+      : f.ok ? `atualizado em ${dataHora(f.sucesso)}`
+      : `última tentativa falhou${f.sucesso ? `; dados de ${dataHora(f.sucesso)}` : ""}`;
+    return `<li><span class="pt ${cls}" aria-hidden="true"></span><span><strong>${nome}</strong><br><span style="color:var(--muted)">${txt}</span></span></li>`;
+  }).join("");
+}
+
+/* ---------- Menu (uma seção por vez) ---------- */
+function rota() {
+  const id = (location.hash || "#inicio").slice(1);
+  const alvo = document.getElementById(id)?.tagName === "SECTION" ? id : "inicio";
+  document.querySelectorAll("main > section").forEach((s) => { s.hidden = s.id !== alvo; });
+  document.querySelectorAll("nav.menu a").forEach((a) => {
+    const atual = a.getAttribute("href") === "#" + alvo;
+    a.toggleAttribute("aria-current", atual);
+    if (atual) { a.setAttribute("aria-current", "page"); a.scrollIntoView({ block: "nearest", inline: "nearest" }); }
+  });
+  window.scrollTo({ top: 0 });
+  redesenhar();
+}
+window.addEventListener("hashchange", rota);
+
+(async () => {
+  rota();
+  [D.meta, D.siconfi, D.pncp, D.cgu] = await Promise.all(["meta", "siconfi", "pncp", "cgu"].map(carregar));
+  for (const f of [montarInicio, montarGastos, montarSalarios, montarLicitacoes, montarFederais]) {
+    try { f(); } catch (e) { console.error(f.name, e); }
+  }
+  redesenhar();
+})();
+</script>
+</body>
+</html>
