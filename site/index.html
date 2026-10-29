@@ -4,245 +4,488 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>De Olho em Rodelas</title>
-<meta name="description" content="Gastos, salários, licitações e recursos federais da Prefeitura de Rodelas (BA), com dados oficiais atualizados todo dia.">
+<meta name="description" content="Para onde vai o dinheiro público de Rodelas (BA): gastos, salários, repasses, licitações e quem recebeu da Prefeitura e da Câmara. Dados oficiais atualizados todo dia.">
+<meta name="theme-color" content="#0e5e73">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,750&display=swap" rel="stylesheet">
 <style>
 :root {
   color-scheme: light;
-  --bg: #f6f5f1;
-  --surface: #fcfcfb;
-  --surface-2: #efeee9;
-  --line: #dddbd3;
-  --text: #0b0b0b;
-  --text-2: #52514e;
-  --muted: #77756f;
-  --accent: #1f5fae;
-  --accent-soft: #e3edf9;
-  --bar: #2a78d6;
-  --bar-track: #ebeae4;
-  --ok: #1d7a3e;
-  --warn: #9a5b00;
-  --radius: 14px;
+  --bg: #f2f5f5;
+  --surface: #ffffff;
+  --surface-2: #e6eded;
+  --line: #d2dcdc;
+  --text: #14272d;
+  --text-2: #3d5257;
+  --muted: #5f7377;
+  --rio: #0e5e73;
+  --rio-forte: #0a4757;
+  --rio-suave: #dbeaee;
+  --sobre-rio: #ffffff;
+  --bar: #0e5e73;
+  --bar-track: #e1e9e9;
+  --ok: #1b7a3d;
+  --atencao: #9a5800;
+  --perigo: #b3261e;
+  --s1: #2a78d6; --s2: #eb6834; --s3: #1baf7a; --s4: #eda100; --s5: #e87ba4; --s0: #b9c6c7;
+  --raio: 12px;
+  --fonte: "Atkinson Hyperlegible", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --titulo: "Bricolage Grotesque", "Atkinson Hyperlegible", system-ui, sans-serif;
 }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
     color-scheme: dark;
-    --bg: #121211; --surface: #1a1a19; --surface-2: #232321; --line: #34332f;
-    --text: #f0efec; --text-2: #c3c2b7; --muted: #9a998f;
-    --accent: #7fb0f0; --accent-soft: #1d2a3b; --bar: #3987e5; --bar-track: #2a2a27;
-    --ok: #5cc184; --warn: #e0a346;
+    --bg: #0d171a; --surface: #142226; --surface-2: #1b2d32; --line: #284047;
+    --text: #e6eeee; --text-2: #b6c7c9; --muted: #8ea3a7;
+    --rio: #6cc0d4; --rio-forte: #9ad6e4; --rio-suave: #173a43; --sobre-rio: #08262e;
+    --bar: #4fa9bf; --bar-track: #213439;
+    --ok: #5cc184; --atencao: #e0a346; --perigo: #f07a72;
+    --s1: #3987e5; --s2: #d95926; --s3: #199e70; --s4: #c98500; --s5: #d55181; --s0: #4a5f63;
   }
 }
 :root[data-theme="dark"] {
   color-scheme: dark;
-  --bg: #121211; --surface: #1a1a19; --surface-2: #232321; --line: #34332f;
-  --text: #f0efec; --text-2: #c3c2b7; --muted: #9a998f;
-  --accent: #7fb0f0; --accent-soft: #1d2a3b; --bar: #3987e5; --bar-track: #2a2a27;
-  --ok: #5cc184; --warn: #e0a346;
+  --bg: #0d171a; --surface: #142226; --surface-2: #1b2d32; --line: #284047;
+  --text: #e6eeee; --text-2: #b6c7c9; --muted: #8ea3a7;
+  --rio: #6cc0d4; --rio-forte: #9ad6e4; --rio-suave: #173a43; --sobre-rio: #08262e;
+  --bar: #4fa9bf; --bar-track: #213439;
+  --ok: #5cc184; --atencao: #e0a346; --perigo: #f07a72;
+  --s1: #3987e5; --s2: #d95926; --s3: #199e70; --s4: #c98500; --s5: #d55181; --s0: #4a5f63;
 }
+
 * { box-sizing: border-box; }
+html { scroll-padding-top: 72px; }
 body {
   margin: 0; background: var(--bg); color: var(--text);
-  font: 16px/1.5 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-  -webkit-text-size-adjust: 100%;
+  font: 17px/1.55 var(--fonte); -webkit-text-size-adjust: 100%;
+  font-variant-numeric: tabular-nums;
 }
-a { color: var(--accent); }
-header.topo { padding: 28px 16px 12px; max-width: 960px; margin: 0 auto; }
-.marca { font-size: 13px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); margin: 0; }
-h1 { font-size: clamp(28px, 7vw, 40px); line-height: 1.1; margin: 4px 0 8px; letter-spacing: -0.02em; }
-.sub { color: var(--text-2); margin: 0; max-width: 60ch; }
+a { color: var(--rio); text-underline-offset: 2px; }
+a:hover { color: var(--rio-forte); }
+:focus-visible { outline: 3px solid var(--rio); outline-offset: 2px; border-radius: 4px; }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.envelope { max-width: 760px; margin: 0 auto; padding: 0 16px; }
+
+/* ---------- topo e menu ---------- */
+header.topo { padding-top: 18px; }
+.marca { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--text); }
+.marca svg { flex: none; }
+.marca strong { font: 750 21px/1.1 var(--titulo); letter-spacing: -0.01em; }
+.marca span { display: block; font-size: 14px; color: var(--muted); }
 
 nav.menu {
-  position: sticky; top: 0; z-index: 5; background: color-mix(in srgb, var(--bg) 92%, transparent);
-  backdrop-filter: blur(8px); border-bottom: 1px solid var(--line);
+  position: sticky; top: 0; z-index: 10; margin-top: 14px;
+  background: color-mix(in srgb, var(--bg) 90%, transparent);
+  backdrop-filter: saturate(1.4) blur(10px); -webkit-backdrop-filter: saturate(1.4) blur(10px);
+  border-bottom: 1px solid var(--line);
 }
+nav.menu .trilha { position: relative; }
 nav.menu ul {
-  list-style: none; margin: 0 auto; padding: 10px 16px; max-width: 960px;
-  display: flex; gap: 6px; overflow-x: auto; scrollbar-width: none;
+  list-style: none; margin: 0 auto; padding: 10px 16px; max-width: 760px;
+  display: flex; gap: 4px; overflow-x: auto; scrollbar-width: none; scroll-snap-type: x proximity;
 }
 nav.menu ul::-webkit-scrollbar { display: none; }
+nav.menu li { scroll-snap-align: start; }
 nav.menu a {
   display: block; white-space: nowrap; padding: 8px 14px; border-radius: 999px;
-  text-decoration: none; color: var(--text-2); font-weight: 500; font-size: 15px;
+  text-decoration: none; color: var(--text-2); font-weight: 700; font-size: 15px;
 }
-nav.menu a[aria-current="page"] { background: var(--accent); color: var(--surface); }
+nav.menu a:hover { background: var(--surface-2); color: var(--text); }
+nav.menu a[aria-current="page"] { background: var(--rio); color: var(--sobre-rio); }
+nav.menu .trilha::after {
+  content: ""; position: absolute; top: 0; right: 0; bottom: 0; width: 40px; pointer-events: none;
+  background: linear-gradient(to right, transparent, var(--bg)); opacity: 1; transition: opacity .2s;
+}
+nav.menu .trilha.no-fim::after { opacity: 0; }
 
-main { max-width: 960px; margin: 0 auto; padding: 20px 16px 64px; }
+/* ---------- tipografia das seções ---------- */
+main { padding-top: 24px; padding-bottom: 56px; }
 section[hidden] { display: none; }
-h2 { font-size: 24px; margin: 0 0 4px; letter-spacing: -0.01em; }
-h3 { font-size: 17px; margin: 28px 0 10px; }
-h2.bloco { margin-top: 44px; padding-top: 24px; border-top: 1px solid var(--line); }
-.item .valores { display: flex; flex-wrap: wrap; gap: 2px 14px; align-items: baseline; margin: 0 0 6px; font-size: 13px; color: var(--text-2); }
-button.link { font: inherit; background: none; border: 0; padding: 0; color: var(--accent); cursor: pointer; text-align: left; }
-.barras button.link { color: var(--text); }
-.barras button.link:hover { color: var(--accent); text-decoration: underline; }
-.explica { color: var(--text-2); margin: 0 0 18px; max-width: 65ch; }
+h1, h2, h3 { font-family: var(--titulo); letter-spacing: -0.015em; text-wrap: balance; }
+h2 { font-size: 28px; line-height: 1.15; margin: 0 0 8px; font-weight: 750; }
+h3 { font-size: 19px; line-height: 1.25; margin: 36px 0 12px; font-weight: 600; }
+.explica { color: var(--text-2); margin: 0 0 20px; max-width: 62ch; }
+.nota { font-size: 14px; color: var(--muted); margin: 12px 0 0; max-width: 68ch; }
+.parte { margin-top: 48px; padding-top: 28px; border-top: 2px solid var(--line); }
 
-.cartoes { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; margin: 16px 0; }
-.cartao { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 16px; }
-.cartao .rot { font-size: 13px; color: var(--muted); margin: 0 0 4px; }
-.cartao .num { font-size: 26px; font-weight: 650; letter-spacing: -0.02em; margin: 0; font-variant-numeric: tabular-nums; }
-.cartao .det { font-size: 13px; color: var(--text-2); margin: 6px 0 0; }
-a.cartao { text-decoration: none; color: inherit; display: block; }
-a.cartao:hover { border-color: var(--accent); }
+/* ---------- abertura (início) ---------- */
+.abertura h1 { font-size: clamp(30px, 7.4vw, 44px); line-height: 1.08; margin: 4px 0 12px; font-weight: 750; }
+.abertura h1 .valor { color: var(--rio); white-space: nowrap; }
+.abertura p { color: var(--text-2); margin: 0; max-width: 56ch; font-size: 18px; }
 
-.controles { display: flex; flex-wrap: wrap; gap: 8px; margin: 8px 0 14px; }
-select, input[type="search"] {
-  font: inherit; font-size: 15px; color: var(--text); background: var(--surface);
-  border: 1px solid var(--line); border-radius: 10px; padding: 8px 10px; min-height: 40px;
+.cem { margin-top: 28px; display: grid; grid-template-columns: minmax(0, 1fr); gap: 20px; align-items: start; }
+@media (min-width: 620px) { .cem { grid-template-columns: 260px minmax(0, 1fr); gap: 28px; } }
+.cem h2 { font-size: 22px; grid-column: 1 / -1; margin: 0; }
+.grade-cem { display: grid; grid-template-columns: repeat(10, 1fr); gap: 3px; width: 100%; max-width: 300px; aspect-ratio: 1; }
+.grade-cem i { display: block; border-radius: 3px; background: var(--s0); transition: opacity .2s; }
+.grade-cem.foco i:not(.ativo) { opacity: .18; }
+@media (prefers-reduced-motion: no-preference) {
+  .grade-cem.entrando i { animation: brota .45s cubic-bezier(.2,.8,.3,1) both; animation-delay: calc(var(--n) * 6ms); }
+  @keyframes brota { from { transform: scale(.2); opacity: 0; } to { transform: none; opacity: 1; } }
 }
-input[type="search"] { flex: 1 1 200px; }
-.controles select { max-width: 100%; text-overflow: ellipsis; }
+.legenda-cem { list-style: none; margin: 0; padding: 0; }
+.legenda-cem li button {
+  width: 100%; display: grid; grid-template-columns: 14px 1fr auto; align-items: center; gap: 10px;
+  font: inherit; color: var(--text); text-align: left; background: none; border: 0; border-bottom: 1px solid var(--line);
+  padding: 10px 2px; cursor: pointer;
+}
+.legenda-cem li:last-child button { border-bottom: 0; }
+.legenda-cem .cor { width: 14px; height: 14px; border-radius: 3px; }
+.legenda-cem .reais { font-weight: 700; font-size: 18px; }
+.legenda-cem .reais small { font-weight: 400; font-size: 14px; color: var(--muted); margin-left: 6px; }
+.legenda-cem button[aria-pressed="true"] { background: var(--rio-suave); }
+
+/* ---------- busca por nome ---------- */
+.busca-nome { margin-top: 44px; background: var(--rio-suave); border-radius: var(--raio); padding: 20px 16px; }
+.busca-nome h2 { font-size: 22px; margin-bottom: 4px; }
+.busca-nome p.explica { margin-bottom: 12px; }
+.campo { position: relative; }
+.campo svg { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: var(--muted); pointer-events: none; }
+.campo input[type="search"] { width: 100%; padding-left: 40px; }
+.resultados { margin-top: 12px; display: grid; gap: 8px; }
+.resultado {
+  display: grid; grid-template-columns: 1fr auto; gap: 2px 12px; align-items: baseline;
+  background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 12px 14px;
+  text-align: left; font: inherit; color: var(--text); cursor: pointer; width: 100%;
+}
+.resultado:hover { border-color: var(--rio); }
+.resultado .quem { font-weight: 700; overflow-wrap: anywhere; }
+.resultado .quanto { font-weight: 700; white-space: nowrap; }
+.resultado .onde { grid-column: 1 / -1; font-size: 14px; color: var(--text-2); }
+
+/* ---------- números-chave ---------- */
+.chaves { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--line); }
+.chaves > li > a {
+  display: grid; grid-template-columns: 1fr auto; gap: 2px 16px; align-items: baseline;
+  padding: 16px 2px; border-bottom: 1px solid var(--line); text-decoration: none; color: var(--text);
+}
+.chaves > li > a:hover .rot { color: var(--rio); text-decoration: underline; }
+.chaves .rot { font-weight: 700; }
+.chaves .num { font: 750 24px/1.1 var(--titulo); white-space: nowrap; }
+.chaves .det { grid-column: 1 / -1; font-size: 15px; color: var(--text-2); }
+.chaves .medidor { grid-column: 1 / -1; margin-top: 6px; }
+
+/* ---------- destaques (dois ou três números lado a lado) ---------- */
+.destaques { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: var(--raio); overflow: hidden; margin: 16px 0; }
+.destaque { background: var(--surface); padding: 14px 16px; }
+.destaque .rot { font-size: 15px; color: var(--text-2); margin: 0 0 2px; }
+.destaque .num { font: 750 28px/1.1 var(--titulo); margin: 0; letter-spacing: -0.02em; }
+.destaque .det { font-size: 14px; color: var(--muted); margin: 6px 0 0; }
+.variacao { font-weight: 700; }
+.variacao.sobe { color: var(--ok); } .variacao.desce { color: var(--perigo); }
+.frase-resumo { font-size: 18px; margin: 4px 0 0; max-width: 60ch; }
+
+/* ---------- medidor de limite ---------- */
+.medidor .barra { position: relative; height: 14px; border-radius: 7px; background: var(--bar-track); }
+.medidor .enche { position: absolute; left: 0; top: 0; bottom: 0; border-radius: 7px; }
+.medidor .marca-limite { position: absolute; top: -4px; bottom: -4px; width: 2px; background: var(--text-2); }
+.medidor .marca-limite.alerta { background: var(--muted); width: 1px; }
+.medidor .escala { font-size: 14px; color: var(--muted); margin: 6px 0 0; }
+.situacao { display: inline-flex; align-items: center; gap: 6px; font-weight: 700; }
+.situacao svg { flex: none; }
+.situacao.ok { color: var(--ok); } .situacao.atencao { color: var(--atencao); } .situacao.perigo { color: var(--perigo); }
+
+/* ---------- controles ---------- */
+.controles { display: flex; flex-wrap: wrap; gap: 8px; margin: 8px 0 12px; align-items: center; }
 .controles > * { min-width: 0; }
-.abas { display: flex; gap: 6px; margin: 4px 0 12px; }
-.abas button {
-  font: inherit; font-size: 15px; border: 1px solid var(--line); background: var(--surface);
-  color: var(--text-2); border-radius: 999px; padding: 7px 14px; cursor: pointer;
+label.rotulo { font-size: 15px; color: var(--text-2); }
+select, input[type="search"] {
+  font: inherit; font-size: 16px; color: var(--text); background: var(--surface);
+  border: 1px solid var(--line); border-radius: 10px; padding: 9px 12px; min-height: 44px; max-width: 100%;
 }
-.abas button[aria-pressed="true"] { background: var(--accent-soft); border-color: var(--accent); color: var(--text); font-weight: 600; }
-
-.painel { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 6px 16px; }
-.barras { list-style: none; margin: 0; padding: 0; }
-.barras li { padding: 10px 0; border-bottom: 1px solid var(--line); }
-.barras li:last-child { border-bottom: 0; }
-.barras .linha { display: flex; justify-content: space-between; gap: 12px; font-size: 14px; }
-.barras .nome { color: var(--text); overflow-wrap: anywhere; }
-.barras .valor { color: var(--text); font-variant-numeric: tabular-nums; white-space: nowrap; font-weight: 550; }
-.barras .trilho { height: 8px; background: var(--bar-track); border-radius: 4px; margin-top: 6px; overflow: hidden; }
-.barras .enche { height: 100%; background: var(--bar); border-radius: 0 4px 4px 0; min-width: 2px; }
-
-.lista { display: grid; gap: 10px; }
-.item { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 14px 16px; }
-.item .obj { margin: 0 0 8px; font-weight: 550; overflow-wrap: anywhere; }
-.item .meta { display: flex; flex-wrap: wrap; gap: 4px 14px; font-size: 13px; color: var(--text-2); margin: 0; }
-.item .grande { font-size: 18px; font-weight: 650; color: var(--text); font-variant-numeric: tabular-nums; }
-.etq { display: inline-block; font-size: 12px; padding: 2px 8px; border-radius: 999px; background: var(--surface-2); color: var(--text-2); }
-.mais { margin-top: 12px; }
+select { text-overflow: ellipsis; }
+input[type="search"] { flex: 1 1 220px; }
+input::placeholder { color: var(--muted); }
+.fichas { display: flex; flex-wrap: wrap; gap: 6px; margin: 0 0 12px; align-items: center; }
+.ficha {
+  display: inline-flex; align-items: center; gap: 6px; font: inherit; font-size: 14px; cursor: pointer;
+  background: var(--rio-suave); color: var(--text); border: 0; border-radius: 999px; padding: 5px 10px 5px 12px;
+}
+.ficha b { font-weight: 400; color: var(--text-2); }
+.ficha svg { opacity: .7; }
+button.discreto { font: inherit; font-size: 14px; background: none; border: 0; color: var(--rio); cursor: pointer; padding: 5px 4px; text-decoration: underline; text-underline-offset: 2px; }
+.abas { display: inline-flex; gap: 0; margin: 4px 0 12px; border: 1px solid var(--line); border-radius: 10px; overflow: hidden; background: var(--surface); }
+.abas button { font: inherit; font-size: 15px; border: 0; background: none; color: var(--text-2); padding: 9px 16px; cursor: pointer; }
+.abas button + button { border-left: 1px solid var(--line); }
+.abas button[aria-pressed="true"] { background: var(--rio); color: var(--sobre-rio); font-weight: 700; }
 button.btn {
-  font: inherit; font-size: 15px; border: 1px solid var(--accent); color: var(--accent);
-  background: transparent; border-radius: 10px; padding: 8px 14px; cursor: pointer;
+  font: inherit; font-size: 16px; font-weight: 700; border: 2px solid var(--rio); color: var(--rio);
+  background: transparent; border-radius: 10px; padding: 9px 16px; cursor: pointer; min-height: 44px;
 }
+button.btn:hover { background: var(--rio-suave); }
+.acoes { display: flex; flex-wrap: wrap; gap: 8px 16px; align-items: center; margin-top: 14px; }
 
-.grafico { position: relative; }
+/* ---------- listas com barras ---------- */
+.barras { list-style: none; margin: 0; padding: 0; }
+.barras li { padding: 11px 0; border-bottom: 1px solid var(--line); }
+.barras li:last-child { border-bottom: 0; }
+.barras .linha { display: flex; justify-content: space-between; gap: 12px; align-items: baseline; }
+.barras .nome { overflow-wrap: anywhere; }
+.barras .nome small { color: var(--muted); font-size: 14px; margin-left: 6px; white-space: nowrap; }
+.barras .valor { white-space: nowrap; font-weight: 700; }
+.barras .trilho { height: 8px; background: var(--bar-track); border-radius: 4px; margin-top: 7px; overflow: hidden; }
+.barras .enche { height: 100%; background: var(--bar); border-radius: 0 4px 4px 0; min-width: 2px; }
+.barras button.nome { font: inherit; color: var(--text); background: none; border: 0; padding: 0; text-align: left; cursor: pointer; text-decoration: underline; text-decoration-color: var(--line); text-underline-offset: 3px; }
+.barras button.nome:hover { color: var(--rio); text-decoration-color: currentColor; }
+
+/* ---------- itens (empenhos, licitações) ---------- */
+.lista { display: grid; gap: 10px; }
+.item { background: var(--surface); border: 1px solid var(--line); border-radius: var(--raio); padding: 14px 16px; }
+.item .obj { margin: 0 0 6px; overflow-wrap: anywhere; }
+.item .linha-valor { display: flex; flex-wrap: wrap; gap: 4px 12px; align-items: baseline; margin: 0 0 4px; }
+.item .grande { font: 750 20px/1.2 var(--titulo); }
+.item .quem { font-weight: 700; overflow-wrap: anywhere; }
+.item .meta { display: flex; flex-wrap: wrap; gap: 2px 14px; font-size: 15px; color: var(--text-2); margin: 0; }
+.etq { display: inline-block; font-size: 13px; padding: 2px 9px; border-radius: 999px; background: var(--surface-2); color: var(--text-2); }
+.item details { margin-top: 8px; font-size: 15px; }
+.item details summary { color: var(--rio); cursor: pointer; width: fit-content; }
+.item dl { display: grid; grid-template-columns: max-content 1fr; gap: 4px 12px; margin: 8px 0 0; }
+.item dt { color: var(--muted); }
+.item dd { margin: 0; overflow-wrap: anywhere; }
+
+/* ---------- blocos recolhíveis ---------- */
+details.recolhe { margin-top: 16px; border-top: 1px solid var(--line); padding-top: 12px; }
+details.recolhe > summary { cursor: pointer; color: var(--rio); font-weight: 700; width: fit-content; }
+details.recolhe[open] > summary { margin-bottom: 12px; }
+details.oque { margin: -8px 0 20px; font-size: 16px; }
+details.oque summary { cursor: pointer; color: var(--rio); width: fit-content; }
+details.oque summary::marker { content: ""; }
+details.oque summary::before { content: "?"; display: inline-grid; place-items: center; width: 20px; height: 20px; margin-right: 6px; border-radius: 50%; border: 1.5px solid currentColor; font-size: 13px; font-weight: 700; }
+details.oque dl { margin: 10px 0 0; padding: 12px 14px; background: var(--surface); border-radius: 10px; border-left: 3px solid var(--rio); }
+details.oque dt { font-weight: 700; }
+details.oque dd { margin: 0 0 10px; color: var(--text-2); }
+details.oque dd:last-child { margin-bottom: 0; }
+
+/* ---------- gráfico mensal ---------- */
+.grafico { position: relative; background: var(--surface); border: 1px solid var(--line); border-radius: var(--raio); padding: 12px; }
 .grafico svg { display: block; max-width: 100%; height: auto; }
-.grafico .eixo { fill: var(--muted); font-size: 12px; font-variant-numeric: tabular-nums; }
+.grafico .eixo { fill: var(--muted); font-size: 12px; }
 .grafico .grade { stroke: var(--line); stroke-width: 1; }
-.grafico rect.coluna { fill: var(--bar); }
-.grafico rect.alvo { fill: transparent; cursor: default; }
-.grafico rect.alvo:hover + rect.coluna, .grafico .ativo { opacity: .75; }
-.dica {
-  position: absolute; pointer-events: none; background: var(--text); color: var(--bg);
-  font-size: 13px; padding: 6px 10px; border-radius: 8px; white-space: nowrap; transform: translate(-50%, -110%);
-}
-.vazio { background: var(--surface); border: 1px dashed var(--line); border-radius: var(--radius); padding: 22px 16px; color: var(--text-2); }
-.vazio strong { color: var(--text); }
-.nota { font-size: 13px; color: var(--muted); margin: 10px 0 0; }
-.fontes { list-style: none; padding: 0; margin: 0; display: grid; gap: 8px; }
-.fontes li { display: flex; gap: 10px; align-items: baseline; font-size: 14px; }
-.pt { width: 9px; height: 9px; border-radius: 50%; flex: none; transform: translateY(-1px); }
-.pt.ok { background: var(--ok); } .pt.erro { background: var(--warn); } .pt.nada { background: var(--muted); }
-footer { max-width: 960px; margin: 0 auto; padding: 0 16px 40px; color: var(--muted); font-size: 13px; }
-.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
-details.tabela { margin-top: 10px; font-size: 14px; }
+.grafico rect.alvo { fill: transparent; }
+.grafico .ativo { opacity: .7; }
+.dica { position: absolute; pointer-events: none; background: var(--text); color: var(--bg); font-size: 14px; padding: 6px 10px; border-radius: 8px; white-space: nowrap; transform: translate(-50%, -110%); }
+details.tabela { margin-top: 10px; font-size: 15px; }
+details.tabela summary { cursor: pointer; color: var(--rio); }
 details.tabela table { width: 100%; border-collapse: collapse; margin-top: 8px; }
-details.tabela td, details.tabela th { text-align: left; padding: 4px 6px; border-bottom: 1px solid var(--line); }
-details.tabela td.n { text-align: right; font-variant-numeric: tabular-nums; }
+details.tabela td, details.tabela th { text-align: left; padding: 5px 6px; border-bottom: 1px solid var(--line); }
+details.tabela td.n { text-align: right; }
+
+/* ---------- vazio, carregando, fontes, rodapé ---------- */
+.vazio { background: var(--surface); border: 1px dashed var(--line); border-radius: var(--raio); padding: 20px 16px; color: var(--text-2); }
+.vazio strong { color: var(--text); display: block; margin-bottom: 2px; }
+.carregando { color: var(--muted); padding: 16px 0; }
+.fontes { list-style: none; padding: 0; margin: 0; display: grid; gap: 10px; }
+.fontes li { display: grid; grid-template-columns: 18px 1fr; gap: 8px; font-size: 15px; align-items: start; }
+.fontes .estado { color: var(--muted); display: block; font-size: 14px; }
+.fontes svg { margin-top: 3px; }
+footer { border-top: 1px solid var(--line); padding: 24px 0 40px; color: var(--text-2); font-size: 15px; }
+footer p { margin: 0 0 8px; max-width: 62ch; }
+footer nav { display: flex; flex-wrap: wrap; gap: 6px 18px; margin-top: 12px; }
 </style>
 </head>
 <body>
-<header class="topo">
-  <p class="marca">Rodelas · Bahia</p>
-  <h1>De Olho em Rodelas</h1>
-  <p class="sub">Para onde vai o dinheiro público da cidade, com dados oficiais atualizados automaticamente todo dia.</p>
+<header class="topo envelope">
+  <a class="marca" href="#inicio" aria-label="De Olho em Rodelas, início">
+    <svg width="36" height="36" viewBox="0 0 36 36" aria-hidden="true">
+      <rect width="36" height="36" rx="9" fill="var(--rio)"/>
+      <path d="M5 18c4-6 8.5-9 13-9s9 3 13 9c-4 6-8.5 9-13 9S9 24 5 18Z" fill="none" stroke="var(--sobre-rio)" stroke-width="2.4" stroke-linejoin="round"/>
+      <path d="M10 19.5c2.2 1.6 4.4 1.6 6.6 0s4.4-1.6 6.6 0 3.3 1.2 3.3 1.2" fill="none" stroke="var(--sobre-rio)" stroke-width="2.2" stroke-linecap="round"/>
+    </svg>
+    <span><strong>De Olho em Rodelas</strong><span>O dinheiro público da cidade, às claras</span></span>
+  </a>
 </header>
 
-<nav class="menu" aria-label="Seções">
-  <ul>
-    <li><a href="#inicio">Início</a></li>
-    <li><a href="#gastos">Gastos</a></li>
-    <li><a href="#salarios">Salários</a></li>
-    <li><a href="#transferencias">Transferências</a></li>
-    <li><a href="#licitacoes">Licitações e contratos</a></li>
-    <li><a href="#federais">Recursos federais</a></li>
-    <li><a href="#camara">Câmara</a></li>
-  </ul>
+<nav class="menu" aria-label="Seções do site">
+  <div class="trilha">
+    <ul>
+      <li><a href="#inicio">Início</a></li>
+      <li><a href="#gastos">Gastos</a></li>
+      <li><a href="#salarios">Salários</a></li>
+      <li><a href="#transferencias">Repasses da União</a></li>
+      <li><a href="#licitacoes">Licitações</a></li>
+      <li><a href="#federais">Governo Federal</a></li>
+      <li><a href="#camara">Câmara</a></li>
+    </ul>
+  </div>
 </nav>
 
-<main>
-  <section id="inicio">
-    <h2>Resumo</h2>
-    <p class="explica">Um panorama rápido. Toque em cada número para ver os detalhes.</p>
-    <div class="cartoes" id="resumo"></div>
+<main class="envelope">
+  <section id="inicio" aria-labelledby="titulo-inicio">
+    <div class="abertura" id="abertura">
+      <h1 id="titulo-inicio">Para onde vai o dinheiro de Rodelas</h1>
+      <p>Carregando os dados oficiais…</p>
+    </div>
+    <div id="cem"></div>
+
+    <div class="busca-nome" role="search">
+      <h2 id="titulo-busca">Procure um nome</h2>
+      <p class="explica">Veja quanto uma empresa ou pessoa recebeu da Prefeitura ou da Câmara nos dois últimos anos.</p>
+      <div class="campo">
+        <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7" fill="none" stroke="currentColor" stroke-width="2.2"/><path d="m20 20-4-4" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>
+        <label class="sr" for="busca-global">Nome da empresa ou pessoa</label>
+        <input type="search" id="busca-global" placeholder="Ex.: posto, construtora, nome de alguém" autocomplete="off" aria-describedby="titulo-busca">
+      </div>
+      <div class="resultados" id="resultados-busca" aria-live="polite"></div>
+    </div>
+
+    <h2 style="margin-top:44px">Números que importam</h2>
+    <ul class="chaves" id="chaves"></ul>
+
     <h3>De onde vêm os dados</h3>
     <ul class="fontes" id="fontes"></ul>
-    <p class="nota">Todos os dados são públicos, garantidos pela Lei de Acesso à Informação (Lei 12.527/2011). Este site é um projeto cidadão independente e não tem ligação com a Prefeitura.</p>
+    <p class="nota">Todos os dados são públicos e garantidos pela Lei de Acesso à Informação (Lei 12.527/2011). Este site é um projeto cidadão independente, sem ligação com a Prefeitura nem com a Câmara.</p>
   </section>
 
-  <section id="gastos" hidden>
-    <h2>Gastos da prefeitura</h2>
-    <p class="explica">Quanto a prefeitura arrecadou e gastou, e em quais áreas. Vem do Relatório Resumido da Execução Orçamentária (RREO), que a prefeitura envia ao Tesouro Nacional a cada dois meses.</p>
+  <section id="gastos" hidden aria-labelledby="titulo-gastos">
+    <h2 id="titulo-gastos">Gastos da Prefeitura</h2>
+    <p class="explica">Quanto a Prefeitura arrecadou, quanto gastou e em quais áreas. Os números vêm do relatório que ela é obrigada a enviar ao Tesouro Nacional a cada dois meses.</p>
+    <details class="oque"><summary>O que quer dizer empenhado, liquidado e pago?</summary>
+      <dl>
+        <dt>Empenhado</dt><dd>A Prefeitura reservou o dinheiro para uma despesa. É o primeiro passo.</dd>
+        <dt>Liquidado</dt><dd>O produto foi entregue ou o serviço foi feito, e a Prefeitura conferiu. A partir daqui ela deve o valor.</dd>
+        <dt>Pago</dt><dd>O dinheiro saiu da conta da Prefeitura.</dd>
+      </dl>
+    </details>
     <div id="gastos-conteudo"></div>
-    <h2 class="bloco">Cada despesa, uma por uma</h2>
-    <p class="explica">Todos os empenhos da Prefeitura e dos fundos municipais (saúde, educação, assistência): quem recebeu, quanto e para quê. Empenho é o primeiro passo do gasto: a prefeitura reserva o dinheiro para aquela despesa; depois vêm a liquidação (serviço entregue) e o pagamento.</p>
-    <div id="gastos-empenhos"></div>
+
+    <div class="parte">
+      <h2>Cada despesa, uma por uma</h2>
+      <p class="explica">Todos os empenhos da Prefeitura e dos fundos de saúde, educação e assistência: quem recebeu, quanto e para quê.</p>
+      <div id="gastos-empenhos"></div>
+    </div>
   </section>
 
-  <section id="salarios" hidden>
-    <h2>Salários e pessoal</h2>
-    <p class="explica">Quanto a prefeitura gasta com servidores. A Lei de Responsabilidade Fiscal limita esse gasto a 54% da receita corrente líquida. Vem do Relatório de Gestão Fiscal (RGF).</p>
+  <section id="salarios" hidden aria-labelledby="titulo-salarios">
+    <h2 id="titulo-salarios">Salários e pessoal</h2>
+    <p class="explica">Quanto a Prefeitura gasta com servidores, comparado com o limite da Lei de Responsabilidade Fiscal: no máximo 54% da receita corrente líquida.</p>
+    <details class="oque"><summary>O que é receita corrente líquida?</summary>
+      <dl>
+        <dt>Receita corrente líquida</dt><dd>É o dinheiro que a cidade recebe no dia a dia (impostos e repasses), descontadas algumas transferências obrigatórias. A lei usa esse valor como base para limitar os gastos com pessoal.</dd>
+        <dt>Limite de alerta e limite prudencial</dt><dd>Ao passar de 48,6% o Tribunal de Contas emite um alerta. Acima de 51,3% a Prefeitura fica proibida de dar aumentos e de contratar, com poucas exceções.</dd>
+      </dl>
+    </details>
     <div id="salarios-conteudo"></div>
   </section>
 
-  <section id="transferencias" hidden>
-    <h2>Transferências constitucionais</h2>
-    <p class="explica">Dinheiro que a União repassa a Rodelas por obrigação da Constituição, sem precisar de convênio: FPM, FUNDEB, ITR, royalties e outros. Para cidades pequenas, costuma ser a maior fonte de receita. Vem do Tesouro Nacional.</p>
+  <section id="transferencias" hidden aria-labelledby="titulo-transf">
+    <h2 id="titulo-transf">Repasses da União</h2>
+    <p class="explica">Dinheiro que o Governo Federal repassa a Rodelas por obrigação da Constituição, sem precisar de convênio. Em cidades pequenas, costuma ser a maior fonte de receita.</p>
+    <details class="oque"><summary>O que são FPM, FUNDEB e royalties?</summary>
+      <dl>
+        <dt>FPM</dt><dd>Fundo de Participação dos Municípios: uma parte do Imposto de Renda e do IPI arrecadados no país, dividida entre as cidades. O "FPM 1%" é uma parcela extra paga em julho e dezembro.</dd>
+        <dt>FUNDEB</dt><dd>Fundo que financia a educação básica. Só pode ser usado em escolas, professores e transporte escolar.</dd>
+        <dt>Royalties</dt><dd>Compensação paga à cidade pelo uso de recursos naturais, como a água do Rio São Francisco nas usinas.</dd>
+        <dt>ITR</dt><dd>Imposto sobre propriedades rurais. Uma parte fica com o município.</dd>
+      </dl>
+    </details>
     <div id="transferencias-conteudo"></div>
   </section>
 
-  <section id="licitacoes" hidden>
-    <h2>Licitações e contratos</h2>
-    <p class="explica">Compras e contratações publicadas pela prefeitura no Portal Nacional de Contratações Públicas (PNCP).</p>
+  <section id="licitacoes" hidden aria-labelledby="titulo-lic">
+    <h2 id="titulo-lic">Licitações</h2>
+    <p class="explica">Compras e contratações que a Prefeitura publicou no Portal Nacional de Contratações Públicas (PNCP), com link para o edital.</p>
+    <details class="oque"><summary>Qual a diferença entre pregão, dispensa e concorrência?</summary>
+      <dl>
+        <dt>Pregão</dt><dd>Disputa em que empresas dão lances; vence o menor preço. É o tipo mais comum para compras de produtos e serviços simples.</dd>
+        <dt>Concorrência</dt><dd>Usada para obras e contratos maiores ou mais complexos.</dd>
+        <dt>Dispensa</dt><dd>Compra sem licitação, permitida pela lei em casos específicos, como valores baixos ou emergências.</dd>
+        <dt>Valor estimado e homologado</dt><dd>O estimado é quanto a Prefeitura previa gastar. O homologado é o valor final, depois da disputa.</dd>
+      </dl>
+    </details>
     <div id="licitacoes-conteudo"></div>
   </section>
 
-  <section id="federais" hidden>
-    <h2>Recursos federais</h2>
-    <p class="explica">Dinheiro do Governo Federal que chega à cidade: convênios com a prefeitura e benefícios pagos direto às famílias. Vem do Portal da Transparência da CGU.</p>
+  <section id="federais" hidden aria-labelledby="titulo-fed">
+    <h2 id="titulo-fed">Governo Federal em Rodelas</h2>
+    <p class="explica">Benefícios pagos direto às famílias da cidade e convênios da União com a Prefeitura. Os dados vêm do Portal da Transparência da Controladoria-Geral da União (CGU).</p>
     <div id="federais-conteudo"></div>
   </section>
 
-  <section id="camara" hidden>
-    <h2>Câmara Municipal</h2>
-    <p class="explica">Quanto a Câmara de Vereadores gasta com pessoal (vereadores e servidores). A Lei de Responsabilidade Fiscal limita esse gasto a 6% da receita corrente líquida do município. Vem do Relatório de Gestão Fiscal do Poder Legislativo.</p>
+  <section id="camara" hidden aria-labelledby="titulo-camara">
+    <h2 id="titulo-camara">Câmara de Vereadores</h2>
+    <p class="explica">Quanto a Câmara gasta com pessoal (vereadores e servidores) e cada despesa que ela faz. A lei limita o gasto com pessoal da Câmara a 6% da receita corrente líquida do município.</p>
     <div id="camara-conteudo"></div>
-    <h2 class="bloco">Despesas da Câmara, uma por uma</h2>
-    <p class="explica">Cada empenho da Câmara: diárias de vereadores, assessorias, materiais e serviços.</p>
-    <div id="camara-empenhos"></div>
+    <div class="parte">
+      <h2>Despesas da Câmara, uma por uma</h2>
+      <p class="explica">Diárias de vereadores, assessorias, materiais e serviços.</p>
+      <div id="camara-empenhos"></div>
+    </div>
   </section>
 </main>
 
 <footer>
-  Código aberto. Encontrou um erro? Confira sempre na fonte oficial indicada em cada seção.
+  <div class="envelope">
+    <p>Projeto cidadão independente. Os números são copiados automaticamente das fontes oficiais todo dia; em caso de dúvida, vale sempre o que está na fonte indicada em cada seção.</p>
+    <nav aria-label="Links do projeto">
+      <a href="https://github.com/mricehot/de-olho-em-rodelas" target="_blank" rel="noopener">Código aberto no GitHub</a>
+      <a href="https://github.com/mricehot/de-olho-em-rodelas#readme" target="_blank" rel="noopener">Como o site funciona</a>
+      <a href="#inicio">Voltar ao início</a>
+    </nav>
+  </div>
 </footer>
 
 <script>
 "use strict";
+/* =====================================================================
+   Utilidades
+   ===================================================================== */
 const $ = (s, el = document) => el.querySelector(s);
+const $$ = (s, el = document) => [...el.querySelectorAll(s)];
 const esc = (v) => String(v ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
 const brl = new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL", maximumFractionDigits: 2 });
+const brlInteiro = new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL", maximumFractionDigits: 0 });
+const umaCasa = (v) => v.toLocaleString("pt-BR", { maximumFractionDigits: 1 });
 const brlCurto = (v) => {
   const a = Math.abs(v);
-  if (a >= 1e9) return "R$ " + (v / 1e9).toLocaleString("pt-BR", { maximumFractionDigits: 1 }) + " bi";
-  if (a >= 1e6) return "R$ " + (v / 1e6).toLocaleString("pt-BR", { maximumFractionDigits: 1 }) + " mi";
-  if (a >= 1e3) return "R$ " + (v / 1e3).toLocaleString("pt-BR", { maximumFractionDigits: 0 }) + " mil";
+  if (a >= 1e9) return `R$ ${umaCasa(v / 1e9)} bi`;
+  if (a >= 1e6) return `R$ ${umaCasa(v / 1e6)} mi`;
+  if (a >= 1e3) return `R$ ${Math.round(v / 1e3).toLocaleString("pt-BR")} mil`;
+  return brl.format(v);
+};
+const brlExtenso = (v) => {
+  const a = Math.abs(v);
+  if (a >= 1e9) return `R$ ${umaCasa(v / 1e9)} ${a < 2e9 ? "bilhão" : "bilhões"}`;
+  if (a >= 1e6) return `R$ ${umaCasa(v / 1e6)} ${a < 2e6 ? "milhão" : "milhões"}`;
+  if (a >= 1e3) return `R$ ${Math.round(v / 1e3).toLocaleString("pt-BR")} mil`;
   return brl.format(v);
 };
 const num = (v) => Number(v || 0).toLocaleString("pt-BR");
-const data = (iso) => {
-  if (!iso) return "";
-  const [a, m, d] = String(iso).slice(0, 10).split("-");
-  return d ? `${d}/${m}/${a}` : iso;
-};
+const pct = (v, casas = 1) => `${Number(v).toLocaleString("pt-BR", { maximumFractionDigits: casas })}%`;
+const data = (iso) => { if (!iso) return ""; const [a, m, d] = String(iso).slice(0, 10).split("-"); return d ? `${d}/${m}/${a}` : iso; };
 const dataHora = (iso) => iso ? new Date(iso).toLocaleString("pt-BR", { dateStyle: "short", timeStyle: "short" }) : "";
+const MESES = ["janeiro", "fevereiro", "março", "abril", "maio", "junho", "julho", "agosto", "setembro", "outubro", "novembro", "dezembro"];
+const MESES_CURTOS = ["jan", "fev", "mar", "abr", "mai", "jun", "jul", "ago", "set", "out", "nov", "dez"];
+const semAcento = (t) => String(t || "").normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase().trim();
+const plural = (n, um, varios) => `${num(n)} ${n === 1 ? um : varios}`;
+
+// Textos em CAIXA ALTA ficam difíceis de ler: viram frase normal, preservando siglas.
+const SIGLAS = new Set(["SUS", "FUNDEB", "FPM", "INSS", "PNCP", "LTDA", "ME", "EPP", "EIRELI", "CNPJ", "CPF", "BA", "SAMU", "PSF", "UBS", "ICMS", "ISS", "IPTU",
+  "RCL", "MDE", "FME", "FMS", "FMAS", "FOPAG", "VAAF", "VAAT", "PNAE", "PNATE", "CRAS", "CREAS", "CAPS", "ESF", "SA", "S/A", "MEI", "COELBA", "EMBASA", "TI", "PSB", "PAB", "IPVA", "LC", "CIDE", "ITR", "IRRF", "FGTS", "PIS", "PASEP", "CEP", "CAR", "SEMED", "SEMAS", "SESAU", "II", "III", "IV", "TCM"]);
+const MINUSCULAS = new Set(["de", "da", "do", "das", "dos", "e", "a", "o", "em", "para", "com", "por", "no", "na", "nos", "nas", "ao", "aos", "à", "às"]);
+const ehCaixaAlta = (t) => { const letras = String(t).replace(/[^A-Za-zÀ-ú]/g, ""); return letras.length > 3 && letras === letras.toUpperCase(); };
+function frase(t) {
+  if (!t || !ehCaixaAlta(t)) return t || "";
+  const s = String(t).toLowerCase().replace(/\S+/g, (p) => SIGLAS.has(p.toUpperCase().replace(/[.,;:()]/g, "")) ? p.toUpperCase() : p);
+  return s.replace(/^(\P{L}*)(\p{L})/u, (_, a, b) => a + b.toUpperCase()).replace(/([.!?]\s+)(\p{L})/gu, (_, a, b) => a + b.toUpperCase());
+}
+function nomeProprio(t) {
+  if (!t || !ehCaixaAlta(t)) return t || "";
+  return String(t).toLowerCase().split(/(\s+|-|\/)/).map((p, i) => {
+    const sem = p.replace(/[.,;:()]/g, "").toUpperCase();
+    if (SIGLAS.has(sem)) return p.toUpperCase();
+    if (i > 0 && MINUSCULAS.has(p)) return p;
+    return p.replace(/^\p{L}/u, (c) => c.toUpperCase());
+  }).join("");
+}
+
+const ICONES = {
+  ok: '<svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="currentColor"/><path d="m7.5 12.5 3 3 6-6.5" fill="none" stroke="var(--surface)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+  atencao: '<svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5 22.5 21h-21Z" fill="currentColor"/><path d="M12 9v5.5M12 17.6v.2" stroke="var(--surface)" stroke-width="2.4" stroke-linecap="round"/></svg>',
+  perigo: '<svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="currentColor"/><path d="M8 8l8 8M16 8l-8 8" stroke="var(--surface)" stroke-width="2.4" stroke-linecap="round"/></svg>',
+  nada: '<svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2"/></svg>',
+  fechar: '<svg width="14" height="14" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/></svg>',
+};
 
 const D = {};
 async function carregar(nome) {
@@ -252,238 +495,467 @@ async function carregar(nome) {
     return await r.json();
   } catch { return null; }
 }
+const vazio = (titulo, msg = "") => `<div class="vazio"><strong>${titulo}</strong>${msg}</div>`;
+const semDadosAinda = (msg) => vazio("Ainda sem dados aqui.", msg);
 
-function vazio(msg) {
-  return `<div class="vazio"><strong>Ainda sem dados aqui.</strong><br>${msg}</div>`;
-}
-
-/* ---------- Leitor de relatórios do Siconfi ---------- */
-// Cada linha tem conta, coluna e valor. O leitor mostra uma coluna por vez.
+/* =====================================================================
+   Relatórios do Tesouro (Siconfi)
+   ===================================================================== */
 function colunasDe(linhas) {
   const vistos = new Map();
   for (const l of linhas) if (l.valor != null) vistos.set(l.coluna, (vistos.get(l.coluna) || 0) + 1);
   return [...vistos.keys()];
 }
 function escolherColuna(colunas, preferencias) {
-  for (const re of preferencias) {
-    const c = colunas.find((x) => re.test(x || ""));
-    if (c) return c;
-  }
+  for (const re of preferencias) { const c = colunas.find((x) => re.test(x || "")); if (c) return c; }
   return colunas[0];
 }
 function achar(linhas, reConta, reColuna) {
   const l = linhas.find((x) => reConta.test(x.conta || "") && reColuna.test(x.coluna || "") && x.valor != null);
   return l ? Number(l.valor) : null;
 }
+// Nomes de coluna dos relatórios, em português do dia a dia.
+const NOMES_COLUNA = [
+  [/liquidad.*at[eé] o bimestre/i, "Liquidado no ano (serviço entregue)"],
+  [/empenhad.*at[eé] o bimestre/i, "Empenhado no ano (dinheiro reservado)"],
+  [/pagas?.*at[eé] o bimestre/i, "Pago no ano"],
+  [/liquidad.*no bimestre/i, "Liquidado só no último bimestre"],
+  [/empenhad.*no bimestre/i, "Empenhado só no último bimestre"],
+  [/^no bimestre/i, "Arrecadado só no último bimestre"],
+  [/^at[eé] o bimestre/i, "Arrecadado no ano"],
+  [/dota[cç][aã]o inicial/i, "Orçamento aprovado no início do ano"],
+  [/dota[cç][aã]o atualizada/i, "Orçamento atualizado"],
+  [/previs[aã]o inicial/i, "Receita prevista no início do ano"],
+  [/previs[aã]o atualizada/i, "Receita prevista atualizada"],
+  [/saldo/i, "Saldo"],
+  [/% sobre a rcl/i, "% da receita corrente líquida"],
+  [/12 meses|^valor$/i, "Valor em 12 meses"],
+];
+const nomeColuna = (c) => { for (const [re, n] of NOMES_COLUNA) if (re.test(c || "")) return n; return frase(c); };
 
-function leitor(alvo, linhas, preferencias, { porcentagem = false, filtro = null, ordenar = false, nomeLista = "linhas" } = {}) {
+// As 28 funções de governo (Portaria MOG 42/1999). O RREO Anexo 2 mistura funções e subfunções
+// na mesma lista; mostramos só as funções, para nada ser somado duas vezes.
+const FUNCOES = new Map([
+  ["Legislativa", "Câmara de Vereadores"], ["Judiciária", "Pagamento de sentenças judiciais"], ["Essencial à Justiça", "Essencial à Justiça"],
+  ["Administração", "Administração"], ["Defesa Nacional", "Defesa"], ["Segurança Pública", "Segurança pública"], ["Relações Exteriores", "Relações exteriores"],
+  ["Assistência Social", "Assistência social"], ["Previdência Social", "Previdência"], ["Saúde", "Saúde"], ["Trabalho", "Trabalho e emprego"],
+  ["Educação", "Educação"], ["Cultura", "Cultura"], ["Direitos da Cidadania", "Direitos da cidadania"], ["Urbanismo", "Obras e serviços urbanos"],
+  ["Habitação", "Habitação"], ["Saneamento", "Saneamento"], ["Gestão Ambiental", "Meio ambiente"], ["Ciência e Tecnologia", "Ciência e tecnologia"],
+  ["Agricultura", "Agricultura"], ["Organização Agrária", "Organização agrária"], ["Indústria", "Indústria"], ["Comércio e Serviços", "Comércio e serviços"],
+  ["Comunicações", "Comunicações"], ["Energia", "Iluminação e energia"], ["Transporte", "Transporte"], ["Desporto e Lazer", "Esporte e lazer"],
+  ["Encargos Especiais", "Dívidas e encargos"],
+].map(([k, v]) => [semAcento(k), v]));
+const PREF_FUNCAO = [/liquidad.*at[eé] o bimestre/i, /liquidad/i, /empenhad.*at[eé] o bimestre/i, /empenhad/i];
+const PREF_BALANCO = [/^at[eé] o bimestre/i, /realizad/i];
+const PREF_PESSOAL = [/total.*12 meses/i, /12 meses/i, /^valor$/i, /valor/i];
+
+const FIM_BIMESTRE = ["fevereiro", "abril", "junho", "agosto", "outubro", "dezembro"];
+const periodoRREO = (p) => p === 6 ? "no ano todo" : `até ${FIM_BIMESTRE[p - 1]}`;
+const periodoRGF = (r) => {
+  const mes = r.periodicidade === "S" ? ["junho", "dezembro"][r.periodo - 1] : ["abril", "agosto", "dezembro"][r.periodo - 1];
+  return `12 meses até ${mes}`;
+};
+
+const RE_TOTAL_RECEITA = /^(TOTAL DAS )?RECEITAS \(EXCETO INTRA|^TOTAL DAS RECEITAS/i;
+const RE_TOTAL_DESPESA = /^(TOTAL DAS )?DESPESAS \(EXCETO INTRA|^TOTAL DAS DESPESAS/i;
+const receitaDo = (r1) => achar(r1, RE_TOTAL_RECEITA, /^at[eé] o bimestre/i);
+const despesaDo = (r1) => achar(r1, RE_TOTAL_DESPESA, /liquidad.*at[eé] o bimestre/i);
+const pctPessoal = (linhas) => achar(linhas, /DESPESA TOTAL COM PESSOAL/i, /%|RCL/i);
+const totalPessoal = (linhas) => achar(linhas, /DESPESA TOTAL COM PESSOAL/i, /^(?!.*%).*/);
+
+function areasDoAno(r2) {
+  if (!r2) return [];
+  const coluna = escolherColuna(colunasDe(r2.linhas), PREF_FUNCAO);
+  const vistas = new Set(), areas = [];
+  for (const l of r2.linhas) {
+    const k = semAcento(l.conta);
+    if (l.coluna !== coluna || l.valor == null || vistas.has(k) || !FUNCOES.has(k)) continue;
+    vistas.add(k);
+    if (Number(l.valor) > 0) areas.push({ nome: FUNCOES.get(k), oficial: l.conta, valor: Number(l.valor) });
+  }
+  return areas.sort((a, b) => b.valor - a.valor);
+}
+
+// Leitor do relatório completo: uma coluna por vez, com busca.
+function leitor(alvo, linhas, preferencias, { porcentagem = false } = {}) {
   const colunas = colunasDe(linhas);
   let coluna = escolherColuna(colunas, preferencias);
+  const id = alvo.id;
   alvo.innerHTML = `
     <div class="controles">
-      <label class="sr" for="${alvo.id}-col">Coluna do relatório</label>
-      <select id="${alvo.id}-col">${colunas.map((c) => `<option ${c === coluna ? "selected" : ""}>${esc(c)}</option>`).join("")}</select>
-      <label class="sr" for="${alvo.id}-busca">Buscar</label>
-      <input type="search" id="${alvo.id}-busca" placeholder="Buscar no relatório">
+      <label class="sr" for="${id}-col">Qual valor mostrar</label>
+      <select id="${id}-col">${colunas.map((c) => `<option value="${esc(c)}" ${c === coluna ? "selected" : ""}>${esc(nomeColuna(c))}</option>`).join("")}</select>
+      <label class="sr" for="${id}-busca">Buscar no relatório</label>
+      <input type="search" id="${id}-busca" placeholder="Buscar no relatório">
     </div>
-    <div class="painel"><ul class="barras"></ul></div>
+    <ul class="barras"></ul>
     <p class="nota"></p>`;
   const ul = $(".barras", alvo), nota = $(".nota", alvo);
   const desenhar = () => {
-    const termo = $(`#${alvo.id}-busca`).value.trim().toLowerCase();
+    const termo = semAcento($(`#${id}-busca`).value);
     const vistas = new Set();
     const itens = linhas.filter((l) => {
-      if (l.coluna !== coluna || l.valor == null) return false;
-      if (vistas.has(l.conta) || (filtro && !filtro(l))) return false;
+      if (l.coluna !== coluna || l.valor == null || vistas.has(l.conta)) return false;
       vistas.add(l.conta);
-      return !termo || (l.conta || "").toLowerCase().includes(termo);
+      return !termo || semAcento(l.conta).includes(termo);
     });
-    if (ordenar) itens.sort((a, b) => Number(b.valor) - Number(a.valor));
     const maior = Math.max(...itens.map((i) => Math.abs(Number(i.valor))), 1);
     const ehPct = porcentagem && /%/.test(coluna);
     ul.innerHTML = itens.length ? itens.map((i) => {
       const v = Number(i.valor);
       const largura = ehPct ? Math.min(Math.abs(v), 100) : (Math.abs(v) / maior) * 100;
-      return `<li><div class="linha"><span class="nome">${esc(i.conta)}</span>
-        <span class="valor">${ehPct ? v.toLocaleString("pt-BR", { maximumFractionDigits: 2 }) + "%" : brl.format(v)}</span></div>
+      return `<li><div class="linha"><span class="nome">${esc(frase(i.conta))}</span>
+        <span class="valor">${ehPct ? pct(v, 2) : brl.format(v)}</span></div>
         <div class="trilho"><div class="enche" style="width:${largura.toFixed(2)}%"></div></div></li>`;
     }).join("") : `<li>Nada encontrado para essa busca.</li>`;
-    nota.textContent = ordenar ? `${itens.length} ${nomeLista}, da maior para a menor.` : `${itens.length} ${itens.length === 1 ? "linha" : "linhas"} do relatório oficial, na ordem em que aparecem nele.`;
+    nota.textContent = `${plural(itens.length, "linha", "linhas")} do relatório oficial, na ordem em que aparecem nele.`;
   };
-  $(`#${alvo.id}-col`).addEventListener("change", (e) => { coluna = e.target.value; desenhar(); });
-  $(`#${alvo.id}-busca`).addEventListener("input", desenhar);
+  $(`#${id}-col`).addEventListener("change", (e) => { coluna = e.target.value; desenhar(); });
+  $(`#${id}-busca`).addEventListener("input", desenhar);
   desenhar();
 }
 
-function seletorAno(anos, aoMudar, id) {
+function seletorAno(anos, aoMudar, id, rotulo = "Ano") {
   const wrap = document.createElement("div");
   wrap.className = "controles";
-  wrap.innerHTML = `<label for="${id}">Ano</label>
+  wrap.innerHTML = `<label class="rotulo" for="${id}">${rotulo}</label>
     <select id="${id}">${anos.map((a) => `<option>${esc(a)}</option>`).join("")}</select>`;
   $("select", wrap).addEventListener("change", (e) => aoMudar(e.target.value));
   return wrap;
 }
 
-const PERIODO_RREO = (p) => p === 6 ? "ano completo" : `até o ${p}º bimestre`;
-const PERIODO_RGF = (r) => r.periodicidade === "S"
-  ? (r.periodo === 2 ? "2º semestre (ano completo)" : "1º semestre")
-  : (r.periodo === 3 ? "3º quadrimestre (ano completo)" : `${r.periodo}º quadrimestre`);
+const destaque = (rot, numero, det = "") => `<div class="destaque"><p class="rot">${rot}</p><p class="num">${numero}</p>${det ? `<p class="det">${det}</p>` : ""}</div>`;
+const variacao = (atual, anterior, texto = "que no mesmo período do ano anterior") => {
+  if (!anterior) return "";
+  const d = (atual - anterior) / anterior * 100;
+  if (Math.abs(d) < 0.5) return `praticamente igual ao mesmo período do ano anterior`;
+  return `<span class="variacao ${d > 0 ? "sobe" : "desce"}">${d > 0 ? "+" : "−"}${pct(Math.abs(d), 0)}</span> ${texto}`;
+};
 
-// As 28 funções de governo (Portaria MOG 42/1999). O RREO Anexo 2 mistura funções e
-// subfunções na mesma lista; o site mostra só as funções, para não somar duas vezes.
-const semAcento = (t) => String(t || "").normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().trim();
-const FUNCOES = new Set(["Legislativa", "Judiciária", "Essencial à Justiça", "Administração", "Defesa Nacional", "Segurança Pública",
-  "Relações Exteriores", "Assistência Social", "Previdência Social", "Saúde", "Trabalho", "Educação", "Cultura", "Direitos da Cidadania",
-  "Urbanismo", "Habitação", "Saneamento", "Gestão Ambiental", "Ciência e Tecnologia", "Agricultura", "Organização Agrária", "Indústria",
-  "Comércio e Serviços", "Comunicações", "Energia", "Transporte", "Desporto e Lazer", "Encargos Especiais"].map(semAcento));
-const PREF_FUNCAO = [/liquidad.*at[eé] o bimestre/i, /liquidad/i, /empenhad.*at[eé] o bimestre/i, /empenhad/i];
-const PREF_BALANCO = [/at[eé] o bimestre/i, /realizad/i];
-const PREF_PESSOAL = [/total.*12 meses/i, /12 meses/i, /valor/i];
+/* ---------- Medidor de limite legal ---------- */
+const COR_ESTADO = { ok: "var(--ok)", atencao: "var(--atencao)", perigo: "var(--perigo)" };
+function estadoLimite(valor, { maximo, alerta, prudencial }) {
+  if (valor > maximo) return { estado: "perigo", curto: "acima do máximo da lei" };
+  if (prudencial && valor > prudencial) return { estado: "atencao", curto: "acima do limite prudencial" };
+  if (valor > alerta) return { estado: "atencao", curto: "acima do limite de alerta" };
+  return { estado: "ok", curto: "dentro do limite" };
+}
+function medidor(valor, { maximo, alerta, prudencial, quem = "A Prefeitura" }) {
+  const escala = Math.max(maximo * 1.15, valor * 1.05);
+  const pos = (v) => `${Math.min(v / escala * 100, 100).toFixed(2)}%`;
+  const { estado } = estadoLimite(valor, { maximo, alerta, prudencial });
+  let frase = `${quem} está dentro do limite.`;
+  if (valor > maximo) frase = `${quem} passou do limite máximo da lei.`;
+  else if (prudencial && valor > prudencial) frase = `${quem} passou do limite prudencial: fica proibida de dar aumentos e contratar.`;
+  else if (valor > alerta) frase = `${quem} passou do limite de alerta.`;
+  const cor = COR_ESTADO[estado];
+  return `<div class="medidor" role="img" aria-label="${esc(`${pct(valor)} usados de um limite de ${pct(maximo)}. ${frase}`)}">
+    <div class="barra">
+      <div class="enche" style="width:${pos(valor)};background:${cor}"></div>
+      <span class="marca-limite alerta" style="left:${pos(alerta)}"></span>
+      ${prudencial ? `<span class="marca-limite alerta" style="left:${pos(prudencial)}"></span>` : ""}
+      <span class="marca-limite" style="left:${pos(maximo)}"></span>
+    </div>
+    <p class="escala">Traços na barra: alerta em ${pct(alerta)}${prudencial ? `, limite prudencial em ${pct(prudencial)}` : ""} e máximo em ${pct(maximo)}.</p>
+    <p class="situacao ${estado}" style="margin:6px 0 0">${ICONES[estado]}${frase}</p>
+  </div>`;
+}
 
-/* ---------- Gastos ---------- */
+/* =====================================================================
+   Início
+   ===================================================================== */
+const ultimoAnoCom = (k) => D.siconfi ? Object.keys(D.siconfi.anos).filter((a) => D.siconfi.anos[a][k]).sort().at(-1) : null;
+
+function montarAbertura() {
+  const ano = ultimoAnoCom("rreo_01");
+  const el = $("#abertura");
+  if (!ano) { el.querySelector("p").textContent = "Assim que a primeira coleta automática terminar, os números aparecem aqui."; return; }
+  const b = D.siconfi.anos[ano];
+  const gasto = despesaDo(b.rreo_01.linhas);
+  const per = periodoRREO(b.rreo_01.periodo);
+  el.innerHTML = `<h1 id="titulo-inicio">Em ${esc(ano)}, ${per === "no ano todo" ? "" : per + ", "}a Prefeitura de Rodelas gastou <span class="valor">${brlExtenso(gasto)}</span>.</h1>
+    <p>Veja em que esse dinheiro foi usado, quem recebeu e de onde ele veio. Tudo com dados oficiais, atualizados todo dia.</p>`;
+}
+
+function montarCem() {
+  const ano = ultimoAnoCom("rreo_02");
+  const raiz = $("#cem");
+  if (!ano) return;
+  const areas = areasDoAno(D.siconfi.anos[ano].rreo_02);
+  const total = areas.reduce((t, a) => t + a.valor, 0);
+  if (!total) return;
+  const top = areas.slice(0, 5), resto = areas.slice(5);
+  const grupos = top.map((a, i) => ({ ...a, cor: `var(--s${i + 1})` }));
+  if (resto.length) grupos.push({ nome: "Outras áreas", valor: resto.reduce((t, a) => t + a.valor, 0), cor: "var(--s0)", lista: resto.map((a) => a.nome) });
+  // arredonda para somar exatamente 100 quadradinhos (maiores restos)
+  const brutos = grupos.map((g) => g.valor / total * 100);
+  const inteiros = brutos.map(Math.floor);
+  let falta = 100 - inteiros.reduce((a, b) => a + b, 0);
+  brutos.map((v, i) => [v - inteiros[i], i]).sort((a, b) => b[0] - a[0]).forEach(([, i]) => { if (falta > 0) { inteiros[i]++; falta--; } });
+  grupos.forEach((g, i) => { g.reais = inteiros[i]; });
+  let n = 0;
+  const quadros = grupos.map((g, gi) => Array.from({ length: g.reais }, () => `<i style="background:${g.cor};--n:${n++}" data-g="${gi}" title="${esc(g.nome)}"></i>`).join("")).join("");
+  raiz.innerHTML = `<div class="cem">
+    <h2>A cada R$ 100 gastos</h2>
+    <div class="grade-cem entrando" aria-hidden="true">${quadros}</div>
+    <div>
+      <ul class="legenda-cem">${grupos.map((g, gi) => `
+        <li><button type="button" data-g="${gi}" aria-pressed="false" title="${esc(g.lista ? g.lista.join(", ") : g.oficial)}">
+          <span class="cor" style="background:${g.cor}"></span><span>${esc(g.nome)}</span>
+          <span class="reais">R$ ${g.reais}<small>${brlCurto(g.valor)}</small></span></button></li>`).join("")}
+      </ul>
+      <p class="nota">Cada quadradinho vale R$ 1. Gastos liquidados em ${esc(ano)}, ${periodoRREO(D.siconfi.anos[ano].rreo_02.periodo)}. <a href="#gastos">Ver todas as áreas</a></p>
+    </div>
+  </div>`;
+  const grade = $(".grade-cem", raiz);
+  setTimeout(() => grade.classList.remove("entrando"), 1400);
+  $$(".legenda-cem button", raiz).forEach((b) => b.addEventListener("click", () => {
+    const ligado = b.getAttribute("aria-pressed") !== "true";
+    $$(".legenda-cem button", raiz).forEach((x) => x.setAttribute("aria-pressed", "false"));
+    $$("i", grade).forEach((q) => q.classList.toggle("ativo", ligado && q.dataset.g === b.dataset.g));
+    grade.classList.toggle("foco", ligado);
+    b.setAttribute("aria-pressed", String(ligado));
+  }));
+}
+
+function montarChaves() {
+  const itens = [];
+  const s = D.siconfi;
+  const anoP = ultimoAnoCom("rgf_01");
+  if (anoP) {
+    const r = s.anos[anoP].rgf_01, v = pctPessoal(r.linhas);
+    if (v != null) itens.push({ href: "#salarios", rot: "Gasto com salários", num: pct(v), det: `da receita corrente líquida, ${periodoRGF(r)} de ${anoP}`, extra: medidor(v, { maximo: 54, alerta: 48.6, prudencial: 51.3 }) });
+  }
+  const t = D.transferencias?.serie;
+  if (t?.length) {
+    const ultimo = t.at(-1).mes, ano = ultimo.slice(0, 4), mesFim = ultimo.slice(5, 7);
+    const soma = (a) => t.filter((x) => x.mes.startsWith(a) && x.mes.slice(5, 7) <= mesFim).reduce((s2, x) => s2 + x.valor, 0);
+    const atual = soma(ano), antes = soma(String(Number(ano) - 1));
+    itens.push({ href: "#transferencias", rot: "Repasses da União", num: brlCurto(atual), det: `em ${ano}, até ${MESES[Number(mesFim) - 1]}. ${variacao(atual, antes)}` });
+  }
+  if (D.despesasIndice?.orgaos?.prefeitura?.anos?.length && D._empAtual) {
+    const e = D._empAtual, credores = new Set(e.map((x) => x.credor));
+    itens.push({ href: "#gastos", rot: "Empenhos da Prefeitura", num: num(e.length), det: `em ${D._empAnoAtual}, para ${plural(credores.size, "credor", "credores diferentes")}` });
+  }
+  if (D.pncp?.contratacoes?.length) {
+    const c = D.pncp.contratacoes, ano = c.map((x) => (x.data || "").slice(0, 4)).sort().at(-1);
+    const doAno = c.filter((x) => (x.data || "").startsWith(ano));
+    const valor = doAno.reduce((s2, x) => s2 + Number(x.valor_homologado || x.valor_estimado || 0), 0);
+    itens.push({ href: "#licitacoes", rot: "Licitações e dispensas", num: num(doAno.length), det: `publicadas em ${ano}, somando ${brlCurto(valor)}` });
+  }
+  if (D.cgu?.bolsa_familia?.length) {
+    const u = D.cgu.bolsa_familia.at(-1), [a, m] = u.mes.split("-");
+    itens.push({ href: "#federais", rot: "Bolsa Família", num: brlCurto(u.valor), det: `pagos a ${num(u.beneficiados)} famílias de Rodelas em ${MESES[Number(m) - 1]} de ${a}` });
+  }
+  const anoC = ultimoAnoCom("rgf_01_camara");
+  if (anoC) {
+    const v = pctPessoal(s.anos[anoC].rgf_01_camara.linhas);
+    if (v != null) itens.push({ href: "#camara", rot: "Salários da Câmara", num: pct(v, 2), det: `da receita corrente líquida, para um limite de 6%` });
+  }
+  $("#chaves").innerHTML = itens.length
+    ? itens.map((i) => `<li><a href="${i.href}"><span class="rot">${i.rot}</span><span class="num">${i.num}</span><span class="det">${i.det}</span>${i.extra ? `<span class="medidor">${i.extra}</span>` : ""}</a></li>`).join("")
+    : `<li>${semDadosAinda("Quando a primeira coleta automática terminar, os números aparecem aqui.")}</li>`;
+}
+
+function montarFontes() {
+  const nomes = {
+    siconfi: ["Tesouro Nacional (Siconfi)", "gastos, salários e Câmara"],
+    transferencias: ["Tesouro Nacional", "repasses da União"],
+    despesas: ["Portal de despesas da Prefeitura e da Câmara", "cada empenho"],
+    pncp: ["Portal Nacional de Contratações Públicas", "licitações"],
+    cgu: ["Portal da Transparência (CGU)", "Bolsa Família, BPC e convênios"],
+  };
+  const meta = D.meta?.fontes || {};
+  $("#fontes").innerHTML = Object.entries(nomes).map(([k, [nome, oque]]) => {
+    const f = meta[k];
+    const est = !f ? "nada" : f.ok ? "ok" : "atencao";
+    const txt = !f ? "ainda não coletado" : f.ok ? `atualizado em ${dataHora(f.sucesso)}` : `a última atualização falhou${f.sucesso ? `; mostrando dados de ${dataHora(f.sucesso)}` : ""}`;
+    return `<li><span class="situacao ${est === "nada" ? "" : est}" style="color:${est === "nada" ? "var(--muted)" : ""}">${ICONES[est]}</span>
+      <span><strong>${nome}</strong>: ${oque}<span class="estado">${txt}</span></span></li>`;
+  }).join("");
+}
+
+/* ---------- Busca global por nome ---------- */
+let buscaPronta = null;
+function prepararBusca() {
+  if (buscaPronta) return buscaPronta;
+  const anos = (o) => (D.despesasIndice?.orgaos?.[o]?.anos || []).slice().sort().slice(-2);
+  const pedidos = [];
+  for (const o of ["prefeitura", "camara"]) for (const a of anos(o)) pedidos.push(carregarEmpenhos(o, a).then((arq) => (arq?.empenhos || []).map((e) => ({ ...e, _orgao: o, _ano: a }))));
+  buscaPronta = Promise.all(pedidos).then((l) => l.flat());
+  return buscaPronta;
+}
+function montarBusca() {
+  const campo = $("#busca-global"), saida = $("#resultados-busca");
+  if (!D.despesasIndice) { campo.disabled = true; campo.placeholder = "Disponível depois da primeira coleta"; return; }
+  campo.addEventListener("focus", prepararBusca, { once: true });
+  let t;
+  campo.addEventListener("input", () => {
+    clearTimeout(t);
+    t = setTimeout(async () => {
+      const termo = semAcento(campo.value);
+      if (termo.length < 3) { saida.innerHTML = termo ? `<p class="nota" style="margin:0">Digite pelo menos 3 letras.</p>` : ""; return; }
+      saida.innerHTML = `<p class="carregando">Procurando…</p>`;
+      const todos = await prepararBusca();
+      const grupos = new Map();
+      for (const e of todos) {
+        if (!semAcento(`${e.credor} ${e.documento || ""}`).includes(termo)) continue;
+        const k = `${e.credor}|${e._orgao}`;
+        const g = grupos.get(k) || { credor: e.credor, orgao: e._orgao, total: 0, n: 0, anos: new Set() };
+        g.total += e.empenhado; g.n++; g.anos.add(e._ano); grupos.set(k, g);
+      }
+      const lista = [...grupos.values()].sort((a, b) => b.total - a.total);
+      if (!lista.length) { saida.innerHTML = `<p class="nota" style="margin:0">Nenhum nome encontrado nas despesas dos dois últimos anos. Tente só uma parte do nome.</p>`; return; }
+      saida.innerHTML = lista.slice(0, 8).map((g, i) => `
+        <button type="button" class="resultado" data-i="${i}">
+          <span class="quem">${esc(nomeProprio(g.credor))}</span><span class="quanto">${brlCurto(g.total)}</span>
+          <span class="onde">${g.orgao === "camara" ? "Câmara" : "Prefeitura"}, ${plural(g.n, "empenho", "empenhos")} em ${[...g.anos].sort().join(" e ")}. Ver despesas</span>
+        </button>`).join("") + (lista.length > 8 ? `<p class="nota" style="margin:0">Mostrando 8 de ${num(lista.length)} nomes. Escreva mais para refinar.</p>` : "");
+      $$(".resultado", saida).forEach((b) => b.addEventListener("click", () => {
+        const g = lista[b.dataset.i];
+        const ano = [...g.anos].sort().at(-1);
+        EMPENHOS[g.orgao]?.aplicar({ busca: g.credor, ano });
+        location.hash = g.orgao === "camara" ? "#camara" : "#gastos";
+        setTimeout(() => document.getElementById(g.orgao === "camara" ? "camara-empenhos" : "gastos-empenhos").scrollIntoView({ behavior: "smooth" }), 80);
+      }));
+    }, 250);
+  });
+}
+
+/* =====================================================================
+   Gastos
+   ===================================================================== */
 function montarGastos() {
   const raiz = $("#gastos-conteudo");
   const s = D.siconfi;
   const anos = s ? Object.keys(s.anos).filter((a) => s.anos[a].rreo_01 || s.anos[a].rreo_02).sort().reverse() : [];
-  if (!anos.length) { raiz.innerHTML = vazio("Os relatórios do Tesouro aparecem depois da primeira coleta automática."); return; }
+  if (!anos.length) { raiz.innerHTML = semDadosAinda("Os relatórios do Tesouro aparecem depois da primeira coleta automática."); return; }
   const corpo = document.createElement("div");
   const mostrar = (ano) => {
-    const b = s.anos[ano];
-    const r1 = b.rreo_01?.linhas || [];
-    const receita = achar(r1, /^(TOTAL DAS )?RECEITAS \(EXCETO INTRA|^TOTAL DAS RECEITAS/i, /at[eé] o bimestre/i);
-    const despesa = achar(r1, /^(TOTAL DAS )?DESPESAS \(EXCETO INTRA|^TOTAL DAS DESPESAS/i, /liquidad.*at[eé] o bimestre/i);
-    const per = b.rreo_01 ? PERIODO_RREO(b.rreo_01.periodo) : b.rreo_02 ? PERIODO_RREO(b.rreo_02.periodo) : "";
+    const b = s.anos[ano], r1 = b.rreo_01?.linhas || [];
+    const receita = receitaDo(r1), despesa = despesaDo(r1);
+    const per = b.rreo_01 ? periodoRREO(b.rreo_01.periodo) : b.rreo_02 ? periodoRREO(b.rreo_02.periodo) : "";
+    const ant = s.anos[String(Number(ano) - 1)];
+    const mesmoPeriodo = ant?.rreo_01 && b.rreo_01 && ant.rreo_01.periodo === b.rreo_01.periodo;
+    const despAnt = mesmoPeriodo ? despesaDo(ant.rreo_01.linhas) : null;
+    const saldo = receita != null && despesa != null ? receita - despesa : null;
+    const areas = areasDoAno(b.rreo_02);
+    const totalAreas = areas.reduce((t, a) => t + a.valor, 0), maior = areas[0]?.valor || 1;
     corpo.innerHTML = `
-      <div class="cartoes">
-        ${receita != null ? `<div class="cartao"><p class="rot">Receita arrecadada</p><p class="num">${brlCurto(receita)}</p><p class="det">${esc(ano)}, ${per}</p></div>` : ""}
-        ${despesa != null ? `<div class="cartao"><p class="rot">Despesa paga ou a pagar (liquidada)</p><p class="num">${brlCurto(despesa)}</p><p class="det">${esc(ano)}, ${per}</p></div>` : ""}
+      <div class="destaques">
+        ${receita != null ? destaque("Arrecadou", brlCurto(receita), `${ano}, ${per}`) : ""}
+        ${despesa != null ? destaque("Gastou (liquidado)", brlCurto(despesa), despAnt ? variacao(despesa, despAnt) : `${ano}, ${per}`) : ""}
       </div>
-      <h3>Gastos por área</h3>
-      ${b.rreo_02 ? `<div id="g-funcao"></div>` : vazio("A prefeitura ainda não enviou este anexo para o ano escolhido.")}
-      <h3>Receitas e despesas do orçamento</h3>
-      ${b.rreo_01 ? `<div id="g-balanco"></div>` : vazio("A prefeitura ainda não enviou este anexo para o ano escolhido.")}
-      <p class="nota">Fonte: RREO de ${esc(ano)} (${per}), Siconfi/Tesouro Nacional. Atualizado em ${dataHora(s.atualizado_em)}.</p>`;
-    if (b.rreo_02) leitor($("#g-funcao", corpo), b.rreo_02.linhas, PREF_FUNCAO, { filtro: (l) => FUNCOES.has(semAcento(l.conta)), ordenar: true, nomeLista: "áreas" });
+      ${saldo != null ? `<p class="frase-resumo">${saldo >= 0
+        ? `Até agora, a Prefeitura arrecadou <strong>${brlCurto(saldo)} a mais</strong> do que gastou.`
+        : `Até agora, a Prefeitura gastou <strong>${brlCurto(-saldo)} a mais</strong> do que arrecadou. A diferença costuma ser coberta com dinheiro guardado de anos anteriores.`}</p>` : ""}
+      <h3>Em que áreas o dinheiro foi gasto</h3>
+      ${areas.length ? `<ul class="barras">${areas.map((a) => `
+        <li><div class="linha"><span class="nome" title="${esc(a.oficial)}">${esc(a.nome)}<small>${pct(a.valor / totalAreas * 100, 0)}</small></span><span class="valor">${brlCurto(a.valor)}</span></div>
+        <div class="trilho"><div class="enche" style="width:${(a.valor / maior * 100).toFixed(2)}%"></div></div></li>`).join("")}</ul>
+        <p class="nota">Valores liquidados, ${per}, da maior para a menor.</p>
+        <details class="recolhe"><summary>Ver o relatório completo por área e subárea</summary><div id="g-funcao"></div></details>`
+        : vazio("A Prefeitura ainda não enviou este relatório para o ano escolhido.")}
+      ${b.rreo_01 ? `<details class="recolhe"><summary>Ver o relatório completo de receitas e despesas</summary><div id="g-balanco"></div></details>` : ""}
+      <p class="nota">Fonte: Relatório Resumido da Execução Orçamentária (RREO) de ${esc(ano)}, ${per}, no Siconfi/Tesouro Nacional. Atualizado em ${dataHora(s.atualizado_em)}.</p>`;
+    if (b.rreo_02) leitor($("#g-funcao", corpo), b.rreo_02.linhas, PREF_FUNCAO);
     if (b.rreo_01) leitor($("#g-balanco", corpo), b.rreo_01.linhas, PREF_BALANCO);
   };
   raiz.replaceChildren(seletorAno(anos, mostrar, "ano-gastos"), corpo);
   mostrar(anos[0]);
 }
 
-/* ---------- Salários ---------- */
-function pctPessoal(linhas) {
-  return achar(linhas, /DESPESA TOTAL COM PESSOAL/i, /%|RCL/i);
+/* =====================================================================
+   Salários (Prefeitura) e Câmara
+   ===================================================================== */
+function montarPessoal(raizId, chave, limites, quem, nomeRelatorio) {
+  const raiz = $(raizId);
+  const s = D.siconfi;
+  const anos = s ? Object.keys(s.anos).filter((a) => s.anos[a][chave]).sort().reverse() : [];
+  if (!anos.length) { raiz.innerHTML = semDadosAinda("O relatório de pessoal aparece depois da primeira coleta automática."); return false; }
+  const historico = anos.slice().reverse().map((a) => ({ ano: a, v: pctPessoal(s.anos[a][chave].linhas), r: s.anos[a][chave] })).filter((x) => x.v != null);
+  const corpo = document.createElement("div");
+  const id = raizId.slice(1);
+  const mostrar = (ano) => {
+    const r = s.anos[ano][chave];
+    const v = pctPessoal(r.linhas), total = totalPessoal(r.linhas);
+    corpo.innerHTML = `
+      <div class="destaques">
+        ${v != null ? destaque("Parte da receita usada com pessoal", pct(v, 2), periodoRGF(r) + ` de ${ano}`) : ""}
+        ${total != null ? destaque("Gasto com pessoal", brlCurto(total), periodoRGF(r)) : ""}
+      </div>
+      ${v != null ? medidor(v, { ...limites, quem }) : ""}
+      ${historico.length > 1 ? `<h3>Ano a ano</h3>
+        <ul class="barras">${historico.map((h) => { const e = estadoLimite(h.v, limites), esc2 = Math.max(limites.maximo * 1.15, ...historico.map((x) => x.v * 1.05)); return `<li>
+          <div class="linha"><span class="nome">${h.ano}<small>${esc(periodoRGF(h.r))}</small></span><span class="valor">${pct(h.v, 2)}</span></div>
+          <div class="trilho" style="position:relative;overflow:visible"><div class="enche" style="width:${Math.min(h.v / esc2 * 100, 100).toFixed(2)}%;background:${COR_ESTADO[e.estado]}"></div>
+            <span class="marca-limite" style="position:absolute;top:-3px;bottom:-3px;width:2px;background:var(--text-2);left:${(limites.maximo / esc2 * 100).toFixed(2)}%"></span></div>
+          <p class="situacao ${e.estado}" style="margin:4px 0 0;font-size:15px">${ICONES[e.estado]}${e.curto}</p></li>`; }).join("")}</ul>
+        <p class="nota">O traço escuro em cada barra marca o máximo da lei (${pct(limites.maximo)}).</p>` : ""}
+      <details class="recolhe"><summary>Ver o relatório completo</summary><div id="${id}-rgf"></div></details>
+      <p class="nota">Fonte: Relatório de Gestão Fiscal (${nomeRelatorio}), ${periodoRGF(r)} de ${esc(ano)}, no Siconfi/Tesouro Nacional.</p>`;
+    leitor($(`#${id}-rgf`, corpo), r.linhas, PREF_PESSOAL, { porcentagem: true });
+  };
+  raiz.replaceChildren(seletorAno(anos, mostrar, `ano-${id}`), corpo);
+  mostrar(anos[0]);
+  return true;
 }
 function montarSalarios() {
-  const raiz = $("#salarios-conteudo");
-  const s = D.siconfi;
-  const anos = s ? Object.keys(s.anos).filter((a) => s.anos[a].rgf_01).sort().reverse() : [];
-  if (!anos.length) { raiz.innerHTML = vazio("O Relatório de Gestão Fiscal aparece depois da primeira coleta automática."); return; }
-  const corpo = document.createElement("div");
-  const mostrar = (ano) => {
-    const r = s.anos[ano].rgf_01;
-    const pct = pctPessoal(r.linhas);
-    const total = achar(r.linhas, /DESPESA TOTAL COM PESSOAL/i, /^(?!.*%).*/);
-    corpo.innerHTML = `
-      <div class="cartoes">
-        ${total != null ? `<div class="cartao"><p class="rot">Gasto com pessoal em 12 meses</p><p class="num">${brlCurto(total)}</p><p class="det">${PERIODO_RGF(r)} de ${esc(ano)}</p></div>` : ""}
-        ${pct != null ? `<div class="cartao"><p class="rot">Parte da receita usada com pessoal</p><p class="num">${pct.toLocaleString("pt-BR", { maximumFractionDigits: 1 })}%</p><p class="det">Limite da lei: 54% · alerta a partir de 48,6%</p></div>` : ""}
-      </div>
-      <h3>Detalhe do relatório</h3>
-      <div id="s-rgf"></div>
-      <p class="nota">Fonte: RGF Anexo 1 (Poder Executivo), ${PERIODO_RGF(r)} de ${esc(ano)}, Siconfi/Tesouro Nacional. A lista de servidores com salário individual fica no portal da prefeitura, que ainda não oferece esses dados num formato que dê para coletar automaticamente.</p>`;
-    leitor($("#s-rgf", corpo), r.linhas, PREF_PESSOAL, { porcentagem: true });
-  };
-  raiz.replaceChildren(seletorAno(anos, mostrar, "ano-salarios"), corpo);
-  mostrar(anos[0]);
+  montarPessoal("#salarios-conteudo", "rgf_01", { maximo: 54, alerta: 48.6, prudencial: 51.3 }, "A Prefeitura", "Poder Executivo");
+  $("#salarios-conteudo").insertAdjacentHTML("beforeend", `<p class="nota">A lista com o salário de cada servidor está no site da Prefeitura, que não permite cópia automática. Ela pode ser pedida em planilha pelo Serviço de Informação ao Cidadão (e-SIC).</p>`);
+}
+function montarCamara() {
+  montarPessoal("#camara-conteudo", "rgf_01_camara", { maximo: 6, alerta: 5.4, prudencial: 5.7 }, "A Câmara", "Poder Legislativo");
+  $("#camara-conteudo").insertAdjacentHTML("beforeend", `<p class="nota">A folha de pagamento individual da Câmara não aparece aqui: no <a href="https://transparencia.camararodelas.ba.gov.br/folha-pagamento" target="_blank" rel="noopener">portal da Câmara</a> ela não é atualizada desde março de 2020.</p>`);
 }
 
-/* ---------- Licitações e contratos ---------- */
-function montarLicitacoes() {
-  const raiz = $("#licitacoes-conteudo");
-  const p = D.pncp;
-  if (!p || (!p.contratacoes?.length && !p.contratos?.length)) {
-    raiz.innerHTML = vazio("As licitações e contratos aparecem depois da primeira coleta automática no PNCP."); return;
-  }
-  let aba = "contratacoes";
-  const anoDe = (i) => (i.data || i.assinatura || "").slice(0, 4);
-  const anos = [...new Set([...p.contratacoes, ...p.contratos].map(anoDe).filter(Boolean))].sort().reverse();
-  raiz.innerHTML = `
-    <div class="abas" role="group" aria-label="Tipo">
-      <button type="button" data-aba="contratacoes" aria-pressed="true">Licitações (${num(p.contratacoes.length)})</button>
-      <button type="button" data-aba="contratos" aria-pressed="false">Contratos (${num(p.contratos.length)})</button>
-    </div>
-    <div class="controles">
-      <label class="sr" for="lic-ano">Ano</label>
-      <select id="lic-ano"><option value="">Todos os anos</option>${anos.map((a) => `<option>${esc(a)}</option>`).join("")}</select>
-      <label class="sr" for="lic-busca">Buscar</label>
-      <input type="search" id="lic-busca" placeholder="Buscar objeto ou empresa">
-    </div>
-    <div class="cartoes" id="lic-totais"></div>
-    <div class="lista" id="lic-lista"></div>
-    <div class="mais"><button class="btn" type="button" id="lic-mais" hidden>Mostrar mais</button></div>
-    <p class="nota">Fonte: PNCP. Atualizado em ${dataHora(p.atualizado_em)}. Toque em “ver no PNCP” para o edital e os documentos completos.</p>`;
-  let limite = 30;
-  const desenhar = () => {
-    const ano = $("#lic-ano").value, termo = $("#lic-busca").value.trim().toLowerCase();
-    const fonte = aba === "contratacoes" ? p.contratacoes : p.contratos;
-    if (aba === "contratos" && !p.contratos.length) {
-      $("#lic-totais").innerHTML = "";
-      $("#lic-lista").innerHTML = `<div class="vazio"><strong>Nenhum contrato publicado no PNCP.</strong><br>A Prefeitura de Rodelas publica as licitações no Portal Nacional de Contratações Públicas, mas até agora não publicou ali os contratos assinados. Os pagamentos a cada empresa aparecem em <a href="#gastos">Gastos → Cada despesa, uma por uma</a>.</div>`;
-      $("#lic-mais").hidden = true;
-      return;
-    }
-    const itens = fonte.filter((i) => (!ano || anoDe(i) === ano) &&
-      (!termo || `${i.objeto} ${i.fornecedor || ""} ${i.modalidade || ""}`.toLowerCase().includes(termo)));
-    const valorDe = (i) => Number(aba === "contratacoes" ? (i.valor_homologado || i.valor_estimado || 0) : (i.valor_global || i.valor_inicial || 0));
-    const soma = itens.reduce((t, i) => t + valorDe(i), 0);
-    $("#lic-totais").innerHTML = `
-      <div class="cartao"><p class="rot">${aba === "contratacoes" ? "Licitações" : "Contratos"}</p><p class="num">${num(itens.length)}</p><p class="det">${ano || "todos os anos"}</p></div>
-      <div class="cartao"><p class="rot">${aba === "contratacoes" ? "Valor homologado ou estimado" : "Valor total dos contratos"}</p><p class="num">${brlCurto(soma)}</p><p class="det">soma dos itens listados</p></div>`;
-    $("#lic-lista").innerHTML = itens.slice(0, limite).map((i) => aba === "contratacoes" ? `
-      <article class="item">
-        <p class="obj">${esc(i.objeto)}</p>
-        <p class="meta">
-          <span class="grande">${valorDe(i) ? brl.format(valorDe(i)) : "valor não informado"}</span>
-          ${i.valor_homologado ? `<span class="etq">homologado</span>` : i.valor_estimado ? `<span class="etq">estimado</span>` : ""}
-        </p>
-        <p class="meta">
-          <span>${esc(i.modalidade)}${i.numero ? " nº " + esc(i.numero) : ""}</span>
-          <span>${esc(i.situacao)}</span>
-          <span>Publicada em ${data(i.data)}</span>
-          ${i.link ? `<a href="${esc(i.link)}" target="_blank" rel="noopener">ver no PNCP</a>` : ""}
-        </p>
-      </article>` : `
-      <article class="item">
-        <p class="obj">${esc(i.objeto)}</p>
-        <p class="meta"><span class="grande">${brl.format(valorDe(i))}</span></p>
-        <p class="meta">
-          <span><strong>${esc(i.fornecedor)}</strong>${i.documento ? " · " + esc(i.documento) : ""}</span>
-          <span>Assinado em ${data(i.assinatura)}</span>
-          ${i.vigencia_fim ? `<span>Vale até ${data(i.vigencia_fim)}</span>` : ""}
-          ${i.link ? `<a href="${esc(i.link)}" target="_blank" rel="noopener">ver no PNCP</a>` : ""}
-        </p>
-      </article>`).join("") || `<div class="vazio">Nada encontrado com esses filtros.</div>`;
-    $("#lic-mais").hidden = itens.length <= limite;
+/* =====================================================================
+   Repasses da União
+   ===================================================================== */
+function montarTransferencias() {
+  const raiz = $("#transferencias-conteudo");
+  const t = D.transferencias;
+  if (!t?.serie?.length) { raiz.innerHTML = semDadosAinda("Os repasses aparecem depois da primeira coleta automática no Tesouro Nacional."); return; }
+  const porMes = new Map();
+  for (const x of t.serie) porMes.set(x.mes, (porMes.get(x.mes) || 0) + x.valor);
+  const mensal = [...porMes].sort(([a], [b]) => a.localeCompare(b)).map(([mes, valor]) => ({ mes, valor }));
+  const anos = [...new Set(t.serie.map((x) => x.mes.slice(0, 4)))].sort().reverse();
+  const corpo = document.createElement("div");
+  const mostrar = (ano) => {
+    const doAno = t.serie.filter((x) => x.mes.startsWith(ano));
+    const meses = [...new Set(doAno.map((x) => x.mes))].sort();
+    const mesFim = meses.at(-1).slice(5, 7);
+    const antes = t.serie.filter((x) => x.mes.startsWith(String(Number(ano) - 1)) && x.mes.slice(5, 7) <= mesFim).reduce((s, x) => s + x.valor, 0);
+    const tipos = new Map();
+    for (const x of doAno) tipos.set(x.transferencia, (tipos.get(x.transferencia) || 0) + x.valor);
+    const lista = [...tipos].sort((a, b) => b[1] - a[1]);
+    const total = lista.reduce((s, [, v]) => s + v, 0), maior = lista[0]?.[1] || 1;
+    const completo = meses.length === 12;
+    corpo.innerHTML = `
+      <div class="destaques">
+        ${destaque(`Recebido em ${esc(ano)}`, brlCurto(total), completo ? "ano completo" : `até ${MESES[Number(mesFim) - 1]}`)}
+        ${antes ? destaque("Comparado ao ano anterior", variacao(total, antes, "").trim() || "igual", `mesmo período de ${Number(ano) - 1}: ${brlCurto(antes)}`) : ""}
+      </div>
+      <h3>Por tipo de repasse</h3>
+      <ul class="barras">${lista.map(([nome, v]) => `
+        <li><div class="linha"><span class="nome">${esc(nome)}<small>${pct(v / total * 100, 0)}</small></span><span class="valor">${brlCurto(v)}</span></div>
+        <div class="trilho"><div class="enche" style="width:${(v / maior * 100).toFixed(2)}%"></div></div></li>`).join("")}</ul>`;
   };
-  raiz.querySelectorAll(".abas button").forEach((b) => b.addEventListener("click", () => {
-    aba = b.dataset.aba; limite = 30;
-    raiz.querySelectorAll(".abas button").forEach((x) => x.setAttribute("aria-pressed", String(x === b)));
-    desenhar();
-  }));
-  $("#lic-ano").addEventListener("change", () => { limite = 30; desenhar(); });
-  $("#lic-busca").addEventListener("input", () => { limite = 30; desenhar(); });
-  $("#lic-mais").addEventListener("click", () => { limite += 30; desenhar(); });
-  desenhar();
+  raiz.replaceChildren(seletorAno(anos, mostrar, "ano-transf"), corpo);
+  const fim = document.createElement("div");
+  fim.innerHTML = `<h3>Total recebido por mês</h3>${colunasMensais(mensal, "Repasses da União por mês")}
+    <p class="nota">O mês atual aparece menor porque ainda está em andamento. Fonte: Tesouro Nacional, Transferências Constitucionais. Atualizado em ${dataHora(t.atualizado_em)}.</p>`;
+  raiz.append(fim);
+  mostrar(anos[0]);
 }
 
 /* ---------- Gráfico de colunas por mês (série única) ---------- */
 const graficos = new Set();
 const redesenhar = () => graficos.forEach((f) => f());
 let tRes; window.addEventListener("resize", () => { clearTimeout(tRes); tRes = setTimeout(redesenhar, 150); });
-const nomeMes = (m) => { const [a, mm] = m.split("-"); return `${mm}/${a.slice(2)}`; };
+const nomeMes = (m) => { const [a, mm] = m.split("-"); return `${MESES_CURTOS[Number(mm) - 1]}/${a.slice(2)}`; };
 function svgColunas(ult, L) {
-  const A = 220, mE = 48, mD = 18, mB = 26, mT = 10;
+  const A = 220, mE = 52, mD = 18, mB = 26, mT = 10;
   const max = Math.max(...ult.map((x) => x.valor), 1);
   const passo = (L - mE - mD) / ult.length, larg = Math.min(Math.max(passo - 2, 2), 28);
   const y = (v) => mT + (A - mT - mB) * (1 - v / max);
@@ -491,7 +963,7 @@ function svgColunas(ult, L) {
     const v = max * f;
     return `<line class="grade" x1="${mE}" x2="${L - mD}" y1="${y(v)}" y2="${y(v)}"/><text class="eixo" x="${mE - 6}" y="${y(v) + 4}" text-anchor="end">${v ? esc(brlCurto(v).replace("R$ ", "")) : "0"}</text>`;
   }).join("");
-  const cada = Math.ceil(ult.length / Math.max(Math.floor((L - mE - mD) / 52), 1));
+  const cada = Math.ceil(ult.length / Math.max(Math.floor((L - mE - mD) / 56), 1));
   const barras = ult.map((x, i) => {
     const x0 = mE + i * passo + (passo - larg) / 2, yy = y(x.valor);
     const r = Math.min(4, larg / 2, A - mB - yy);
@@ -510,278 +982,300 @@ function colunasMensais(serie, titulo) {
     const caixaSvg = $(".svg", el), dica = $(".dica", el);
     if (!caixaSvg.clientWidth) return; // seção escondida: desenha quando abrir
     caixaSvg.innerHTML = svgColunas(ult, caixaSvg.clientWidth);
-    el.querySelectorAll("rect.alvo").forEach((r) => {
-      r.addEventListener("pointerenter", () => {
+    $$("rect.alvo", el).forEach((r) => {
+      const mostrar = () => {
         const x = ult[r.dataset.i];
-        el.querySelectorAll("path").forEach((p) => p.classList.toggle("ativo", p.dataset.i === r.dataset.i));
-        dica.textContent = `${nomeMes(x.mes)} · ${brl.format(x.valor)}` + (x.beneficiados != null ? ` · ${num(x.beneficiados)} benef.` : "");
+        $$("path", el).forEach((p) => p.classList.toggle("ativo", p.dataset.i === r.dataset.i));
+        dica.textContent = `${nomeMes(x.mes)}: ${brl.format(x.valor)}` + (x.beneficiados != null ? `, ${num(x.beneficiados)} beneficiados` : "");
         const c = r.getBoundingClientRect(), base = el.getBoundingClientRect();
-        dica.style.left = Math.min(Math.max(c.left - base.left + c.width / 2, 110), base.width - 110) + "px";
-        dica.style.top = "34px";
-        dica.hidden = false;
-      });
-      r.addEventListener("pointerleave", () => { dica.hidden = true; el.querySelectorAll("path").forEach((p) => p.classList.remove("ativo")); });
+        dica.style.left = Math.min(Math.max(c.left - base.left + c.width / 2, 120), base.width - 120) + "px";
+        dica.style.top = "36px"; dica.hidden = false;
+      };
+      r.addEventListener("pointerenter", mostrar);
+      r.addEventListener("pointerdown", mostrar);
+      r.addEventListener("pointerleave", () => { dica.hidden = true; $$("path", el).forEach((p) => p.classList.remove("ativo")); });
     });
   });
-  return `<div class="grafico painel" id="${id}" style="padding:12px">
+  return `<div class="grafico" id="${id}">
       <div class="svg" role="img" aria-label="${esc(titulo)}"></div>
       <div class="dica" hidden></div>
-      <details class="tabela"><summary>Ver em tabela</summary>
+      <details class="tabela"><summary>Ver os valores em tabela</summary>
         <table><thead><tr><th>Mês</th><th>Valor</th>${comBenef ? "<th>Beneficiados</th>" : ""}</tr></thead>
         <tbody>${serie.slice().reverse().map((x) => `<tr><td>${nomeMes(x.mes)}</td><td class="n">${brl.format(x.valor)}</td>${comBenef ? `<td class="n">${num(x.beneficiados)}</td>` : ""}</tr>`).join("")}</tbody></table>
       </details>
     </div>`;
 }
 
-/* ---------- Recursos federais ---------- */
+/* =====================================================================
+   Licitações
+   ===================================================================== */
+function montarLicitacoes() {
+  const raiz = $("#licitacoes-conteudo");
+  const p = D.pncp;
+  if (!p || (!p.contratacoes?.length && !p.contratos?.length)) { raiz.innerHTML = semDadosAinda("As licitações aparecem depois da primeira coleta automática no PNCP."); return; }
+  let aba = "contratacoes", limite = 20;
+  const anoDe = (i) => (i.data || i.assinatura || "").slice(0, 4);
+  const anos = [...new Set([...p.contratacoes, ...p.contratos].map(anoDe).filter(Boolean))].sort().reverse();
+  const modalidades = [...new Set(p.contratacoes.map((c) => c.modalidade).filter(Boolean))].sort();
+  raiz.innerHTML = `
+    <div class="abas" role="group" aria-label="O que mostrar">
+      <button type="button" data-aba="contratacoes" aria-pressed="true">Licitações (${num(p.contratacoes.length)})</button>
+      <button type="button" data-aba="contratos" aria-pressed="false">Contratos (${num(p.contratos.length)})</button>
+    </div>
+    <div class="controles">
+      <label class="sr" for="lic-ano">Ano</label>
+      <select id="lic-ano"><option value="">Todos os anos</option>${anos.map((a) => `<option>${esc(a)}</option>`).join("")}</select>
+      <label class="sr" for="lic-mod">Tipo</label>
+      <select id="lic-mod"><option value="">Todos os tipos</option>${modalidades.map((m) => `<option>${esc(m)}</option>`).join("")}</select>
+      <label class="sr" for="lic-busca">Buscar</label>
+      <input type="search" id="lic-busca" placeholder="Buscar o que foi comprado">
+    </div>
+    <div id="lic-totais"></div>
+    <div class="lista" id="lic-lista"></div>
+    <div class="acoes"><button class="btn" type="button" id="lic-mais" hidden>Mostrar mais</button></div>
+    <p class="nota">Fonte: Portal Nacional de Contratações Públicas (PNCP). Atualizado em ${dataHora(p.atualizado_em)}.</p>`;
+  const desenhar = () => {
+    $("#lic-mod").hidden = aba !== "contratacoes";
+    if (aba === "contratos" && !p.contratos.length) {
+      $("#lic-totais").innerHTML = "";
+      $("#lic-lista").innerHTML = vazio("Nenhum contrato publicado no PNCP.", `A Prefeitura publica as licitações no portal nacional, mas até agora não publicou ali os contratos assinados. O que ela paga a cada empresa aparece em <a href="#gastos">Gastos, na lista de despesas</a>.`);
+      $("#lic-mais").hidden = true;
+      return;
+    }
+    const ano = $("#lic-ano").value, mod = $("#lic-mod").value, termo = semAcento($("#lic-busca").value);
+    const fonte = aba === "contratacoes" ? p.contratacoes : p.contratos;
+    const itens = fonte.filter((i) => (!ano || anoDe(i) === ano) && (aba !== "contratacoes" || !mod || i.modalidade === mod) &&
+      (!termo || semAcento(`${i.objeto} ${i.fornecedor || ""}`).includes(termo)));
+    const valorDe = (i) => Number(aba === "contratacoes" ? (i.valor_homologado || i.valor_estimado || 0) : (i.valor_global || i.valor_inicial || 0));
+    const soma = itens.reduce((t, i) => t + valorDe(i), 0);
+    $("#lic-totais").innerHTML = `<div class="destaques">
+      ${destaque(aba === "contratacoes" ? "Licitações e dispensas" : "Contratos", num(itens.length), ano || "todos os anos")}
+      ${destaque(aba === "contratacoes" ? "Valor somado" : "Valor dos contratos", brlCurto(soma), aba === "contratacoes" ? "homologado, ou estimado quando ainda não há resultado" : "")}</div>`;
+    const hoje = new Date().toISOString().slice(0, 10);
+    $("#lic-lista").innerHTML = itens.slice(0, limite).map((i) => aba === "contratacoes" ? `
+      <article class="item">
+        <p class="obj">${esc(frase(i.objeto.replace(/^\[[^\]]+\]\s*-?\s*/, "")))}</p>
+        <p class="linha-valor"><span class="grande">${valorDe(i) ? brl.format(valorDe(i)) : "Valor não informado"}</span>
+          ${i.valor_homologado ? `<span class="etq">valor final</span>` : i.valor_estimado ? `<span class="etq">estimado</span>` : ""}
+          ${i.abertura && i.abertura >= hoje ? `<span class="etq">recebe propostas até ${data(i.abertura)}</span>` : ""}</p>
+        <p class="meta"><span>${esc(i.modalidade)}${i.numero ? ` nº ${esc(i.numero)}` : ""}</span><span>publicada em ${data(i.data)}</span>
+          ${i.link ? `<a href="${esc(i.link)}" target="_blank" rel="noopener">Abrir edital no PNCP</a>` : ""}</p>
+      </article>` : `
+      <article class="item">
+        <p class="obj">${esc(frase(i.objeto))}</p>
+        <p class="linha-valor"><span class="grande">${brl.format(valorDe(i))}</span></p>
+        <p class="meta"><span class="quem">${esc(nomeProprio(i.fornecedor))}</span><span>assinado em ${data(i.assinatura)}</span>
+          ${i.vigencia_fim ? `<span>vale até ${data(i.vigencia_fim)}</span>` : ""}
+          ${i.link ? `<a href="${esc(i.link)}" target="_blank" rel="noopener">Abrir no PNCP</a>` : ""}</p>
+      </article>`).join("") || vazio("Nada encontrado com esses filtros.", "Tente outro ano ou outra palavra.");
+    $("#lic-mais").hidden = itens.length <= limite;
+    $("#lic-mais").textContent = `Mostrar mais (${num(Math.max(itens.length - limite, 0))} restantes)`;
+  };
+  $$(".abas button", raiz).forEach((b) => b.addEventListener("click", () => {
+    aba = b.dataset.aba; limite = 20;
+    $$(".abas button", raiz).forEach((x) => x.setAttribute("aria-pressed", String(x === b)));
+    desenhar();
+  }));
+  for (const s of ["#lic-ano", "#lic-mod"]) $(s).addEventListener("change", () => { limite = 20; desenhar(); });
+  $("#lic-busca").addEventListener("input", () => { limite = 20; desenhar(); });
+  $("#lic-mais").addEventListener("click", () => { limite += 20; desenhar(); });
+  desenhar();
+}
+
+/* =====================================================================
+   Governo Federal
+   ===================================================================== */
 function montarFederais() {
   const raiz = $("#federais-conteudo");
   const c = D.cgu;
-  if (!c) { raiz.innerHTML = vazio("Os dados federais aparecem depois que a chave da API da CGU for configurada e a coleta rodar."); return; }
+  if (!c) { raiz.innerHTML = semDadosAinda("Os dados federais aparecem depois que a chave da API da CGU for configurada e a coleta rodar."); return; }
   const ultimos12 = (s) => s.slice(-12).reduce((t, x) => t + x.valor, 0);
+  const mesAno = (m) => { const [a, mm] = m.split("-"); return `${MESES[Number(mm) - 1]} de ${a}`; };
   const bf = c.bolsa_familia || [], bpc = c.bpc || [], conv = c.convenios || [];
   const totConv = conv.reduce((t, x) => t + Number(x.valor || 0), 0);
   raiz.innerHTML = `
-    <div class="cartoes">
-      ${bf.length ? `<div class="cartao"><p class="rot">Bolsa Família, últimos 12 meses</p><p class="num">${brlCurto(ultimos12(bf))}</p><p class="det">${num(bf.at(-1).beneficiados)} famílias em ${bf.at(-1).mes.split("-").reverse().join("/")}</p></div>` : ""}
-      ${bpc.length ? `<div class="cartao"><p class="rot">BPC, últimos 12 meses</p><p class="num">${brlCurto(ultimos12(bpc))}</p><p class="det">${num(bpc.at(-1).beneficiados)} pessoas em ${bpc.at(-1).mes.split("-").reverse().join("/")}</p></div>` : ""}
-      ${conv.length ? `<div class="cartao"><p class="rot">Convênios federais</p><p class="num">${brlCurto(totConv)}</p><p class="det">${num(conv.length)} ${conv.length === 1 ? "convênio registrado" : "convênios registrados"}</p></div>` : ""}
+    <div class="destaques">
+      ${bf.length ? destaque("Bolsa Família", brlCurto(ultimos12(bf)), `nos últimos 12 meses; ${num(bf.at(-1).beneficiados)} famílias em ${mesAno(bf.at(-1).mes)}`) : ""}
+      ${bpc.length ? destaque("BPC", brlCurto(ultimos12(bpc)), `nos últimos 12 meses; ${num(bpc.at(-1).beneficiados)} pessoas em ${mesAno(bpc.at(-1).mes)}`) : ""}
+      ${conv.length ? destaque("Convênios", brlCurto(totConv), plural(conv.length, "convênio registrado", "convênios registrados")) : ""}
     </div>
-    ${bf.length ? `<h3>Bolsa Família pago em Rodelas, por mês</h3>${colunasMensais(bf, "Bolsa Família por mês")}` : ""}
-    ${bpc.length ? `<h3>BPC (Benefício de Prestação Continuada), por mês</h3>${colunasMensais(bpc, "BPC por mês")}` : ""}
+    ${bf.length ? `<h3>Bolsa Família pago em Rodelas, mês a mês</h3>${colunasMensais(bf, "Bolsa Família por mês")}` : ""}
+    ${bpc.length ? `<h3>Benefício de Prestação Continuada (BPC), mês a mês</h3>
+      <p class="explica" style="margin-bottom:12px">Um salário mínimo por mês para idosos e pessoas com deficiência de baixa renda.</p>${colunasMensais(bpc, "BPC por mês")}` : ""}
     <h3>Convênios com o Governo Federal</h3>
+    <p class="explica" style="margin-bottom:12px">Acordos em que a União manda dinheiro para uma obra ou projeto específico. "Liberado" é quanto já chegou.</p>
     <div class="lista">${conv.length ? conv.map((x) => `
       <article class="item">
-        <p class="obj">${esc(x.objeto || `Convênio com ${x.orgao || "órgão federal"}`)}</p>
-        <p class="meta"><span class="grande">${brl.format(Number(x.valor || 0))}</span>${x.valor_liberado != null ? `<span>liberado: ${brl.format(Number(x.valor_liberado))}</span>` : ""}</p>
-        <p class="meta"><span>${esc(x.orgao)}</span><span class="etq">${esc(x.situacao)}</span>${x.inicio ? `<span>${data(x.inicio)} a ${data(x.fim)}</span>` : ""}</p>
-      </article>`).join("") : `<div class="vazio">Nenhum convênio retornado pela API.</div>`}</div>
-    <p class="nota">Fonte: Portal da Transparência (CGU). Atualizado em ${dataHora(c.atualizado_em)}.</p>`;
+        <p class="obj">${esc(frase(x.objeto) || `Convênio com ${x.orgao || "órgão federal"}`)}</p>
+        <p class="linha-valor"><span class="grande">${brl.format(Number(x.valor || 0))}</span>${x.valor_liberado != null ? `<span>liberado: ${brl.format(Number(x.valor_liberado))}</span>` : ""}</p>
+        <p class="meta"><span>${esc(x.orgao)}</span>${x.situacao ? `<span class="etq">${esc(frase(x.situacao))}</span>` : ""}${x.inicio ? `<span>${data(x.inicio)} a ${data(x.fim)}</span>` : ""}</p>
+      </article>`).join("") : vazio("Nenhum convênio encontrado.")}</div>
+    <p class="nota">Fonte: Portal da Transparência da CGU. Atualizado em ${dataHora(c.atualizado_em)}.</p>`;
 }
 
-/* ---------- Transferências constitucionais ---------- */
-function montarTransferencias() {
-  const raiz = $("#transferencias-conteudo");
-  const t = D.transferencias;
-  if (!t?.serie?.length) { raiz.innerHTML = vazio("As transferências aparecem depois da primeira coleta automática no Tesouro Nacional."); return; }
-  const porMes = new Map();
-  for (const x of t.serie) porMes.set(x.mes, (porMes.get(x.mes) || 0) + x.valor);
-  const mensal = [...porMes].sort(([a], [b]) => a.localeCompare(b)).map(([mes, valor]) => ({ mes, valor }));
-  const anos = [...new Set(t.serie.map((x) => x.mes.slice(0, 4)))].sort().reverse();
-  const corpo = document.createElement("div");
-  const mostrar = (ano) => {
-    const doAno = t.serie.filter((x) => x.mes.startsWith(ano));
-    const tipos = new Map();
-    for (const x of doAno) tipos.set(x.transferencia, (tipos.get(x.transferencia) || 0) + x.valor);
-    const lista = [...tipos].sort((a, b) => b[1] - a[1]);
-    const total = lista.reduce((s, [, v]) => s + v, 0);
-    const maior = lista[0]?.[1] || 1;
-    const meses = new Set(doAno.map((x) => x.mes));
-    const ultimoMes = [...meses].sort().at(-1);
-    corpo.innerHTML = `
-      <div class="cartoes">
-        <div class="cartao"><p class="rot">Total recebido em ${esc(ano)}</p><p class="num">${brlCurto(total)}</p><p class="det">${meses.size === 12 ? "ano completo" : `até ${nomeMes(ultimoMes)}`}</p></div>
-        ${lista[0] ? `<div class="cartao"><p class="rot">Maior repasse</p><p class="num">${esc(lista[0][0])}</p><p class="det">${brlCurto(lista[0][1])} · ${(lista[0][1] / total * 100).toLocaleString("pt-BR", { maximumFractionDigits: 0 })}% do total</p></div>` : ""}
-      </div>
-      <h3>Por tipo de repasse em ${esc(ano)}</h3>
-      <div class="painel"><ul class="barras">${lista.map(([nome, v]) => `
-        <li><div class="linha"><span class="nome">${esc(nome)}</span><span class="valor">${brl.format(v)}</span></div>
-        <div class="trilho"><div class="enche" style="width:${(v / maior * 100).toFixed(2)}%"></div></div></li>`).join("")}</ul></div>
-      <p class="nota">FPM: Fundo de Participação dos Municípios (o "FPM 1%" é a parcela extra paga em julho e dezembro). FUNDEB: fundo da educação básica. Royalties: compensação pelo uso de recursos hídricos e minerais. ITR: imposto territorial rural. O mês corrente aparece menor porque ainda está em andamento.</p>`;
-  };
-  raiz.replaceChildren(seletorAno(anos, mostrar, "ano-transf"), corpo);
-  const fim = document.createElement("div");
-  fim.innerHTML = `<h3>Total recebido por mês</h3>${colunasMensais(mensal, "Transferências constitucionais por mês")}
-    <p class="nota">Fonte: Tesouro Nacional, API de Transferências Constitucionais. Atualizado em ${dataHora(t.atualizado_em)}.</p>`;
-  raiz.append(fim);
-  mostrar(anos[0]);
-}
-
-/* ---------- Câmara Municipal ---------- */
-function montarCamara() {
-  const raiz = $("#camara-conteudo");
-  const s = D.siconfi;
-  const anos = s ? Object.keys(s.anos).filter((a) => s.anos[a].rgf_01_camara).sort().reverse() : [];
-  const portal = `<p class="nota">A folha de pagamento individual da Câmara não entra aqui: no <a href="https://transparencia.camararodelas.ba.gov.br/folha-pagamento" target="_blank" rel="noopener">portal da Câmara</a> ela não é atualizada desde março de 2020.</p>`;
-  if (!anos.length) { raiz.innerHTML = vazio("O relatório da Câmara aparece depois da primeira coleta automática.") + portal; return; }
-  const corpo = document.createElement("div");
-  const mostrar = (ano) => {
-    const r = s.anos[ano].rgf_01_camara;
-    const pct = pctPessoal(r.linhas);
-    const total = achar(r.linhas, /DESPESA TOTAL COM PESSOAL/i, /^(?!.*%).*/);
-    corpo.innerHTML = `
-      <div class="cartoes">
-        ${total != null ? `<div class="cartao"><p class="rot">Gasto da Câmara com pessoal em 12 meses</p><p class="num">${brlCurto(total)}</p><p class="det">${PERIODO_RGF(r)} de ${esc(ano)}</p></div>` : ""}
-        ${pct != null ? `<div class="cartao"><p class="rot">Parte da receita do município</p><p class="num">${pct.toLocaleString("pt-BR", { maximumFractionDigits: 2 })}%</p><p class="det">Limite da lei: 6% · alerta a partir de 5,4%</p></div>` : ""}
-      </div>
-      <h3>Detalhe do relatório</h3>
-      <div id="c-rgf"></div>
-      <p class="nota">Fonte: RGF Anexo 1 (Poder Legislativo), ${PERIODO_RGF(r)} de ${esc(ano)}, Siconfi/Tesouro Nacional.</p>${portal}`;
-    leitor($("#c-rgf", corpo), r.linhas, PREF_PESSOAL, { porcentagem: true });
-  };
-  raiz.replaceChildren(seletorAno(anos, mostrar, "ano-camara"), corpo);
-  mostrar(anos[0]);
-}
-
-/* ---------- Despesas detalhadas (empenhos) ---------- */
+/* =====================================================================
+   Despesas detalhadas (empenhos)
+   ===================================================================== */
 const cacheEmp = {};
 async function carregarEmpenhos(orgao, ano) {
   const k = `${orgao}-${ano}`;
-  if (!(k in cacheEmp)) cacheEmp[k] = await carregar(`despesas/${k}`);
+  if (!(k in cacheEmp)) cacheEmp[k] = carregar(`despesas/${k}`);
   return cacheEmp[k];
 }
-const MESES = ["jan", "fev", "mar", "abr", "mai", "jun", "jul", "ago", "set", "out", "nov", "dez"];
+const EMPENHOS = {};
+function baixarCSV(itens, nome) {
+  const cols = [["data", "Data"], ["empenho", "Empenho"], ["credor", "Credor"], ["documento", "CPF/CNPJ"], ["empenhado", "Valor empenhado"],
+    ["unidade", "Secretaria"], ["elemento", "Tipo de gasto"], ["objeto", "Descrição"], ["modalidade", "Modalidade"], ["licitacao", "Licitação"], ["contrato", "Contrato"]];
+  const cel = (v) => { const s = typeof v === "number" ? v.toFixed(2).replace(".", ",") : String(v ?? ""); return /[;"\n]/.test(s) ? `"${s.replace(/"/g, '""')}"` : s; };
+  const csv = "﻿" + [cols.map((c) => c[1]).join(";"), ...itens.map((e) => cols.map(([k]) => cel(e[k])).join(";"))].join("\r\n");
+  const url = URL.createObjectURL(new Blob([csv], { type: "text/csv;charset=utf-8" }));
+  const a = Object.assign(document.createElement("a"), { href: url, download: nome });
+  document.body.append(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(url), 1000);
+}
 function montarEmpenhos(alvoId, orgao) {
   const raiz = document.getElementById(alvoId);
   const info = D.despesasIndice?.orgaos?.[orgao];
-  if (!info?.anos?.length) { raiz.innerHTML = vazio("As despesas detalhadas aparecem depois da primeira coleta automática."); return; }
+  if (!info?.anos?.length) { raiz.innerHTML = semDadosAinda("As despesas detalhadas aparecem depois da primeira coleta automática."); return; }
   const anos = info.anos.slice().sort().reverse();
-  const p = alvoId;
+  const p = alvoId, camara = orgao === "camara";
   raiz.innerHTML = `
     <div class="controles">
       <label class="sr" for="${p}-ano">Ano</label>
       <select id="${p}-ano">${anos.map((a) => `<option>${a}</option>`).join("")}</select>
       <label class="sr" for="${p}-mes">Mês</label>
       <select id="${p}-mes"><option value="">Ano todo</option>${MESES.map((m, i) => `<option value="${String(i + 1).padStart(2, "0")}">${m}</option>`).join("")}</select>
-      <label class="sr" for="${p}-uni">Secretaria</label>
-      <select id="${p}-uni"></select>
+      ${camara ? "" : `<label class="sr" for="${p}-uni">Secretaria</label><select id="${p}-uni"></select>`}
       <label class="sr" for="${p}-tipo">Tipo de gasto</label>
       <select id="${p}-tipo"></select>
-      <label class="sr" for="${p}-busca">Buscar</label>
-      <input type="search" id="${p}-busca" placeholder="Buscar empresa, pessoa ou o que foi comprado">
+      <label class="sr" for="${p}-busca">Buscar nas despesas</label>
+      <input type="search" id="${p}-busca" placeholder="Buscar nome, empresa ou o que foi comprado">
     </div>
-    <div id="${p}-corpo"></div>`;
+    <div class="fichas" id="${p}-fichas"></div>
+    <div id="${p}-corpo" aria-live="polite"></div>`;
   const $p = (s) => document.getElementById(`${p}-${s}`);
-  let dados = [], limite = 30;
-  const preencher = (sel, valores, rotulo) => {
-    const atual = sel.value;
-    sel.innerHTML = `<option value="">${rotulo}</option>` + valores.map((v) => `<option ${v === atual ? "selected" : ""}>${esc(v)}</option>`).join("");
+  const filtros = camara ? ["mes", "tipo", "busca"] : ["mes", "uni", "tipo", "busca"];
+  const NOMES_FILTRO = { mes: "Mês", uni: "Secretaria", tipo: "Tipo", busca: "Busca" };
+  let dados = [], limite = 20, atual = [];
+  const preencher = (sel, valores, rotulo, fmt = (v) => v) => {
+    const anterior = sel.value;
+    sel.innerHTML = `<option value="">${rotulo}</option>` + valores.map((v) => `<option value="${esc(v)}" ${v === anterior ? "selected" : ""}>${esc(fmt(v))}</option>`).join("");
+  };
+  const desenharFichas = () => {
+    const ativos = filtros.filter((f) => $p(f)?.value);
+    $p("fichas").innerHTML = ativos.map((f) => {
+      const el = $p(f); const texto = el.tagName === "SELECT" ? el.selectedOptions[0].text : nomeProprio(el.value);
+      return `<button type="button" class="ficha" data-limpa="${f}" aria-label="Remover filtro ${NOMES_FILTRO[f]}: ${esc(texto)}"><b>${NOMES_FILTRO[f]}:</b> ${esc(texto)} ${ICONES.fechar}</button>`;
+    }).join("") + (ativos.length > 1 ? `<button type="button" class="discreto" data-limpa="tudo">Limpar todos</button>` : "");
   };
   const desenhar = () => {
-    const mes = $p("mes").value, uni = $p("uni").value, tipo = $p("tipo").value;
-    const termo = $p("busca").value.trim().toLowerCase();
-    const itens = dados.filter((e) => (!mes || (e.data || "").slice(5, 7) === mes) && (!uni || e.unidade === uni) &&
-      (!tipo || e.elemento === tipo) && (!termo || `${e.credor} ${e.objeto || ""} ${e.documento || ""}`.toLowerCase().includes(termo)));
-    const soma = (k) => itens.reduce((t, e) => t + (e[k] || 0), 0);
+    const mes = $p("mes").value, uni = camara ? "" : $p("uni").value, tipo = $p("tipo").value;
+    const termo = semAcento($p("busca").value);
+    atual = dados.filter((e) => (!mes || (e.data || "").slice(5, 7) === mes) && (!uni || e.unidade === uni) &&
+      (!tipo || e.elemento === tipo) && (!termo || semAcento(`${e.credor} ${e.objeto || ""} ${e.documento || ""}`).includes(termo)));
+    desenharFichas();
+    const total = atual.reduce((t, e) => t + (e.empenhado || 0), 0);
     const credores = new Map();
-    for (const e of itens) credores.set(e.credor, (credores.get(e.credor) || 0) + e.empenhado);
+    for (const e of atual) credores.set(e.credor, (credores.get(e.credor) || 0) + e.empenhado);
     const top = [...credores].sort((a, b) => b[1] - a[1]).slice(0, 10);
     const maior = top[0]?.[1] || 1;
+    const fonteArq = dados._arq;
     $p("corpo").innerHTML = `
-      <div class="cartoes">
-        <div class="cartao"><p class="rot">Empenhado</p><p class="num">${brlCurto(soma("empenhado"))}</p><p class="det">${num(itens.length)} ${itens.length === 1 ? "empenho" : "empenhos"}</p></div>
-        <div class="cartao"><p class="rot">Quem recebeu</p><p class="num">${num(credores.size)}</p><p class="det">${credores.size === 1 ? "credor" : "credores diferentes"}</p></div>
+      <div class="destaques">
+        ${destaque("Valor empenhado", brlCurto(total), plural(atual.length, "empenho", "empenhos"))}
+        ${destaque("Quem recebeu", num(credores.size), credores.size === 1 ? "credor" : "credores diferentes")}
       </div>
       ${top.length > 1 ? `<h3>Quem mais recebeu</h3>
-      <div class="painel"><ul class="barras">${top.map(([nome, v]) => `
-        <li><div class="linha"><button type="button" class="link nome" data-credor="${esc(nome)}">${esc(nome)}</button><span class="valor">${brl.format(v)}</span></div>
-        <div class="trilho"><div class="enche" style="width:${(v / maior * 100).toFixed(2)}%"></div></div></li>`).join("")}</ul></div>
-      <p class="nota">Toque num nome para ver só as despesas dele. Valores empenhados.</p>` : ""}
-      <h3>Lista de empenhos</h3>
-      <div class="lista">${itens.slice(0, limite).map((e) => `
+        <ul class="barras">${top.map(([nome, v]) => `
+          <li><div class="linha"><button type="button" class="nome" data-credor="${esc(nome)}">${esc(nomeProprio(nome))}</button><span class="valor">${brlCurto(v)}</span></div>
+          <div class="trilho"><div class="enche" style="width:${(v / maior * 100).toFixed(2)}%"></div></div></li>`).join("")}</ul>
+        <p class="nota">Toque num nome para ver só as despesas dele. Linhas que começam com "Fopag" são as folhas de pagamento de cada setor.</p>` : ""}
+      <h3>${atual.length ? `Lista de empenhos, do mais recente ao mais antigo` : "Lista de empenhos"}</h3>
+      <div class="lista">${atual.slice(0, limite).map((e) => `
         <article class="item">
-          <p class="obj">${esc(e.objeto || e.elemento || "Sem descrição")}</p>
-          <p class="valores"><span class="grande">${brl.format(e.empenhado)}</span><span>empenhado</span></p>
-          <p class="meta">
-            <span><strong>${esc(e.credor)}</strong>${e.documento ? " · " + esc(e.documento) : ""}</span>
-            <span>${data(e.data)}</span>
-            ${e.unidade ? `<span>${esc(e.unidade)}</span>` : ""}
-            ${e.elemento ? `<span class="etq">${esc(e.elemento)}</span>` : ""}
-            ${e.modalidade ? `<span>${esc(e.modalidade)}${e.licitacao ? " " + esc(e.licitacao) : ""}</span>` : ""}
-            ${e.contrato ? `<span>contrato ${esc(e.contrato)}</span>` : ""}
-          </p>
-        </article>`).join("") || `<div class="vazio">Nada encontrado com esses filtros.</div>`}</div>
-      ${itens.length > limite ? `<div class="mais"><button class="btn" type="button" data-mais>Mostrar mais (${num(itens.length - limite)} restantes)</button></div>` : ""}
-      <p class="nota">Fonte: <a href="${esc(info.fonte)}" target="_blank" rel="noopener">portal de despesas da ${orgao === "camara" ? "Câmara" : "Prefeitura"}</a> (Fator Sistemas). Atualizado em ${dataHora(cacheEmp[`${orgao}-${$p("ano").value}`]?.atualizado_em)}. Os valores são empenhados (dinheiro reservado); o portal não informa, nesta lista, quanto já foi pago. O CPF de pessoas físicas já vem mascarado da fonte.</p>`;
+          <p class="obj">${esc(frase(e.objeto) || e.elemento || "Sem descrição")}</p>
+          <p class="linha-valor"><span class="grande">${brl.format(e.empenhado)}</span><span class="quem">${esc(nomeProprio(e.credor))}</span></p>
+          <p class="meta"><span>${data(e.data)}</span>${e.unidade ? `<span>${esc(nomeProprio(e.unidade))}</span>` : ""}${e.elemento ? `<span class="etq">${esc(e.elemento)}</span>` : ""}</p>
+          <details><summary>Mais detalhes</summary><dl>
+            <dt>Empenho nº</dt><dd>${esc(e.empenho)}</dd>
+            ${e.documento ? `<dt>${/\//.test(e.documento) ? "CNPJ" : "CPF"}</dt><dd>${esc(e.documento)}</dd>` : ""}
+            ${e.funcao ? `<dt>Área</dt><dd>${esc(nomeProprio(e.funcao))}</dd>` : ""}
+            ${e.fase ? `<dt>Tipo de empenho</dt><dd>${esc(e.fase)}</dd>` : ""}
+            ${e.modalidade && !/n[aã]o se aplica/i.test(e.modalidade) ? `<dt>Como foi contratado</dt><dd>${esc(e.modalidade)}${e.licitacao ? `, processo ${esc(e.licitacao)}` : ""}</dd>` : ""}
+            ${e.contrato ? `<dt>Contrato</dt><dd>${esc(e.contrato)}</dd>` : ""}
+            ${e.processo ? `<dt>Processo</dt><dd>${esc(e.processo)}</dd>` : ""}
+          </dl></details>
+        </article>`).join("") || vazio("Nada encontrado com esses filtros.", "Tente remover algum filtro ou buscar só uma parte do nome.")}</div>
+      <div class="acoes">
+        ${atual.length > limite ? `<button class="btn" type="button" data-mais>Mostrar mais (${num(atual.length - limite)} restantes)</button>` : ""}
+        ${atual.length ? `<button class="discreto" type="button" data-csv>Baixar esta lista em planilha (${plural(atual.length, "linha", "linhas")})</button>` : ""}
+      </div>
+      <p class="nota">Valores empenhados, ou seja, dinheiro reservado para a despesa; a lista do portal não informa quanto já foi pago. O CPF de pessoas físicas já vem mascarado da fonte. Fonte: <a href="${esc(info.fonte)}" target="_blank" rel="noopener">portal de despesas ${camara ? "da Câmara" : "da Prefeitura"}</a>. Atualizado em ${dataHora(fonteArq?.atualizado_em)}.</p>`;
   };
-  $p("corpo").addEventListener("click", (ev) => {
+  raiz.addEventListener("click", (ev) => {
     const c = ev.target.closest("[data-credor]");
-    if (c) { $p("busca").value = c.dataset.credor; limite = 30; desenhar(); return; }
-    if (ev.target.closest("[data-mais]")) { limite += 30; desenhar(); }
+    if (c) { $p("busca").value = c.dataset.credor; limite = 20; desenhar(); $p("fichas").scrollIntoView({ block: "nearest", behavior: "smooth" }); return; }
+    const l = ev.target.closest("[data-limpa]");
+    if (l) { (l.dataset.limpa === "tudo" ? filtros : [l.dataset.limpa]).forEach((f) => { $p(f).value = ""; }); limite = 20; desenhar(); return; }
+    if (ev.target.closest("[data-mais]")) { limite += 20; desenhar(); return; }
+    if (ev.target.closest("[data-csv]")) baixarCSV(atual, `despesas-${orgao}-${$p("ano").value}.csv`);
   });
   const trocarAno = async () => {
-    $p("corpo").innerHTML = `<p class="nota">Carregando…</p>`;
+    $p("corpo").innerHTML = `<p class="carregando">Carregando as despesas de ${$p("ano").value}…</p>`;
     const arq = await carregarEmpenhos(orgao, $p("ano").value);
-    dados = arq?.empenhos || [];
-    const contar = (k) => { const m = new Map(); for (const e of dados) if (e[k]) m.set(e[k], (m.get(e[k]) || 0) + e.empenhado); return [...m].sort((a, b) => b[1] - a[1]).map(([v]) => v); };
-    preencher($p("uni"), contar("unidade"), "Todas as secretarias");
-    preencher($p("tipo"), contar("elemento"), "Todos os tipos de gasto");
-    $p("uni").hidden = orgao === "camara";
-    limite = 30; desenhar();
+    dados = arq?.empenhos || []; dados._arq = arq;
+    const ordenar = (k) => { const m = new Map(); for (const e of dados) if (e[k]) m.set(e[k], (m.get(e[k]) || 0) + e.empenhado); return [...m].sort((a, b) => b[1] - a[1]).map(([v]) => v); };
+    if (!camara) preencher($p("uni"), ordenar("unidade"), "Todas as secretarias", nomeProprio);
+    preencher($p("tipo"), ordenar("elemento"), "Todos os tipos de gasto");
+    limite = 20; desenhar();
   };
-  for (const id of ["mes", "uni", "tipo"]) $p(id).addEventListener("change", () => { limite = 30; desenhar(); });
-  let tBusca; $p("busca").addEventListener("input", () => { clearTimeout(tBusca); tBusca = setTimeout(() => { limite = 30; desenhar(); }, 200); });
+  for (const id of filtros.filter((f) => f !== "busca")) $p(id).addEventListener("change", () => { limite = 20; desenhar(); });
+  let tBusca; $p("busca").addEventListener("input", () => { clearTimeout(tBusca); tBusca = setTimeout(() => { limite = 20; desenhar(); }, 200); });
   $p("ano").addEventListener("change", trocarAno);
-  trocarAno();
+  EMPENHOS[orgao] = {
+    async aplicar({ busca = "", ano } = {}) {
+      filtros.forEach((f) => { $p(f).value = ""; });
+      if (ano && $p("ano").value !== String(ano)) { $p("ano").value = String(ano); await trocarAno(); }
+      $p("busca").value = busca; limite = 20; desenhar();
+    },
+  };
+  return trocarAno();
 }
 
-/* ---------- Início ---------- */
-function montarInicio() {
-  const cartoes = [];
-  const s = D.siconfi;
-  if (s) {
-    const ano = Object.keys(s.anos).filter((a) => s.anos[a].rreo_01).sort().at(-1);
-    if (ano) {
-      const desp = achar(s.anos[ano].rreo_01.linhas, /^(TOTAL DAS )?DESPESAS \(EXCETO INTRA|^TOTAL DAS DESPESAS/i, /liquidad.*at[eé] o bimestre/i);
-      if (desp != null) cartoes.push(["#gastos", "Gasto da prefeitura", brlCurto(desp), `${ano}, ${PERIODO_RREO(s.anos[ano].rreo_01.periodo)}`]);
-    }
-    const anoP = Object.keys(s.anos).filter((a) => s.anos[a].rgf_01).sort().at(-1);
-    const pct = anoP && pctPessoal(s.anos[anoP].rgf_01.linhas);
-    if (pct != null && anoP) cartoes.push(["#salarios", "Receita usada com pessoal", pct.toLocaleString("pt-BR", { maximumFractionDigits: 1 }) + "%", `limite legal 54% · ${anoP}`]);
-  }
-  if (D.transferencias?.serie?.length) {
-    const ano = D.transferencias.serie.at(-1).mes.slice(0, 4);
-    const tot = D.transferencias.serie.filter((x) => x.mes.startsWith(ano)).reduce((t, x) => t + x.valor, 0);
-    cartoes.push(["#transferencias", `Transferências da União em ${ano}`, brlCurto(tot), "FPM, FUNDEB, ITR e outras"]);
-  }
-  if (D.pncp) {
-    const ano = D.pncp.contratacoes.map((c) => (c.data || "").slice(0, 4)).filter(Boolean).sort().at(-1) || String(new Date().getFullYear());
-    const doAno = D.pncp.contratacoes.filter((c) => (c.data || "").startsWith(ano));
-    const valor = doAno.reduce((t, c) => t + Number(c.valor_homologado || c.valor_estimado || 0), 0);
-    cartoes.push(["#licitacoes", `Licitações e dispensas em ${ano}`, num(doAno.length), brlCurto(valor) + " homologado ou estimado"]);
-  }
-  if (D.cgu?.bolsa_familia?.length) {
-    const u = D.cgu.bolsa_familia.at(-1);
-    cartoes.push(["#federais", "Bolsa Família no último mês", brlCurto(u.valor), `${num(u.beneficiados)} famílias`]);
-  }
-  $("#resumo").innerHTML = cartoes.length
-    ? cartoes.map(([h, r, n, d]) => `<a class="cartao" href="${h}"><p class="rot">${esc(r)}</p><p class="num">${esc(n)}</p><p class="det">${esc(d)}</p></a>`).join("")
-    : vazio("A primeira coleta automática ainda não rodou. Quando rodar, os números aparecem aqui.");
-
-  const nomes = { siconfi: "Tesouro Nacional (Siconfi): gastos, pessoal e Câmara", transferencias: "Tesouro Nacional: transferências constitucionais", despesas: "Fator Sistemas: despesas detalhadas da Prefeitura e da Câmara", pncp: "PNCP: licitações e contratos", cgu: "Portal da Transparência (CGU): recursos federais" };
-  const meta = D.meta?.fontes || {};
-  $("#fontes").innerHTML = Object.entries(nomes).map(([k, nome]) => {
-    const f = meta[k];
-    const cls = !f ? "nada" : f.ok ? "ok" : "erro";
-    const txt = !f ? "ainda não coletado"
-      : f.ok ? `atualizado em ${dataHora(f.sucesso)}`
-      : `última tentativa falhou${f.sucesso ? `; dados de ${dataHora(f.sucesso)}` : ""}`;
-    return `<li><span class="pt ${cls}" aria-hidden="true"></span><span><strong>${nome}</strong><br><span style="color:var(--muted)">${txt}</span></span></li>`;
-  }).join("");
-}
-
-/* ---------- Menu (uma seção por vez) ---------- */
+/* =====================================================================
+   Menu: uma seção por vez
+   ===================================================================== */
 function rota() {
   const id = (location.hash || "#inicio").slice(1);
   const alvo = document.getElementById(id)?.tagName === "SECTION" ? id : "inicio";
-  document.querySelectorAll("main > section").forEach((s) => { s.hidden = s.id !== alvo; });
-  document.querySelectorAll("nav.menu a").forEach((a) => {
+  $$("main > section").forEach((s) => { s.hidden = s.id !== alvo; });
+  $$("nav.menu a").forEach((a) => {
     const atual = a.getAttribute("href") === "#" + alvo;
-    a.toggleAttribute("aria-current", atual);
     if (atual) { a.setAttribute("aria-current", "page"); a.scrollIntoView({ block: "nearest", inline: "nearest" }); }
+    else a.removeAttribute("aria-current");
   });
-  window.scrollTo({ top: 0 });
+  const nomeSecao = $(`#${alvo} h2, #${alvo} h1`)?.textContent;
+  document.title = alvo === "inicio" ? "De Olho em Rodelas" : `${nomeSecao} | De Olho em Rodelas`;
+  if (document.getElementById(id)?.tagName === "SECTION") window.scrollTo({ top: 0 });
   redesenhar();
 }
 window.addEventListener("hashchange", rota);
+(() => {
+  const trilha = $("nav.menu .trilha"), ul = $("nav.menu ul");
+  const ver = () => trilha.classList.toggle("no-fim", ul.scrollLeft + ul.clientWidth >= ul.scrollWidth - 4);
+  ul.addEventListener("scroll", ver, { passive: true }); window.addEventListener("resize", ver); ver();
+})();
 
 (async () => {
   rota();
-  [D.meta, D.siconfi, D.transferencias, D.pncp, D.cgu, D.despesasIndice] = await Promise.all(["meta", "siconfi", "transferencias", "pncp", "cgu", "despesas/indice"].map(carregar));
-  for (const f of [montarInicio, montarGastos, montarSalarios, montarTransferencias, montarLicitacoes, montarFederais, montarCamara,
-                   () => montarEmpenhos("gastos-empenhos", "prefeitura"), () => montarEmpenhos("camara-empenhos", "camara")]) {
-    try { f(); } catch (e) { console.error(f.name, e); }
-  }
+  [D.meta, D.siconfi, D.transferencias, D.pncp, D.cgu, D.despesasIndice] =
+    await Promise.all(["meta", "siconfi", "transferencias", "pncp", "cgu", "despesas/indice"].map(carregar));
+  const rodar = (f) => { try { return f(); } catch (e) { console.error(f.name || "montagem", e); } };
+  for (const f of [montarAbertura, montarCem, montarFontes, montarBusca, montarGastos, montarSalarios, montarTransferencias,
+                   montarLicitacoes, montarFederais, montarCamara]) rodar(f);
+  rodar(montarChaves);
+  const anoEmp = (D.despesasIndice?.orgaos?.prefeitura?.anos || []).slice().sort().at(-1);
+  await Promise.all([rodar(() => montarEmpenhos("gastos-empenhos", "prefeitura")), rodar(() => montarEmpenhos("camara-empenhos", "camara"))]);
+  if (anoEmp) { D._empAnoAtual = anoEmp; D._empAtual = (await carregarEmpenhos("prefeitura", anoEmp))?.empenhos; rodar(montarChaves); }
   redesenhar();
 })();
 </script>
