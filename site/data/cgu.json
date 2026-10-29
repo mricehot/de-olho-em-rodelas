@@ -1,6 +1,6 @@
 {
  "fonte": "Portal da Transparência - CGU",
- "atualizado_em": "2026-10-28T23:42:22+00:00",
+ "atualizado_em": "2026-10-29T16:41:49+00:00",
  "convenios": [
   {
    "numero": "024019/2026",
@@ -398,8 +398,13 @@
   },
   {
    "mes": "2026-08",
-   "valor": 2621540.0,
-   "beneficiados": 3875
+   "valor": 2639490.0,
+   "beneficiados": 3904
+  },
+  {
+   "mes": "2026-09",
+   "valor": 2637806.0,
+   "beneficiados": 3889
   }
  ],
  "bpc": [

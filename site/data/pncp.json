@@ -1,7 +1,20 @@
 {
  "fonte": "PNCP - Portal Nacional de Contratações Públicas",
- "atualizado_em": "2026-10-28T23:42:22+00:00",
+ "atualizado_em": "2026-10-29T16:41:49+00:00",
  "contratacoes": [
+  {
+   "id": "14217350000119-1-000043/2026",
+   "numero": "017",
+   "processo": "263/2026",
+   "objeto": "[LICITANET] - AQUISIÇÃO DE MATERIAL ESPORTIVO PARA ATENDER AS NECESSIDADES DA SECRETARIA DE EDUCAÇÃO E SECRETARIA DE CULTURA E ESPORTE, CONFORME CONDIÇÕES, QUANTIDADES E EXIGÊNCIAS ESTABELECIDAS NESTE INSTRUMENTO E SEUS ANEXOS",
+   "modalidade": "Dispensa",
+   "situacao": "Divulgada no PNCP",
+   "valor_estimado": 65463.5,
+   "valor_homologado": null,
+   "data": "2026-10-28",
+   "abertura": "2026-10-28",
+   "link": "https://pncp.gov.br/app/editais/14217350000119/2026/43"
+  },
   {
    "id": "14217350000119-1-000042/2026",
    "numero": "026",
