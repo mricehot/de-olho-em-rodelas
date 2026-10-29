@@ -62,7 +62,6 @@ Para usar com outra cidade, troque `config.json` (código IBGE de 7 dígitos e C
 
 ## Ideias para depois
 
-- Folha de pagamento por servidor e despesas detalhadas (empenhos por fornecedor): estão no portal da prefeitura (rodelas.ba.gov.br), que hoje não oferece API. Dá para pedir os dados em formato aberto pelo e-SIC, com base na Lei de Acesso à Informação.
 - Folha de pagamento individual: a da Prefeitura só está em rodelas.ba.gov.br (que bloqueia coleta automática); a da Câmara parou em março de 2020. O caminho é pedir pelo e-SIC.
 
 ## Sobre as fontes da Prefeitura e da Câmara
