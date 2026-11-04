@@ -1,6 +1,6 @@
 {
  "fonte": "Tesouro Nacional - Transferências Constitucionais",
- "atualizado_em": "2026-11-03T17:19:04+00:00",
+ "atualizado_em": "2026-11-04T17:29:28+00:00",
  "serie": [
   {
    "mes": "2023-01",
@@ -1305,22 +1305,27 @@
   {
    "mes": "2026-10",
    "transferencia": "FPM",
-   "valor": 915633.34
+   "valor": 1497731.35
   },
   {
    "mes": "2026-10",
    "transferencia": "FUNDEB",
-   "valor": 455415.73
+   "valor": 1610838.66
   },
   {
    "mes": "2026-10",
    "transferencia": "ITR",
-   "valor": 11410.5
+   "valor": 11452.12
+  },
+  {
+   "mes": "2026-10",
+   "transferencia": "LC 176/2020 (ADO25)",
+   "valor": 3164.54
   },
   {
    "mes": "2026-10",
    "transferencia": "Royalties",
-   "valor": 296923.74
+   "valor": 693820.94
   }
  ]
 }
