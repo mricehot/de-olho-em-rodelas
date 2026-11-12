@@ -1,33 +1,33 @@
 {
  "fontes": {
   "siconfi": {
-   "tentativa": "2026-11-11T17:25:39+00:00",
+   "tentativa": "2026-11-12T17:43:16+00:00",
    "ok": true,
-   "sucesso": "2026-11-11T17:25:39+00:00",
+   "sucesso": "2026-11-12T17:43:16+00:00",
    "erro": null
   },
   "transferencias": {
-   "tentativa": "2026-11-11T17:26:07+00:00",
+   "tentativa": "2026-11-12T17:43:42+00:00",
    "ok": false,
    "sucesso": "2026-11-04T17:29:26+00:00",
    "erro": "Falhou depois de 4 tentativas: https://apiapex.tesouro.gov.br/aria/v1/transferencias_constitucionais/custom/estados"
   },
   "despesas": {
-   "tentativa": "2026-11-11T17:28:30+00:00",
+   "tentativa": "2026-11-12T17:46:05+00:00",
    "ok": true,
-   "sucesso": "2026-11-11T17:28:30+00:00",
+   "sucesso": "2026-11-12T17:46:05+00:00",
    "erro": null
   },
   "pncp": {
-   "tentativa": "2026-11-11T17:30:00+00:00",
+   "tentativa": "2026-11-12T17:47:31+00:00",
    "ok": true,
-   "sucesso": "2026-11-11T17:30:00+00:00",
+   "sucesso": "2026-11-12T17:47:31+00:00",
    "erro": null
   },
   "cgu": {
-   "tentativa": "2026-11-11T17:45:43+00:00",
+   "tentativa": "2026-11-12T18:04:34+00:00",
    "ok": true,
-   "sucesso": "2026-11-11T17:45:43+00:00",
+   "sucesso": "2026-11-12T18:04:34+00:00",
    "erro": null
   }
  },
