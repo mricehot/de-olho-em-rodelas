@@ -1,6 +1,6 @@
 {
  "fonte": "PNCP - Portal Nacional de Contratações Públicas",
- "atualizado_em": "2026-11-13T17:43:04+00:00",
+ "atualizado_em": "2026-11-14T16:18:42+00:00",
  "contratacoes": [
   {
    "id": "14217350000119-1-000044/2026",
@@ -49,7 +49,7 @@
    "modalidade": "Dispensa",
    "situacao": "Divulgada no PNCP",
    "valor_estimado": 65463.5,
-   "valor_homologado": null,
+   "valor_homologado": 37900.0,
    "data": "2026-10-28",
    "abertura": "2026-10-28",
    "link": "https://pncp.gov.br/app/editais/14217350000119/2026/43"
